@@ -1,4 +1,4 @@
-<!-- ===== LunarCaptain – HERO (Tuned image size + responsive) ===== -->
+<!-- ===== LunarCaptain – HERO (Uden webbrowser-bar) ===== -->
 <style>
   .lc-hero{
     --accent:#f97316; --text:#0f172a; --muted:#64748b; --border:#e5e7eb; --bg:#ffffff;
@@ -21,20 +21,14 @@
   .lc-hero .btn.secondary{ background:#fff; color:var(--text); border:1px solid var(--border); font-weight:700 }
   .lc-hero .trust{ margin-top:16px; font-size:14px; color:var(--muted) }
 
-  /* Billedkort – strammet størrelse */
+  /* Billedkort (uden topbar) */
   .lc-hero .media{ width:100%; max-width:520px; justify-self:end }
   .lc-hero .card{
-    background:#fff; border:1px solid var(--border); border-radius:18px; box-shadow:var(--shadow); overflow:hidden
+    background:#fff; border:1px solid var(--border); border-radius:18px; box-shadow:var(--shadow); overflow:hidden; padding:10px;
   }
-  .lc-hero .bar{ display:flex; gap:8px; padding:10px 12px; border-bottom:1px solid var(--border); background:#f8fafc }
-  .lc-hero .dot{ width:10px; height:10px; border-radius:999px; display:inline-block }
-  .lc-hero .dot.red{ background:#ef4444 } .lc-hero .dot.amber{ background:#f59e0b } .lc-hero .dot.green{ background:#22c55e }
-
-  /* Selve billedfladen: fast forhold, pæn skalering */
   .lc-hero .shot{
-    aspect-ratio: 16 / 10; /* holder højde under kontrol */
+    aspect-ratio: 16 / 10; /* kontrolleret højde */
     background:linear-gradient(180deg,#f8fafc 0%, #ffffff 100%);
-    display:block; position:relative; padding:10px;
   }
   .lc-hero .shot img{
     width:100%; height:100%; object-fit:contain; display:block; border-radius:12px;
@@ -49,7 +43,7 @@
   @media (max-width: 640px){
     .lc-hero h1{ font-size:clamp(26px,7.5vw,38px) }
     .lc-hero .btn{ width:100%; text-align:center; padding:16px 18px }
-    .lc-hero .shot{ aspect-ratio: 4 / 3 } /* lidt højere felt på mobil, stadig kontrolleret */
+    .lc-hero .shot{ aspect-ratio: 4 / 3 }
   }
 </style>
 
@@ -76,12 +70,9 @@
       </div>
     </div>
 
-    <!-- Højre: Billedkort (nu stram max-bredde + kontrolleret højde) -->
+    <!-- Højre: Billede (uden webbrowser-bar) -->
     <div class="media" aria-hidden="true">
       <div class="card">
-        <div class="bar">
-          <span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span>
-        </div>
         <div class="shot">
           <img
             src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_800,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FBZvkXUJJaA5ZBOclhkro.png"
@@ -96,7 +87,7 @@
           />
         </div>
       </div>
-      <div class="note">Tip: Hele billedet vises nu i rammen – uden at dominere layoutet.</div>
+      <div class="note">Tip: Hele billedet vises nu pænt – uden “browser-ramme”.</div>
     </div>
 
   </div>
