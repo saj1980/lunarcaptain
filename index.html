@@ -80,6 +80,14 @@
       .media-grid{ max-width:360px }
       .phone-crop{ aspect-ratio: 10 / 16 }  /* en anelse højere på mobil */
     }
+          /* Læg dette i din <style> sammen med de andre regler */
+      .phone-img{
+        /* trim: top | right | bottom | left  (justér procenterne) */
+        clip-path: inset(1.5% 3.5% 3% 3.5% round 22px);
+        object-fit: cover;
+        object-position: center 6%; /* hold fokus øverst */
+      }
+
   </style>
 </head>
 <body>
