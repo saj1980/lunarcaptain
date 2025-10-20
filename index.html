@@ -34,19 +34,26 @@
     .media{ width:100%; justify-self:end }
     .media-grid{
       display:grid; grid-template-columns:repeat(2, minmax(260px, 1fr)); gap:18px;
-      max-width:900px; /* samlet bredde på billedfelt */
+      max-width:900px;
     }
     .phone-card{
-      padding:14px; background:#f6f8fb; border:1px solid #e5e7eb; border-radius:24px; box-shadow:var(--shadow)
+      padding:10px; background:#f6f8fb; border:1px solid #e5e7eb; border-radius:24px; box-shadow:var(--shadow)
     }
-    /* Vis toppen af billedet, skær bunden væk for at gøre det “kortere” */
+
+    /* === Zoom & crop løsning === */
     .phone-crop{
-      aspect-ratio: 9 / 16;           /* høj formfaktor men kortere end fuld iPhone */
-      overflow:hidden; border-radius:22px; position:relative; background:#fff;
+      overflow: hidden;
+      border-radius: 22px;
     }
     .phone-img{
-      width:100%; height:100%; object-fit:cover; object-position:center top; display:block;
-      border-radius:22px; box-shadow:0 4px 14px rgba(15,23,42,.10);
+      width:108%;
+      height:auto;
+      transform: translateX(-4%);
+      object-fit: cover;
+      object-position: center 6%;
+      border-radius:22px;
+      box-shadow:0 4px 14px rgba(15,23,42,.10);
+      display:block;
     }
 
     /* ===== Sektion 2 – Problem & Løsning ===== */
@@ -78,16 +85,7 @@
       .btn{ width:100%; text-align:center; padding:16px 18px }
       .grid{ grid-template-columns:1fr; gap:14px }
       .media-grid{ max-width:360px }
-      .phone-crop{ aspect-ratio: 10 / 16 }  /* en anelse højere på mobil */
     }
-          /* Læg dette i din <style> sammen med de andre regler */
-      .phone-img{
-        /* trim: top | right | bottom | left  (justér procenterne) */
-        clip-path: inset(1.5% 3.5% 3% 3.5% round 22px);
-        object-fit: cover;
-        object-position: center 6%; /* hold fokus øverst */
-      }
-
   </style>
 </head>
 <body>
@@ -112,7 +110,7 @@
         </div>
       </div>
 
-      <!-- Højre: To store billeder side om side (med top-crop) -->
+      <!-- Højre: To store billeder side om side -->
       <div class="media" aria-hidden="true">
         <div class="media-grid">
           <!-- Billede 1 -->
@@ -133,7 +131,7 @@
             </div>
           </div>
 
-          <!-- Billede 2 (kan udskiftes med et andet screenshot) -->
+          <!-- Billede 2 -->
           <div class="phone-card">
             <div class="phone-crop">
               <img
@@ -147,7 +145,6 @@
                 sizes="(min-width:1200px) 440px, (min-width:900px) 48vw, 100vw"
                 alt="LunarCaptain mockup – påmindelser"
                 loading="lazy" decoding="async"
-                style="object-position:center 8%;"  <!-- lidt mere fokus op mod toppen -->
               />
             </div>
           </div>
