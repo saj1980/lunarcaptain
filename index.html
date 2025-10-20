@@ -1,63 +1,81 @@
-<!-- LunarCaptain – HERO (DanDomain-inspireret) -->
-<section style="font-family:system-ui,-apple-system,Inter,Roboto,Arial,sans-serif; background:#ffffff; color:#0f172a;">
-  <div style="max-width:1200px; margin:0 auto; padding:72px 20px; display:grid; grid-template-columns:1.05fr .95fr; gap:32px; align-items:center;">
+<!-- ===== LunarCaptain – HERO (Responsive) ===== -->
+<style>
+  /* Scope alt til denne sektion */
+  .lc-hero{ --accent:#f97316; --text:#0f172a; --muted:#64748b; --border:#e5e7eb; --bg:#ffffff; --shadow:0 12px 28px rgba(15,23,42,.08) }
+  .lc-hero{ font-family:system-ui,-apple-system,Inter,Roboto,Arial,sans-serif; background:var(--bg); color:var(--text) }
+  .lc-hero .wrap{ max-width:1200px; margin:0 auto; padding:64px 20px; display:grid; grid-template-columns:1.05fr .95fr; gap:32px; align-items:center }
+  .lc-hero .accent{ width:56px; height:4px; background:var(--accent); border-radius:4px; margin:0 0 20px 0 }
+  .lc-hero h1{ margin:0 0 16px 0; font-weight:900; letter-spacing:-.02em; line-height:1.05; font-size:clamp(32px,6vw,64px) }
+  .lc-hero p.lead{ margin:0 0 28px 0; color:#475569; line-height:1.6; font-size:clamp(16px,2.8vw,20px); max-width:62ch }
+  .lc-hero .cta{ display:flex; flex-wrap:wrap; gap:12px }
+  .lc-hero .btn{ text-decoration:none; padding:14px 20px; border-radius:999px; font-weight:800; display:inline-block; transition:transform .06s ease }
+  .lc-hero .btn:active{ transform:translateY(1px) }
+  .lc-hero .btn.primary{ background:#111827; color:#fff }
+  .lc-hero .btn.secondary{ background:#fff; color:var(--text); border:1px solid var(--border); font-weight:700 }
+  .lc-hero .trust{ margin-top:18px; font-size:14px; color:var(--muted) }
+
+  .lc-hero .card{ position:relative; background:#fff; border:1px solid var(--border); border-radius:20px; box-shadow:var(--shadow); overflow:hidden }
+  .lc-hero .bar{ display:flex; gap:8px; padding:12px 14px; border-bottom:1px solid var(--border); background:#f8fafc }
+  .lc-hero .dot{ width:10px; height:10px; border-radius:999px; display:inline-block }
+  .lc-hero .dot.red{ background:#ef4444 } .lc-hero .dot.amber{ background:#f59e0b } .lc-hero .dot.green{ background:#22c55e }
+  .lc-hero .shot{ height:440px; display:grid; place-items:center; background:linear-gradient(180deg,#f8fafc 0%, #ffffff 100%); text-align:center; color:#64748b; padding:16px }
+  .lc-hero .note{ margin-top:10px; color:#ea580c; font-weight:700; font-size:14px }
+
+  /* ===== Responsivitet ===== */
+  /* Tablet og ned: stack kolonner */
+  @media (max-width: 900px){
+    .lc-hero .wrap{ grid-template-columns:1fr; gap:24px; padding:48px 16px }
+    .lc-hero .shot{ height:360px }
+  }
+  /* Mobil: mere luft og fuldbredde knapper */
+  @media (max-width: 640px){
+    .lc-hero h1{ font-size:clamp(28px,8vw,40px) }
+    .lc-hero p.lead{ font-size:16px }
+    .lc-hero .cta{ gap:10px }
+    .lc-hero .btn{ width:100%; text-align:center; padding:16px 18px }
+    .lc-hero .shot{ height:280px }
+  }
+</style>
+
+<section class="lc-hero">
+  <div class="wrap">
     
     <!-- Venstre: Tekst -->
     <div>
-      <!-- Orange accent-linje -->
-      <div style="width:56px; height:4px; background:#f97316; border-radius:4px; margin:0 0 20px 0;"></div>
+      <div class="accent"></div>
+      <h1>Webapp til dine<br> padel-holdkampe.</h1>
 
-      <h1 style="margin:0 0 16px 0; font-size:clamp(34px,6vw,64px); line-height:1.05; font-weight:900; letter-spacing:-.02em;">
-        Webapp til dine<br> padel-holdkampe.
-      </h1>
-
-      <p style="margin:0 0 28px 0; font-size:clamp(16px,2.8vw,20px); line-height:1.6; color:#475569; max-width:62ch;">
+      <p class="lead">
         <strong>LunarCaptain</strong> samler tilmeldinger, opstillinger (runde 1 & 2), påmindelser
         og stillinger ét sted. Mindre koordinationskaos – mere spilletid.
       </p>
 
-      <div style="display:flex; flex-wrap:wrap; gap:12px;">
-        <a href="https://lunarcaptain.dk/tilmeld"
-           style="background:#111827; color:#ffffff; text-decoration:none; padding:16px 22px; border-radius:999px; font-weight:800; display:inline-block;">
-          Se pakker & priser
-        </a>
-        <a href="#demo"
-           style="background:#ffffff; color:#0f172a; text-decoration:none; padding:16px 22px; border-radius:999px; border:1px solid #e5e7eb; font-weight:700; display:inline-block;">
-          Se 60 sek. demo
-        </a>
+      <div class="cta">
+        <a class="btn primary" href="https://lunarcaptain.dk/tilmeld">Se pakker & priser</a>
+        <a class="btn secondary" href="#demo">Se 60 sek. demo</a>
       </div>
 
-      <!-- Mikro-trust -->
-      <div style="margin-top:18px; font-size:14px; color:#64748b;">
+      <div class="trust">
         Testet i klubber som <strong>HPK</strong> & <strong>Lunar Ligaen</strong>.
       </div>
     </div>
 
-    <!-- Højre: Mock/screenshot-kort -->
+    <!-- Højre: Mock/screenshot -->
     <div aria-hidden="true">
-      <div style="position:relative; background:#ffffff; border:1px solid #e5e7eb; border-radius:20px; box-shadow:0 12px 28px rgba(15,23,42,.08); overflow:hidden;">
-        <!-- “Browser”-topbar dots -->
-        <div style="display:flex; gap:8px; padding:12px 14px; border-bottom:1px solid #e5e7eb; background:#f8fafc;">
-          <span style="width:10px; height:10px; background:#ef4444; border-radius:999px; display:inline-block;"></span>
-          <span style="width:10px; height:10px; background:#f59e0b; border-radius:999px; display:inline-block;"></span>
-          <span style="width:10px; height:10px; background:#22c55e; border-radius:999px; display:inline-block;"></span>
+      <div class="card">
+        <div class="bar">
+          <span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span>
         </div>
-
-        <!-- Screenshot-plads -->
-        <div style="height:440px; display:grid; place-items:center; background:linear-gradient(180deg,#f8fafc 0%, #ffffff 100%);">
-          <div style="text-align:center; color:#64748b;">
+        <div class="shot">
+          <div>
             <div style="font-weight:800; margin-bottom:6px;">[ Indsæt LunarCaptain screenshot / mockup ]</div>
             <div style="font-size:14px; opacity:.85;">Anbefalet: 1200×800 px PNG/JPG</div>
           </div>
         </div>
       </div>
-
-      <!-- Orange “tegne-boble” note (valgfri) -->
-      <div style="margin-top:10px; color:#ea580c; font-weight:700; font-size:14px;">
-        Tip: Vis opstillinger & påmindelser i billedet for at fortælle historien hurtigt.
-      </div>
+      <div class="note">Tip: Vis opstillinger & påmindelser i billedet for at fortælle historien hurtigt.</div>
     </div>
 
   </div>
 </section>
-
+<!-- ===== /LunarCaptain – HERO ===== -->
