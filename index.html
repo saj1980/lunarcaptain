@@ -1,4 +1,4 @@
-<!-- ===== LunarCaptain – HERO (Responsive) ===== -->
+<!-- ===== LunarCaptain – HERO (Responsive + Cloudinary image) ===== -->
 <style>
   /* Scope alt til denne sektion */
   .lc-hero{ --accent:#f97316; --text:#0f172a; --muted:#64748b; --border:#e5e7eb; --bg:#ffffff; --shadow:0 12px 28px rgba(15,23,42,.08) }
@@ -18,22 +18,18 @@
   .lc-hero .bar{ display:flex; gap:8px; padding:12px 14px; border-bottom:1px solid var(--border); background:#f8fafc }
   .lc-hero .dot{ width:10px; height:10px; border-radius:999px; display:inline-block }
   .lc-hero .dot.red{ background:#ef4444 } .lc-hero .dot.amber{ background:#f59e0b } .lc-hero .dot.green{ background:#22c55e }
-  .lc-hero .shot{ height:440px; display:grid; place-items:center; background:linear-gradient(180deg,#f8fafc 0%, #ffffff 100%); text-align:center; color:#64748b; padding:16px }
+  .lc-hero .shot{ display:block; }
   .lc-hero .note{ margin-top:10px; color:#ea580c; font-weight:700; font-size:14px }
 
   /* ===== Responsivitet ===== */
-  /* Tablet og ned: stack kolonner */
   @media (max-width: 900px){
     .lc-hero .wrap{ grid-template-columns:1fr; gap:24px; padding:48px 16px }
-    .lc-hero .shot{ height:360px }
   }
-  /* Mobil: mere luft og fuldbredde knapper */
   @media (max-width: 640px){
     .lc-hero h1{ font-size:clamp(28px,8vw,40px) }
     .lc-hero p.lead{ font-size:16px }
     .lc-hero .cta{ gap:10px }
     .lc-hero .btn{ width:100%; text-align:center; padding:16px 18px }
-    .lc-hero .shot{ height:280px }
   }
 </style>
 
@@ -60,32 +56,35 @@
       </div>
     </div>
 
-    <!-- Højre: Mock/screenshot -->
+    <!-- Højre: Mock/screenshot med Cloudinary -->
     <div aria-hidden="true">
       <div class="card">
         <div class="bar">
           <span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span>
         </div>
+
+        <!-- Responsive billede -->
         <div class="shot">
-          <div>
-            <div style="font-weight:800; margin-bottom:6px;">[ Indsæt LunarCaptain screenshot / mockup ]</div>
-            <div style="font-size:14px; opacity:.85;">Anbefalet: 1200×800 px PNG/JPG</div>
-          </div>
+          <picture>
+            <img
+              src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_800,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FBZvkXUJJaA5ZBOclhkro.png"
+              srcset="
+                https://res.cloudinary.com/glide/image/fetch/f_auto,w_500,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FBZvkXUJJaA5ZBOclhkro.png 500w,
+                https://res.cloudinary.com/glide/image/fetch/f_auto,w_800,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FBZvkXUJJaA5ZBOclhkro.png 800w,
+                https://res.cloudinary.com/glide/image/fetch/f_auto,w_1200,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FBZvkXUJJaA5ZBOclhkro.png 1200w
+              "
+              sizes="(min-width:1200px) 560px, (min-width:900px) 50vw, 100vw"
+              alt="LunarCaptain mockup"
+              loading="lazy" decoding="async"
+              style="display:block; width:100%; height:auto; border-radius:0 0 20px 20px;"
+            />
+          </picture>
         </div>
       </div>
+
       <div class="note">Tip: Vis opstillinger & påmindelser i billedet for at fortælle historien hurtigt.</div>
     </div>
 
   </div>
 </section>
 <!-- ===== /LunarCaptain – HERO ===== -->
-
-<div class="shot" style="padding:0;">
-  <img
-    src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_500,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FBZvkXUJJaA5ZBOclhkro.png"
-    alt="LunarCaptain mockup"
-    loading="lazy" decoding="async"
-    style="display:block; width:100%; height:auto; border-radius:12px;"
-  />
-</div>
-
