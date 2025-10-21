@@ -22,6 +22,7 @@
       --radius-md:16px; --radius-lg:22px;
     }
     *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
     body{margin:0;font-family:system-ui,-apple-system,Inter,Roboto,Arial,sans-serif;color:var(--text);background:var(--bg)}
     a{text-decoration:none;color:inherit}
     .wrap{max-width:1200px;margin:0 auto;padding:56px 20px}
@@ -77,8 +78,7 @@
       position:absolute; right:5%; top:4%; bottom:8%; left:0;
       background: radial-gradient(60% 60% at 70% 50%, #fde68a55 0%, transparent 70%);
       filter: blur(2px);
-      pointer-events:none;
-      z-index:0;
+      pointer-events:none; z-index:0;
     }
     .split .img{
       position:relative; z-index:1;
@@ -94,6 +94,51 @@
       margin-left:auto;          /* skub helt mod højre */
     }
 
+    /* ===== Founder / Kontakt ===== */
+    .founder{background:var(--bg);border-top:1px solid #eef2f7;border-bottom:1px solid #eef2f7}
+    .founder .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:start}
+    .founder .card{
+      background:#fff;border:1px solid var(--border);border-radius:22px;
+      box-shadow:var(--shadow-sm);padding:18px
+    }
+    .founder .avatar{
+      width:88px;height:88px;border-radius:999px;border:1px solid var(--border);
+      box-shadow:var(--shadow-sm);object-fit:cover;background:#f8fafc
+    }
+    .founder .meta{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+    .founder .name{font-weight:900;font-size:18px;line-height:1.1}
+    .founder .role{color:#64748b;font-size:14px}
+    .founder .contact{display:grid;gap:10px;margin-top:10px}
+    .founder .contact a{
+      display:flex;align-items:center;gap:10px;
+      padding:10px 12px;border:1px solid var(--border);border-radius:12px;
+      background:#fff;box-shadow:var(--shadow-sm);font-weight:700
+    }
+    .founder .contact small{font-weight:600;color:#64748b}
+    .founder .why{color:#475569;line-height:1.7}
+    .founder .badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .founder .badge-alt{
+      padding:6px 10px;border-radius:999px;background:#fff7ed;border:1px solid #fed7aa;
+      font-size:12px;font-weight:800;letter-spacing:.2px;color:#7c2d12
+    }
+    .founder .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
+
+    /* ===== Kontaktformular (visuelt matchet) ===== */
+    .contact-wrap{
+      background:#fff;border:1px solid var(--border);border-radius:16px;
+      padding:18px; box-shadow:var(--shadow-sm)
+    }
+    .contact-wrap label{display:block;margin:.75rem 0 .25rem;font-weight:600}
+    .contact-wrap input,.contact-wrap textarea{
+      width:100%;padding:.9rem;border:1px solid #d1d5db;border-radius:12px;font:inherit
+    }
+    .contact-wrap button{
+      margin-top:1rem;padding:.9rem 1.2rem;border:0;border-radius:12px;background:#111827;color:#fff;font-weight:700;cursor:pointer
+    }
+    .alert{display:none;margin-top:1rem;padding:12px;border-radius:12px}
+    .alert.ok{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46}
+    .alert.err{background:#fef2f2;border:1px solid #fecaca;color:#991b1b}
+
     /* ===== Responsivitet ===== */
     @media (max-width:1100px){
       .hero .grid{grid-template-columns:1fr;gap:24px}
@@ -105,7 +150,9 @@
       .split .grid{grid-template-columns:1fr;gap:22px}
       .split .visual{justify-content:center}
       .split .img{width:80%; min-width:0; margin:0 auto;}
-      .split .visual::before{display:none;} /* fjern glow på mobil for renhed */
+      .split .visual::before{display:none;} /* fjern glow på mobil */
+
+      .founder .grid{grid-template-columns:1fr;gap:22px}
     }
     @media (max-width:640px){
       .wrap{padding:44px 16px}
@@ -128,8 +175,7 @@
           <strong>LunarCaptain</strong> samler tilmeldinger ét sted. Mindre koordinationskaos – mere spilletid.
         </p>
         <div class="cta">
-          <a class="btn primary" href="#tilmeld">Tilmeld i dag</a>
-          <a class="btn secondary" href="#how">Se hvordan det virker</a>
+          <a class="btn secondary" href="#kontakt">Kontakt</a>
         </div>
         <div class="trust">Testet i klubber som <strong>HPK</strong> &amp; <strong>Racket Club</strong>.</div>
       </div>
@@ -193,9 +239,101 @@
     </div>
   </section>
 
+  <!-- ===== Founder / Kontakt ===== -->
+  <section class="founder" id="kontakt" itemscope itemtype="https://schema.org/Person">
+    <div class="wrap">
+      <h2 class="section-title">Manden bag LunarCaptain</h2>
+      <div class="grid">
+
+        <!-- Venstre: Hvorfor & historien -->
+        <article class="card">
+          <div class="meta">
+            <img class="avatar" src="https://placehold.co/176x176/png" alt="Portræt" itemprop="image">
+            <div>
+              <div class="name" itemprop="name">Sajid Latif</div>
+              <div class="role" itemprop="jobTitle">Grundlægger & holdkaptajn</div>
+              <meta itemprop="affiliation" content="LunarCaptain">
+              <meta itemprop="address" content="København, Danmark">
+            </div>
+          </div>
+
+          <div class="why">
+            <p><strong>Hvorfor LunarCaptain?</strong> Som holdkaptajn var jeg træt af at jagte svar i chats og opdatere Excel efter hver kamp. Vi skulle bare have ét sted til tilmeldinger, opstillinger (runde 1 &amp; 2), påmindelser og overblik.</p>
+            <p>LunarCaptain er bygget til virkelige holdkampe: hurtigt svar fra spillerne, opstillinger på sekunder og færre afbud i sidste øjeblik. Mindre koordinationskaos – mere spilletid.</p>
+          </div>
+ 	
+        </article>
+
+        <!-- Højre: Kontaktformular (Glide webhook) -->
+        <aside class="contact-wrap" aria-labelledby="kontakt-title" itemprop="contactPoint" itemscope itemtype="https://schema.org/ContactPoint">
+          <h3 id="kontakt-title" style="margin:0 0 8px;font-weight:900;">Kontakt</h3>
+
+          <form id="contact-form">
+            <label for="name">Navn</label>
+            <input id="name" name="name" autocomplete="name" required>
+
+            <label for="email">E-mail</label>
+            <input id="email" name="email" type="email" autocomplete="email" required>
+
+            <label for="message">Besked</label>
+            <textarea id="message" name="message" rows="6" required></textarea>
+
+            <!-- Honeypot -->
+            <input type="text" name="company" style="display:none" tabindex="-1" autocomplete="off">
+
+            <button type="submit">Send</button>
+            <div id="ok"  class="alert ok">Tak! Din besked er sendt.</div>
+            <div id="err" class="alert err">Ups – noget gik galt. Prøv igen.</div>
+          </form>
+
+          <!-- Schema.org labels -->
+          <meta itemprop="contactType" content="customer support">
+          <meta itemprop="areaServed" content="DK">
+          <meta itemprop="availableLanguage" content="da">
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // === Kontaktformular -> Glide webhook ===
+    const GLIDE_WEBHOOK_URL = "https://go.glideapps.com/api/container/plugin/webhook-trigger/0WAgqavdcUZnVRPTRDPX/43c3d07c-0163-4c51-9458-d9037347e7e4"; // <-- indsæt din Glide webhook URL
+    const BEARER_TOKEN      = "1c4e4382-f948-4ce7-b9dd-efdb49d37ecb";                                // fx "sk-..." hvis du har sat tokenkrav (ellers lad tom)
+
+    const form = document.getElementById('contact-form');
+    const okEl = document.getElementById('ok');
+    const errEl = document.getElementById('err');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault(); okEl.style.display='none'; errEl.style.display='none';
+      // Stop bots (honeypot)
+      if (form.company && form.company.value) return;
+
+      const data = Object.fromEntries(new FormData(form).entries());
+      try {
+        const res = await fetch(GLIDE_WEBHOOK_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type':'application/json',
+            ...(BEARER_TOKEN ? {'Authorization':'Bearer ' + BEARER_TOKEN} : {})
+          },
+          body: JSON.stringify(data),
+          mode: 'cors'
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        okEl.style.display='block';
+        form.reset();
+      } catch (err) {
+        // NOTE: Hvis din webhook ikke returnerer CORS-headers, vil browseren blokere.
+        // Løsning: brug en lille proxy (Cloudflare Worker / Netlify Function) eller
+        // brug Glides indbyggede webform/Actions direkte i appen.
+        console.error(err);
+        errEl.style.display='block';
+      }
+    });
+  </script>
+
 </body>
 </html>
-
-
-
 
