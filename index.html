@@ -44,27 +44,51 @@
     .cta{display:flex;flex-wrap:wrap;gap:12px}
     .trust{margin-top:16px;font-size:14px;color:var(--muted)}
     /* ===== Logo rail (trusted by) ===== */
-    .logos {
-      display:flex; flex-wrap:wrap; gap:22px; align-items:center;
-      margin-top:16px;
-    }
-    .logos .hint {
-      font-size:13px; font-weight:800; letter-spacing:.02em; color:#94a3b8;
-      margin-right:6px;
-    }
-    .logo {
-      display:inline-flex; align-items:center; justify-content:center;
-      height:32px; padding:6px 10px; border:1px solid var(--border);
-      border-radius:10px; background:#fff; box-shadow:var(--shadow-sm);
-      filter:grayscale(1); opacity:.85; transition:filter .2s ease, opacity .2s ease, transform .06s ease;
-    }
-    .logo:hover { filter:none; opacity:1; transform:translateY(-1px); }
-    .logo svg { height:18px; display:block; }
-    @media (max-width:640px){
-      .logos { gap:12px; }
-      .logo { height:30px; }
-      .logo svg { height:16px; }
-    }
+.logos {
+  display:flex; flex-wrap:wrap; gap:18px; align-items:center;
+  margin-top:16px;
+}
+.logos .hint {
+  font-size:13px; font-weight:800; letter-spacing:.02em; color:#94a3b8;
+  margin-right:4px;
+}
+
+/* FAST STØRRELSE pr. logo */
+/* ===== Logo rail (kun billeder) ===== */
+.logos{
+  display:flex; flex-wrap:wrap; gap:18px; align-items:center;
+  margin-top:16px;
+}
+.logos .hint{
+  font-size:13px; font-weight:800; letter-spacing:.02em; color:#94a3b8;
+  margin-right:2px;
+}
+
+/* Ingen boks, ingen border, ingen skygge – kun billedet */
+.logo{
+  display:flex; align-items:center; justify-content:center;
+  padding:0; background:transparent; border:0; box-shadow:none;
+}
+
+/* Billedet bestemmer alt */
+.logo img{
+  display:block;                /* fjerner baseline-gab (“streg”) */
+  height:50px;                  /* fast højde på desktop */
+  width:auto;                   /* bevar proportioner */
+  max-width:100%;
+  object-fit:contain;           /* pres aldrig billedet */
+  border-radius:10px;           /* runde hjørner på selve logoet */
+}
+
+/* Responsivt: lidt mindre på mobil */
+@media (max-width:640px){
+  .logos{ gap:12px; }
+  .logo img{ height:36px; }     /* skaler kun højden – width følger med */
+}
+
+/* Hvis du vil have mere “fluid” skalering på tværs af skærme, brug clamp: */
+/* .logo img{ height:clamp(36px, 6vw, 50px); } */
+
 
     /* Hero-billede (desktop højre, mobil center) */
     .media{width:100%;display:flex;justify-content:flex-end;align-items:center;}
@@ -201,31 +225,24 @@
         </div>
         <div class="trust">Testet i klubber som <strong>HPK</strong> &amp; <strong>Racket Club</strong>.</div>
 
-        <!-- Logo-rail -->
-          <div class="logos" aria-label="Bruges i klubber">
-            <span class="hint">Bruges af</span>
-          
-            <!-- HPK (inline SVG placeholder) -->
-            <span class="logo" title="HPK">
-              <svg viewBox="0 0 120 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="HPK">
-                <text x="0" y="18" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="900" fill="#0f172a">HPK</text>
-              </svg>
-            </span>
-          
-            <!-- Racket Club -->
-            <span class="logo" title="Racket Club">
-              <svg viewBox="0 0 180 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Racket Club">
-                <text x="0" y="18" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="800" fill="#0f172a" letter-spacing=".5">RACKET CLUB</text>
-              </svg>
-            </span>
-          
-            <!-- Match Padel -->
-            <span class="logo" title="Match Padel">
-              <svg viewBox="0 0 180 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Match Padel">
-                <text x="0" y="18" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="800" fill="#0f172a">MATCH PADEL</text>
-              </svg>
-            </span>
-          </div>
+
+
+
+
+<!-- Logo-rail -->
+<div class="logos" aria-label="Bruges af">
+
+  <!-- RankedIn -->
+  <span class="logo" title="RankedIn">
+    <img src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_500,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FtqELCpDUdyyU5Im3YXgY.jfif" alt="RankedIn">
+  </span>
+
+  <!-- Lunar Ligaen -->
+  <span class="logo" title="Lunar Ligaen">
+    <img src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_500,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FzohTHdTFqRoprvnjAGIx.jfif" alt="Lunar Ligaen">
+  </span>
+</div>
+
 
       </div>
 
@@ -386,4 +403,10 @@
 
 </body>
 </html>
+
+
+
+
+
+
 
