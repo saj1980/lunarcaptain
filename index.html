@@ -6,93 +6,112 @@
   <title>LunarCaptain – Organisér padel-holdkampe</title>
   <meta name="description" content="LunarCaptain samler tilmeldinger, opstillinger (runde 1 & 2), påmindelser og stillinger ét sted. Mindre koordinationskaos – mere spilletid." />
   <meta name="theme-color" content="#f97316" />
-  <!-- Open Graph (facebook/deling) -->
+  <!-- Open Graph -->
   <meta property="og:title" content="LunarCaptain – Organisér padel-holdkampe" />
   <meta property="og:description" content="Fra tilmeldinger til opstillinger, påmindelser og stillinger – alt i én app." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://res.cloudinary.com/glide/image/fetch/f_auto,w_1200,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FBZvkXUJJaA5ZBOclhkro.png" />
+
   <style>
-    /* ===== Basestyles / design tokens ===== */
+    /* ===== Design tokens ===== */
     :root{
-      --accent:#f97316; --accent-ink:#0f172a; --text:#0f172a; --muted:#64748b;
+      --accent:#f97316; --text:#0f172a; --muted:#64748b;
       --border:#e5e7eb; --bg:#ffffff; --bg-soft:#f8fafc;
       --shadow-sm:0 6px 16px rgba(15,23,42,.06);
       --shadow:0 10px 24px rgba(15,23,42,.08);
-      --radius-lg:24px; --radius-md:16px; --radius-sm:12px;
+      --radius-md:16px; --radius-lg:22px;
     }
     *{box-sizing:border-box}
-    body{margin:0; font-family:system-ui,-apple-system,Inter,Roboto,Arial,sans-serif; color:var(--text); background:var(--bg)}
-    a{text-decoration:none; color:inherit}
-    .wrap{max-width:1200px; margin:0 auto; padding:56px 20px}
-    .btn{display:inline-block; padding:14px 20px; border-radius:999px; font-weight:800; transition:transform .06s ease, box-shadow .2s ease}
+    body{margin:0;font-family:system-ui,-apple-system,Inter,Roboto,Arial,sans-serif;color:var(--text);background:var(--bg)}
+    a{text-decoration:none;color:inherit}
+    .wrap{max-width:1200px;margin:0 auto;padding:56px 20px}
+    .btn{display:inline-block;padding:14px 20px;border-radius:999px;font-weight:800;transition:transform .06s ease, box-shadow .2s ease}
     .btn:active{transform:translateY(1px)}
-    .btn.primary{background:#111827; color:#fff}
-    .btn.secondary{background:#fff; color:var(--text); border:1px solid var(--border); font-weight:700}
-    .badge{display:inline-flex; gap:8px; align-items:center; padding:6px 10px; border-radius:999px; background:#ecfeff; border:1px solid #a5f3fc; color:#0e7490; font-size:12px; font-weight:800; letter-spacing:.2px}
-    h1{margin:0 0 14px; font-weight:900; letter-spacing:-.02em; line-height:1.05; font-size:clamp(30px,6vw,56px)}
-    h2.section-title{font-size:clamp(22px,3.8vw,32px); font-weight:900; margin:0 0 18px}
-    p.lead{margin:0 0 24px; color:#475569; line-height:1.6; font-size:clamp(16px,2.8vw,20px); max-width:62ch}
-    .accent{width:56px; height:4px; background:var(--accent); border-radius:4px; margin:0 0 18px}
+    .btn.primary{background:#111827;color:#fff}
+    .btn.secondary{background:#fff;color:var(--text);border:1px solid var(--border);font-weight:700}
+    .badge{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border-radius:999px;background:#ecfeff;border:1px solid #a5f3fc;color:#0e7490;font-size:12px;font-weight:800;letter-spacing:.2px}
+    h1{margin:0 0 14px;font-weight:900;letter-spacing:-.02em;line-height:1.05;font-size:clamp(30px,6vw,56px)}
+    h2.section-title{font-size:clamp(22px,3.8vw,36px);font-weight:900;margin:0 0 18px}
+    p.lead{margin:0 0 24px;color:#475569;line-height:1.6;font-size:clamp(16px,2.8vw,20px);max-width:62ch}
+    .accent{width:56px;height:4px;background:var(--accent);border-radius:4px;margin:0 0 18px}
     .muted{color:var(--muted)}
 
-    /* ===== Header (simpel) ===== */
-    header .bar{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 20px; border-bottom:1px solid var(--border)}
-    header .brand{display:flex; align-items:center; gap:10px; font-weight:900}
-    header .brand .dot{width:12px; height:12px; border-radius:999px; background:var(--accent)}
-    header nav a{padding:8px 10px; color:#334155; font-weight:600}
-
     /* ===== HERO ===== */
-    .hero{background:var(--bg)}
-    .hero .grid{display:grid; grid-template-columns:1.05fr .95fr; gap:32px; align-items:center}
-    .cta{display:flex; flex-wrap:wrap; gap:12px}
-    .trust{margin-top:16px; font-size:14px; color:var(--muted)}
-
-    /* Showcase container (billede) */
-    .media{
-      width:100%;
-      display:flex;
-      justify-content:flex-end;     /* desktop: højre */
-      align-items:center;
+    .hero .grid{
+      display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center
     }
-    .phone-wrap{max-width:620px; width:100%;}
+    .cta{display:flex;flex-wrap:wrap;gap:12px}
+    .trust{margin-top:16px;font-size:14px;color:var(--muted)}
+
+    /* Hero-billede (desktop højre, mobil center) */
+    .media{width:100%;display:flex;justify-content:flex-end;align-items:center;}
+    .phone-wrap{width:100%;}
     .phone-img{
-      display:block;
-      margin:0 auto;                /* tillad centrering */
-      width:30%;
-      height:auto;
-      border-radius:22px;
-      border:1px solid var(--border);
-      box-shadow:0 10px 30px rgba(0,0,0,.08);
-      background:#fff;
+      display:block;margin:0 auto;width:30%;            /* 30% på desktop */
+      height:auto;border-radius:var(--radius-lg);border:1px solid var(--border);
+      box-shadow:var(--shadow);background:#fff;
     }
 
     /* ===== Problem & løsning ===== */
-    .pl .grid{display:grid; grid-template-columns:1fr 1fr; gap:18px}
-    .tile{background:#fff; border:1px solid var(--border); border-radius:var(--radius-md); padding:18px; box-shadow:var(--shadow-sm)}
-    .tile h3{margin:0 0 6px; font-size:18px}
-    .tile p{margin:0; color:#475569; line-height:1.6}
+    .pl{background:var(--bg-soft);border-top:1px solid #eef2f7;border-bottom:1px solid #eef2f7}
+    .pl .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .tile{background:#fff;border:1px solid var(--border);border-radius:var(--radius-md);padding:18px;box-shadow:var(--shadow-sm)}
+    .tile h3{margin:0 0 6px;font-size:18px}
+    .tile p{margin:0;color:#475569;line-height:1.6}
+
+    /* ===== Split section: tekst venstre + billede højre ===== */
+    .split .grid{
+      display:grid;
+      grid-template-columns: 1.2fr 0.8fr;  /* mindre højre kolonne = mindre "luft" */
+      gap:28px;
+      align-items:start;                    /* start højere, mindre dødt rum */
+    }
+    .split .lines p{margin:0 0 12px;font-size:18px;line-height:1.6;color:#475569}
+
+    /* Visuel kolonne med glow bag billedet */
+    .split .visual{
+      position:relative; display:flex; justify-content:flex-end; align-items:flex-start;
+    }
+    .split .visual::before{
+      content:"";
+      position:absolute; right:5%; top:4%; bottom:8%; left:0;
+      background: radial-gradient(60% 60% at 70% 50%, #fde68a55 0%, transparent 70%);
+      filter: blur(2px);
+      pointer-events:none;
+      z-index:0;
+    }
+    .split .img{
+      position:relative; z-index:1;
+      display:block;
+      width:40%;                 /* ønsket størrelse */
+      min-width:360px;           /* aldrig for lille på store skærme */
+      max-width:520px;           /* og ikke for stor */
+      height:auto;
+      border-radius:var(--radius-lg);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      background:#fff;
+      margin-left:auto;          /* skub helt mod højre */
+    }
 
     /* ===== Responsivitet ===== */
     @media (max-width:1100px){
-      .hero .grid{grid-template-columns:1fr; gap:24px}
-      .media{justify-content:center;} /* mobil/tablet: center */
+      .hero .grid{grid-template-columns:1fr;gap:24px}
+      .media{justify-content:center;}    /* center hero-billede */
+      .phone-img{width:70%;}            /* 70% på mobil/tablet */
+
+      .pl .grid{grid-template-columns:1fr}
+
+      .split .grid{grid-template-columns:1fr;gap:22px}
+      .split .visual{justify-content:center}
+      .split .img{width:80%; min-width:0; margin:0 auto;}
+      .split .visual::before{display:none;} /* fjern glow på mobil for renhed */
     }
     @media (max-width:640px){
       .wrap{padding:44px 16px}
       h1{font-size:clamp(26px,7.5vw,38px)}
-      .btn{width:100%; text-align:center; padding:16px 18px}
-      .pl .grid{grid-template-columns:1fr}
-      header .bar{flex-wrap:wrap}
+      .btn{width:100%;text-align:center;padding:16px 18px}
     }
-
-
-/* På mobil/tablet skal billedet være større igen */
-@media (max-width:1100px){
-  .phone-img {
-    width:70%;                    /* <– så billedet ikke bliver for småt på mobil */
-  }
-}
-
   </style>
 </head>
 <body>
@@ -115,20 +134,17 @@
         <div class="trust">Testet i klubber som <strong>HPK</strong> &amp; <strong>Racket Club</strong>.</div>
       </div>
 
-<!-- Billede (tilbage til original src) -->
-<div class="media" aria-hidden="true">
-  <div class="phone-wrap">
-    <img
-      class="phone-img"
-      src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_500,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FHXRDBaZTFwuftWy46CWS.png"
-      alt="LunarCaptain – Overblik"
-      loading="lazy"
-      decoding="async"
-      width="520"
-    />
-  </div>
-</div>
-
+      <!-- Hero-billede (original Cloudinary) -->
+      <div class="media" aria-hidden="true">
+        <div class="phone-wrap">
+          <img
+            class="phone-img"
+            src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_500,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FHXRDBaZTFwuftWy46CWS.png"
+            alt="LunarCaptain – Overblik"
+            loading="lazy" decoding="async"
+          />
+        </div>
+      </div>
     </div>
   </section>
 
@@ -149,8 +165,37 @@
     </div>
   </section>
 
+  <!-- ===== Split Section: 3 linjer tekst (venstre) + nyt billede (højre) ===== -->
+  <section class="split" id="highlight">
+    <div class="wrap">
+      <div class="grid">
+        <!-- Venstre: 3 linjer tekst -->
+        <div class="copy">
+          <h2 class="section-title">Få styr på holdkampen</h2>
+          <div class="lines">
+            <p>Tilmeldinger uden kaos – svar direkte i appen.</p>
+            <p>Holdopstillinger på få klik – runde 1 &amp; 2 klar på sekunder.</p>
+            <p>Automatiske påmindelser – færre afbud i sidste øjeblik.</p>
+          </div>
+        </div>
+
+        <!-- Højre: billede + glow -->
+        <div class="visual" aria-hidden="true">
+          <img
+            class="img"
+            src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_500,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FSDAwV1026b9aNVawX7o4.png"
+            alt="LunarCaptain – Kampkort"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
 </body>
 </html>
+
 
 
 
