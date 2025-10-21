@@ -43,6 +43,28 @@
     }
     .cta{display:flex;flex-wrap:wrap;gap:12px}
     .trust{margin-top:16px;font-size:14px;color:var(--muted)}
+    /* ===== Logo rail (trusted by) ===== */
+    .logos {
+      display:flex; flex-wrap:wrap; gap:22px; align-items:center;
+      margin-top:16px;
+    }
+    .logos .hint {
+      font-size:13px; font-weight:800; letter-spacing:.02em; color:#94a3b8;
+      margin-right:6px;
+    }
+    .logo {
+      display:inline-flex; align-items:center; justify-content:center;
+      height:32px; padding:6px 10px; border:1px solid var(--border);
+      border-radius:10px; background:#fff; box-shadow:var(--shadow-sm);
+      filter:grayscale(1); opacity:.85; transition:filter .2s ease, opacity .2s ease, transform .06s ease;
+    }
+    .logo:hover { filter:none; opacity:1; transform:translateY(-1px); }
+    .logo svg { height:18px; display:block; }
+    @media (max-width:640px){
+      .logos { gap:12px; }
+      .logo { height:30px; }
+      .logo svg { height:16px; }
+    }
 
     /* Hero-billede (desktop højre, mobil center) */
     .media{width:100%;display:flex;justify-content:flex-end;align-items:center;}
@@ -178,6 +200,33 @@
           <a class="btn secondary" href="#kontakt">Kontakt</a>
         </div>
         <div class="trust">Testet i klubber som <strong>HPK</strong> &amp; <strong>Racket Club</strong>.</div>
+
+        <!-- Logo-rail -->
+          <div class="logos" aria-label="Bruges i klubber">
+            <span class="hint">Bruges af</span>
+          
+            <!-- HPK (inline SVG placeholder) -->
+            <span class="logo" title="HPK">
+              <svg viewBox="0 0 120 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="HPK">
+                <text x="0" y="18" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="900" fill="#0f172a">HPK</text>
+              </svg>
+            </span>
+          
+            <!-- Racket Club -->
+            <span class="logo" title="Racket Club">
+              <svg viewBox="0 0 180 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Racket Club">
+                <text x="0" y="18" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="800" fill="#0f172a" letter-spacing=".5">RACKET CLUB</text>
+              </svg>
+            </span>
+          
+            <!-- Match Padel -->
+            <span class="logo" title="Match Padel">
+              <svg viewBox="0 0 180 24" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Match Padel">
+                <text x="0" y="18" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="800" fill="#0f172a">MATCH PADEL</text>
+              </svg>
+            </span>
+          </div>
+
       </div>
 
       <!-- Hero-billede (original Cloudinary) -->
