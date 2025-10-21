@@ -46,37 +46,25 @@
     .hero .grid{display:grid; grid-template-columns:1.05fr .95fr; gap:32px; align-items:center}
     .cta{display:flex; flex-wrap:wrap; gap:12px}
     .trust{margin-top:16px; font-size:14px; color:var(--muted)}
-    .media{width:100%; justify-self:end}
 
-    /* === PRO SHOWCASE (glow + tilt) === */
-    .showcase{
-      position:relative; padding:28px; border-radius:28px;
-      background:linear-gradient(135deg,#f9fafb 0%,#eef2ff 100%);
-      box-shadow:0 12px 40px rgba(15,23,42,.08);
+    /* Showcase container (billede) */
+    .media{
+      width:100%;
+      display:flex;
+      justify-content:flex-end;     /* desktop: højre */
+      align-items:center;
     }
-    .showcase::before{
-      content:""; position:absolute; inset:0; border-radius:inherit;
-      background:radial-gradient(ellipse at 60% 50%, #fde68a55 0%, transparent 60%);
-      pointer-events:none;
-    }
-    .devices{ display:flex; gap:28px; justify-content:center; align-items:flex-start }
-    .card-soft{ padding:10px; background:#f6f8fb; border:1px solid var(--border); border-radius:var(--radius-lg); box-shadow:var(--shadow) }
-    .phone-crop{ overflow:hidden; border-radius:32px; background:#fff }
+    .phone-wrap{max-width:620px; width:100%;}
     .phone-img{
-      width:108%; transform:translateX(-4%); height:auto;
-      object-fit:cover; object-position:center 6%;
-      border-radius:32px; display:block; box-shadow:0 12px 30px rgba(0,0,0,.12)
+      display:block;
+      margin:0 auto;                /* tillad centrering */
+      width:30%;
+      height:auto;
+      border-radius:22px;
+      border:1px solid var(--border);
+      box-shadow:0 10px 30px rgba(0,0,0,.08);
+      background:#fff;
     }
-    .device.left  .phone-img{ transform:translateX(-4%) rotate(-2.2deg) }
-    .device.right .phone-img{ transform:translateX(-4%) rotate( 2.2deg) }
-
-    /* ===== Features ===== */
-    .features{background:var(--bg-soft); border-top:1px solid #eef2f7; border-bottom:1px solid #eef2f7}
-    .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
-    .feature{background:#fff; border:1px solid var(--border); border-radius:var(--radius-md); padding:18px; box-shadow:var(--shadow-sm)}
-    .feature h3{margin:0 0 6px; font-size:18px}
-    .feature p{margin:0; color:#475569; line-height:1.6}
-    .icon{width:36px; height:36px; border-radius:10px; background:#fff; border:1px solid var(--border); display:grid; place-items:center; box-shadow:var(--shadow-sm); margin-bottom:10px}
 
     /* ===== Problem & løsning ===== */
     .pl .grid{display:grid; grid-template-columns:1fr 1fr; gap:18px}
@@ -84,61 +72,30 @@
     .tile h3{margin:0 0 6px; font-size:18px}
     .tile p{margin:0; color:#475569; line-height:1.6}
 
-    /* ===== Sådan virker det ===== */
-    .steps .row{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
-    .step{background:#fff; border:1px solid var(--border); border-radius:var(--radius-md); padding:18px; box-shadow:var(--shadow-sm)}
-    .step .num{font-weight:900; color:#0f172a; background:#fff7ed; border:1px solid #fed7aa; padding:4px 10px; border-radius:999px; width:max-content; margin-bottom:10px}
-
-    /* ===== FAQ ===== */
-    .faq details{background:#fff; border:1px solid var(--border); border-radius:var(--radius-md); padding:14px 16px; box-shadow:var(--shadow-sm)}
-    .faq details + details{margin-top:10px}
-    .faq summary{cursor:pointer; font-weight:700}
-
-    /* ===== CTA-bånd ===== */
-    .cta-band{background:linear-gradient(180deg,#fff7ed 0%, #ffffff 100%); border-top:1px solid #ffe7c2; border-bottom:1px solid #ffe7c2}
-    .cta-band .box{display:flex; align-items:center; justify-content:space-between; gap:16px; background:#fff; border:1px dashed #fed7aa; padding:18px; border-radius:var(--radius-md)}
-
-    /* ===== Footer ===== */
-    footer{color:var(--muted); font-size:14px}
-    footer .row{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:28px 20px}
-
     /* ===== Responsivitet ===== */
     @media (max-width:1100px){
       .hero .grid{grid-template-columns:1fr; gap:24px}
-      .devices{gap:22px}
-      .cards{grid-template-columns:repeat(2,1fr)}
-      .steps .row{grid-template-columns:1fr 1fr}
-    }
-    @media (max-width:900px){
-      .devices{flex-direction:column; gap:18px}
-      .phone-crop{max-width:520px; margin:0 auto}
+      .media{justify-content:center;} /* mobil/tablet: center */
     }
     @media (max-width:640px){
       .wrap{padding:44px 16px}
       h1{font-size:clamp(26px,7.5vw,38px)}
       .btn{width:100%; text-align:center; padding:16px 18px}
-      .cards{grid-template-columns:1fr}
       .pl .grid{grid-template-columns:1fr}
-      .steps .row{grid-template-columns:1fr}
-      .cta-band .box{flex-direction:column; align-items:flex-start}
       header .bar{flex-wrap:wrap}
     }
+
+
+/* På mobil/tablet skal billedet være større igen */
+@media (max-width:1100px){
+  .phone-img {
+    width:70%;                    /* <– så billedet ikke bliver for småt på mobil */
+  }
+}
+
   </style>
 </head>
 <body>
-
-  <!-- ===== Header ===== -->
-  <header>
-    <div class="bar wrap" style="padding-top:14px; padding-bottom:14px;">
-      <div class="brand"><span class="dot"></span> LunarCaptain</div>
-      <nav style="display:flex; gap:8px;">
-        <a href="#features">Funktioner</a>
-        <a href="#how">Sådan virker det</a>
-        <a href="#faq">FAQ</a>
-        <a class="btn secondary" href="#tilmeld">Tilmeld gratis beta</a>
-      </nav>
-    </div>
-  </header>
 
   <!-- ===== HERO ===== -->
   <section class="hero">
@@ -146,84 +103,32 @@
       <!-- Tekst -->
       <div>
         <div class="accent"></div>
-        <div class="badge">NYHED · Beta åben for padel-hold</div>
-        <h1>Webapp til dine<br> Lunar padel-holdkampe.</h1>
+        <div class="badge">Beta</div>
+        <h1>Lunar holdkampe.</h1>
         <p class="lead">
-          <strong>LunarCaptain</strong> samler tilmeldinger, opstillinger (runde 1 & 2),
-          påmindelser og stillinger ét sted. Mindre koordinationskaos – mere spilletid.
+          <strong>LunarCaptain</strong> samler tilmeldinger ét sted. Mindre koordinationskaos – mere spilletid.
         </p>
         <div class="cta">
-          <a class="btn primary" href="#tilmeld">Se pakker &amp; priser</a>
+          <a class="btn primary" href="#tilmeld">Tilmeld i dag</a>
           <a class="btn secondary" href="#how">Se hvordan det virker</a>
         </div>
-        <div class="trust">Testet i klubber som <strong>HPK</strong> &amp; <strong>Lunar Ligaen</strong>.</div>
+        <div class="trust">Testet i klubber som <strong>HPK</strong> &amp; <strong>Racket Club</strong>.</div>
       </div>
 
-      <!-- PRO SHOWCASE -->
-      <div class="media" aria-hidden="true">
-        <div class="showcase">
-          <div class="devices">
-            <div class="device left">
-              <div class="card-soft">
-                <div class="phone-crop">
-                  <img class="phone-img"
-                       src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_500,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FHXRDBaZTFwuftWy46CWS.png"
-                       alt="LunarCaptain – Overblik" loading="lazy" decoding="async">
-                </div>
-              </div>
-            </div>
-            <div class="device right">
-              <div class="card-soft">
-                <div class="phone-crop">
-                  <img class="phone-img"
-                       src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_1200,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FBZvkXUJJaA5ZBOclhkro.png"
-                       alt="LunarCaptain – Påmindelser" loading="lazy" decoding="async">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- /PRO SHOWCASE -->
-    </div>
-  </section>
+<!-- Billede (tilbage til original src) -->
+<div class="media" aria-hidden="true">
+  <div class="phone-wrap">
+    <img
+      class="phone-img"
+      src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_500,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FHXRDBaZTFwuftWy46CWS.png"
+      alt="LunarCaptain – Overblik"
+      loading="lazy"
+      decoding="async"
+      width="520"
+    />
+  </div>
+</div>
 
-  <!-- ===== Features ===== -->
-  <section id="features" class="features">
-    <div class="wrap">
-      <h2 class="section-title">Alt hvad en holdkaptajn har brug for</h2>
-      <div class="cards">
-        <div class="feature">
-          <div class="icon">🧭</div>
-          <h3>Opstillinger på 30 sek.</h3>
-          <p>Vælg spillere og sæt runde 1 &amp; 2 med et klik – appen husker seneste konstellationer.</p>
-        </div>
-        <div class="feature">
-          <div class="icon">🔔</div>
-          <h3>Auto-påmindelser</h3>
-          <p>Spillere og reserver får besked i tide. Mindre fravær, færre sidste-øjebliksændringer.</p>
-        </div>
-        <div class="feature">
-          <div class="icon">📊</div>
-          <h3>Stillinger & statistik</h3>
-          <p>Indtast resultatet og se tabellen opdatere. Overblik for hele holdet – altid synkron.</p>
-        </div>
-        <div class="feature">
-          <div class="icon">🧑‍✈️</div>
-          <h3>Kaptajn-overblik</h3>
-          <p>Tilgængelighed, opstillinger, beskeder og kampe i én visning – ro i maven før kampdag.</p>
-        </div>
-        <div class="feature">
-          <div class="icon">💬</div>
-          <h3>Holdchat</h3>
-          <p>Samlet kommunikation pr. kamp – farvel til messenger-tråde der forsvinder.</p>
-        </div>
-        <div class="feature">
-          <div class="icon">⚙️</div>
-          <h3>Klub-klar</h3>
-          <p>Fungerer for både klubber og private hold. Nem opsætning, ingen IT-ballade.</p>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -244,72 +149,8 @@
     </div>
   </section>
 
-  <!-- ===== Sådan virker det ===== -->
-  <section id="how" class="steps features" style="background:#fff;">
-    <div class="wrap">
-      <h2 class="section-title">Sådan virker det</h2>
-      <div class="row">
-        <div class="step">
-          <div class="num">1 · Indsaml tilgængelighed</div>
-          <p>Spillerne svarer ja/nej. Reserver kan tilføjes. Overblik for hele holdet på én skærm.</p>
-        </div>
-        <div class="step">
-          <div class="num">2 · Sæt opstillinger</div>
-          <p>Vælg par til runde 1 &amp; 2. Appen hjælper med fordeling og husker historik.</p>
-        </div>
-        <div class="step">
-          <div class="num">3 · Spil og registrér</div>
-          <p>Efter kampen indtastes resultatet. Stillingen opdateres automatisk – klar til næste runde.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== FAQ ===== -->
-  <section id="faq" class="faq">
-    <div class="wrap">
-      <h2 class="section-title">FAQ</h2>
-      <details>
-        <summary>Hvad koster LunarCaptain?</summary>
-        <p class="muted" style="margin-top:8px;">Under beta er det gratis for hold. Klubpriser annonceres senere – kontakt os for pilot.</p>
-      </details>
-      <details>
-        <summary>Kræver det en app-download?</summary>
-        <p class="muted" style="margin-top:8px;">LunarCaptain kører som webapp på mobil og desktop. Du kan tilføje den til hjemskærmen.</p>
-      </details>
-      <details>
-        <summary>Kan vi bruge det i vores klub?</summary>
-        <p class="muted" style="margin-top:8px;">Ja. Systemet er klub-klart. Skriv til os, så hjælper vi jer i gang hurtigt.</p>
-      </details>
-    </div>
-  </section>
-
-  <!-- ===== CTA bånd ===== -->
-  <section id="tilmeld" class="cta-band">
-    <div class="wrap">
-      <div class="box">
-        <div>
-          <div class="badge" style="margin-bottom:8px;">Klar til beta</div>
-          <h2 class="section-title" style="margin:0;">Kom med fra start</h2>
-          <p class="muted" style="margin:6px 0 0;">Tilmeld dit hold gratis – få adgang til opstillinger, påmindelser og stillinger med det samme.</p>
-        </div>
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <a class="btn primary" href="https://lunarcaptain.dk/tilmeld">Tilmeld hold gratis</a>
-          <a class="btn secondary" href="mailto:info@lunarcaptain.dk">Kontakt os</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Footer ===== -->
-  <footer>
-    <div class="row wrap">
-      <div>© LunarCaptain</div>
-      <div class="muted">Spørgsmål? Skriv til <a href="mailto:info@lunarcaptain.dk">info@lunarcaptain.dk</a></div>
-    </div>
-  </footer>
-
 </body>
 </html>
+
 
 
