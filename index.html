@@ -51,14 +51,14 @@
       display:block;
       height:50px; width:auto; max-width:100%;
       object-fit:contain;
-      border-radius:10px;   /* runde hjørner på selve logoet */
+      border-radius:10px;
     }
     @media (max-width:640px){
       .logos{ gap:12px; }
       .logo img{ height:36px; }
     }
 
-    /* Hero-billede (desktop højre, mobil center) */
+    /* Hero-billede */
     .media{width:100%;display:flex;justify-content:flex-end;align-items:center;}
     .phone-wrap{width:100%;}
     .phone-img{
@@ -74,7 +74,7 @@
     .tile h3{margin:0 0 6px;font-size:18px}
     .tile p{margin:0;color:#475569;line-height:1.6}
 
-    /* ===== Split section: tekst venstre + billede højre ===== */
+    /* ===== Split section ===== */
     .split .grid{ display:grid; grid-template-columns: 1.2fr 0.8fr; gap:28px; align-items:start; }
     .split .lines p{margin:0 0 12px;font-size:18px;line-height:1.6;color:#475569}
     .split .visual{ position:relative; display:flex; justify-content:flex-end; align-items:flex-start; }
@@ -122,7 +122,7 @@
     }
     .founder .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
 
-    /* ===== Kontaktformular (visuelt matchet) ===== */
+    /* ===== Kontaktformular ===== */
     .contact-wrap{
       background:#fff;border:1px solid var(--border);border-radius:16px;
       padding:18px; box-shadow:var(--shadow-sm)
@@ -156,14 +156,19 @@
       .btn{width:100%;text-align:center;padding:16px 18px}
     }
 
-    /* ====== ANIMATIONER (REN CSS) ====== */
+    /* ====== ANIMATIONER ====== */
     @keyframes fly-in-up    { from {opacity:0; transform:translateY(24px) scale(.98)} to {opacity:1; transform:none} }
     @keyframes fly-in-right { from {opacity:0; transform:translateX(28px) scale(.98)} to {opacity:1; transform:none} }
     @keyframes fly-in-left  { from {opacity:0; transform:translateX(-28px) scale(.98)} to {opacity:1; transform:none} }
     @keyframes fly-out-up   { from {opacity:1; transform:none} to {opacity:0; transform:translateY(-16px) scale(.98)} }
     @keyframes fly-out-down { from {opacity:1; transform:none} to {opacity:0; transform:translateY(16px)  scale(.98)} }
 
-    /* === Hero: ren LOAD-sekvens (IKKE scroll) === */
+    /* Globale load-classes (fallback når scroll-timeline ikke findes) */
+    .fly-in-up    { opacity:0; animation: fly-in-up .6s cubic-bezier(.2,.7,.2,1) .05s both; }
+    .fly-in-right { opacity:0; animation: fly-in-right .7s cubic-bezier(.2,.7,.2,1) .05s both; }
+    .fly-in-left  { opacity:0; animation: fly-in-left .7s cubic-bezier(.2,.7,.2,1) .05s both; }
+
+    /* Hero: sekvens ved load (tekst) */
     .hero .accent.hero-seq { opacity:0; animation:fly-in-up .35s cubic-bezier(.2,.7,.2,1) .00s both; }
     .hero .badge.hero-seq  { opacity:0; animation:fly-in-up .40s cubic-bezier(.2,.7,.2,1) .05s both; }
     .hero h1.hero-seq      { opacity:0; animation:fly-in-up .55s cubic-bezier(.2,.7,.2,1) .12s both; }
@@ -171,32 +176,33 @@
     .hero .cta.hero-seq    { opacity:0; animation:fly-in-up .55s cubic-bezier(.2,.7,.2,1) .28s both; }
     .hero .trust.hero-seq  { opacity:0; animation:fly-in-up .55s cubic-bezier(.2,.7,.2,1) .36s both; }
 
-    /* Hero-billede: ren LOAD ind fra højre */
+    /* Hero-billede: ren load ind fra højre */
     .phone-img.fly-in-right { opacity:0; animation:fly-in-right .7s cubic-bezier(.2,.7,.2,1) .1s both; }
 
-    /* Logoer: let LOAD-stagger (ikke scroll) */
+    /* Let load-stagger for logoer */
     .logos .logo { opacity:0; transform:translateY(10px); }
     .logos .logo:nth-child(1){ animation: fly-in-up .45s ease .50s both; }
     .logos .logo:nth-child(2){ animation: fly-in-up .45s ease .58s both; }
     .logos .logo:nth-child(3){ animation: fly-in-up .45s ease .66s both; }
     .logos .logo:nth-child(4){ animation: fly-in-up .45s ease .74s both; }
 
-    /* Kort mv. får en diskret LOAD, men bliver styret af scroll hvor muligt */
+    /* Lette load-animations for kort, kontakt */
     .tile, .founder .card, .contact-wrap { opacity:0; animation: fly-in-up .6s cubic-bezier(.2,.7,.2,1) .08s both; }
 
-    /* Tilgængelighed: respektér reduce motion */
+    /* Reduce motion */
     @media (prefers-reduced-motion: reduce){
+      .fly-in-up, .fly-in-right, .fly-in-left,
       .hero-seq, .phone-img, .logos .logo,
       .tile, .founder .card, .contact-wrap,
       .reveal-inout, .reveal-text { animation:none !important; opacity:1 !important; transform:none !important; }
     }
 
-    /* === Moderne scroll-drevne reveals (ind + ud) for SEKTIONER UNDER HERO === */
+    /* Scroll-drevne reveals (ind + ud) for sektioner UNDER HERO */
     @supports (animation-timeline: view()){
-      /* Sørg for at hero-ting IKKE konverteres til scroll-timeline */
+      /* Sikr at hero forbliver på load-animationer */
       .hero .hero-seq { animation-timeline: initial; animation-range: initial; }
+      .phone-img.fly-in-right { animation-timeline: initial; }
 
-      /* Generisk komponent: ind nedefra, ud op */
       .reveal-inout{
         opacity:0;
         animation:
@@ -205,7 +211,6 @@
         animation-timeline: view(), view();
         animation-range: entry 10% cover 35%, exit 10% cover 35%;
       }
-      /* Tekstlinjer kan få lidt kortere spænd */
       .reveal-text{
         opacity:0;
         animation:
@@ -237,18 +242,16 @@
 
         <!-- Logo-rail -->
         <div class="logos" aria-label="Bruges af">
-          <!-- RankedIn -->
           <span class="logo" title="RankedIn">
             <img src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_500,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FtqELCpDUdyyU5Im3YXgY.jfif" alt="RankedIn">
           </span>
-          <!-- Lunar Ligaen -->
           <span class="logo" title="Lunar Ligaen">
             <img src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_500,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FzohTHdTFqRoprvnjAGIx.jfif" alt="Lunar Ligaen">
           </span>
         </div>
       </div>
 
-      <!-- Hero-billede (REN LOAD-ANIMATION) -->
+      <!-- Hero-billede (LOAD-fly-in) -->
       <div class="media" aria-hidden="true">
         <div class="phone-wrap">
           <img
@@ -292,12 +295,14 @@
             <p class="reveal-text">Automatiske påmindelser – færre afbud i sidste øjeblik.</p>
           </div>
         </div>
-        <!-- Højre: billede + glow (scroll ind/ud) -->
-        <div>
+        <!-- Højre: billede (fallback + scroll ind/ud) -->
+        <div class="visual" aria-hidden="true">
           <img
+            class="img fly-in-up reveal-inout"
             src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_500,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FSDAwV1026b9aNVawX7o4.png"
             alt="LunarCaptain – Kampkort"
             loading="lazy"
+            decoding="async"
           />
         </div>
       </div>
@@ -309,7 +314,6 @@
     <div class="wrap">
       <h2 class="section-title">Manden bag LunarCaptain</h2>
       <div class="grid">
-        <!-- Venstre: Hvorfor & historien -->
         <article class="card reveal-inout">
           <div class="accent"></div>
           <div class="meta">
@@ -328,7 +332,6 @@
           </div>
 
           <div style="box-sizing:border-box; width:100%; max-width:720px; margin:12px auto; padding:10px 14px; border:1px solid #e5e7eb; border-radius:12px; background:#ffffff; font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Inter,sans-serif; display:flex; align-items:center; gap:10px;">
-            <!-- Ikon -->
             <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="flex:0 0 auto;">
               <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z" fill="currentColor"/>
             </svg>
@@ -342,7 +345,6 @@
           </div>
         </article>
 
-        <!-- Højre: Kontaktformular (Glide webhook) -->
         <aside class="contact-wrap reveal-inout" aria-labelledby="kontakt-title" itemprop="contactPoint" itemscope itemtype="https://schema.org/ContactPoint">
           <h3 id="kontakt-title" style="margin:0 0 8px;font-weight:900;">Kontakt</h3>
 
@@ -358,28 +360,24 @@
             <label for="message">Besked</label>
             <textarea id="message" name="message" rows="6" required></textarea>
 
-            <!-- Honeypot -->
             <input type="text" name="company" style="display:none" tabindex="-1" autocomplete="off">
-
             <button type="submit">Send</button>
             <div id="ok"  class="alert ok">Tak! Din besked er sendt.</div>
             <div id="err" class="alert err">Ups – noget gik galt. Prøv igen.</div>
           </form>
 
-          <!-- Schema.org labels -->
           <meta itemprop="contactType" content="customer support">
           <meta itemprop="areaServed" content="DK">
           <meta itemprop="availableLanguage" content="da">
         </aside>
-
       </div>
     </div>
   </section>
 
   <script>
     // === Kontaktformular -> Glide webhook ===
-    const GLIDE_WEBHOOK_URL = "https://go.glideapps.com/api/container/plugin/webhook-trigger/0WAgqavdcUZnVRPTRDPX/43c3d07c-0163-4c51-9458-d9037347e7e4"; // <-- indsæt din Glide webhook URL
-    const BEARER_TOKEN      = "1c4e4382-f948-4ce7-b9dd-efdb49d37ecb"; // valgfri token-kontrol
+    const GLIDE_WEBHOOK_URL = "https://go.glideapps.com/api/container/plugin/webhook-trigger/0WAgqavdcUZnVRPTRDPX/43c3d07c-0163-4c51-9458-d9037347e7e4";
+    const BEARER_TOKEN      = "1c4e4382-f948-4ce7-b9dd-efdb49d37ecb"; // valgfri
 
     const form = document.getElementById('contact-form');
     const okEl = document.getElementById('ok');
@@ -387,7 +385,6 @@
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault(); okEl.style.display='none'; errEl.style.display='none';
-      // Stop bots (honeypot)
       if (form.company && form.company.value) return;
 
       const data = Object.fromEntries(new FormData(form).entries());
@@ -405,9 +402,6 @@
         okEl.style.display='block';
         form.reset();
       } catch (err) {
-        // NOTE: Hvis din webhook ikke returnerer CORS-headers, vil browseren blokere.
-        // Løsning: brug en lille proxy (Cloudflare Worker / Netlify Function) eller
-        // brug Glides indbyggede webform/Actions direkte i appen.
         console.error(err);
         errEl.style.display='block';
       }
@@ -416,5 +410,6 @@
 
 </body>
 </html>
+
 
 
