@@ -43,58 +43,37 @@
     }
     .cta{display:flex;flex-wrap:wrap;gap:12px}
     .trust{margin-top:16px;font-size:14px;color:var(--muted)}
-    /* ===== Logo rail (trusted by) ===== */
-.logos {
-  display:flex; flex-wrap:wrap; gap:18px; align-items:center;
-  margin-top:16px;
-}
-.logos .hint {
-  font-size:13px; font-weight:800; letter-spacing:.02em; color:#94a3b8;
-  margin-right:4px;
-}
 
-/* FAST STØRRELSE pr. logo */
-/* ===== Logo rail (kun billeder) ===== */
-.logos{
-  display:flex; flex-wrap:wrap; gap:18px; align-items:center;
-  margin-top:16px;
-}
-.logos .hint{
-  font-size:13px; font-weight:800; letter-spacing:.02em; color:#94a3b8;
-  margin-right:2px;
-}
-
-/* Ingen boks, ingen border, ingen skygge – kun billedet */
-.logo{
-  display:flex; align-items:center; justify-content:center;
-  padding:0; background:transparent; border:0; box-shadow:none;
-}
-
-/* Billedet bestemmer alt */
-.logo img{
-  display:block;                /* fjerner baseline-gab (“streg”) */
-  height:50px;                  /* fast højde på desktop */
-  width:auto;                   /* bevar proportioner */
-  max-width:100%;
-  object-fit:contain;           /* pres aldrig billedet */
-  border-radius:10px;           /* runde hjørner på selve logoet */
-}
-
-/* Responsivt: lidt mindre på mobil */
-@media (max-width:640px){
-  .logos{ gap:12px; }
-  .logo img{ height:36px; }     /* skaler kun højden – width følger med */
-}
-
-/* Hvis du vil have mere “fluid” skalering på tværs af skærme, brug clamp: */
-/* .logo img{ height:clamp(36px, 6vw, 50px); } */
-
-
+    /* ===== Logo rail (kun billeder) ===== */
+    .logos{
+      display:flex; flex-wrap:wrap; gap:18px; align-items:center;
+      margin-top:16px;
+    }
+    .logos .hint{
+      font-size:13px; font-weight:800; letter-spacing:.02em; color:#94a3b8;
+      margin-right:2px;
+    }
+    .logo{
+      display:flex; align-items:center; justify-content:center;
+      padding:0; background:transparent; border:0; box-shadow:none;
+    }
+    .logo img{
+      display:block;              /* fjerner baseline-gap (“streg”) */
+      height:50px;                /* fast højde på desktop */
+      width:auto;                 /* bevar proportioner */
+      max-width:100%;
+      object-fit:contain;         /* pres aldrig billedet */
+      border-radius:10px;         /* runde hjørner på selve logoet */
+    }
+    @media (max-width:640px){
+      .logos{ gap:12px; }
+      .logo img{ height:36px; }
+    }
     /* Hero-billede (desktop højre, mobil center) */
     .media{width:100%;display:flex;justify-content:flex-end;align-items:center;}
     .phone-wrap{width:100%;}
     .phone-img{
-      display:block;margin:0 auto;width:30%;            /* 30% på desktop */
+      display:block;margin:0 auto;width:30%;
       height:auto;border-radius:var(--radius-lg);border:1px solid var(--border);
       box-shadow:var(--shadow);background:#fff;
     }
@@ -109,13 +88,12 @@
     /* ===== Split section: tekst venstre + billede højre ===== */
     .split .grid{
       display:grid;
-      grid-template-columns: 1.2fr 0.8fr;  /* mindre højre kolonne = mindre "luft" */
+      grid-template-columns: 1.2fr 0.8fr;
       gap:28px;
-      align-items:start;                    /* start højere, mindre dødt rum */
+      align-items:start;
     }
     .split .lines p{margin:0 0 12px;font-size:18px;line-height:1.6;color:#475569}
 
-    /* Visuel kolonne med glow bag billedet */
     .split .visual{
       position:relative; display:flex; justify-content:flex-end; align-items:flex-start;
     }
@@ -129,15 +107,15 @@
     .split .img{
       position:relative; z-index:1;
       display:block;
-      width:40%;                 /* ønsket størrelse */
-      min-width:360px;           /* aldrig for lille på store skærme */
-      max-width:520px;           /* og ikke for stor */
+      width:40%;
+      min-width:360px;
+      max-width:520px;
       height:auto;
       border-radius:var(--radius-lg);
       border:1px solid var(--border);
       box-shadow:var(--shadow);
       background:#fff;
-      margin-left:auto;          /* skub helt mod højre */
+      margin-left:auto;
     }
 
     /* ===== Founder / Kontakt ===== */
@@ -188,22 +166,57 @@
     /* ===== Responsivitet ===== */
     @media (max-width:1100px){
       .hero .grid{grid-template-columns:1fr;gap:24px}
-      .media{justify-content:center;}    /* center hero-billede */
-      .phone-img{width:70%;}            /* 70% på mobil/tablet */
-
+      .media{justify-content:center;}
+      .phone-img{width:70%;}
       .pl .grid{grid-template-columns:1fr}
-
       .split .grid{grid-template-columns:1fr;gap:22px}
       .split .visual{justify-content:center}
       .split .img{width:80%; min-width:0; margin:0 auto;}
-      .split .visual::before{display:none;} /* fjern glow på mobil */
-
+      .split .visual::before{display:none;}
       .founder .grid{grid-template-columns:1fr;gap:22px}
     }
     @media (max-width:640px){
       .wrap{padding:44px 16px}
       h1{font-size:clamp(26px,7.5vw,38px)}
       .btn{width:100%;text-align:center;padding:16px 18px}
+    }
+
+    /* ===== Animationer uden JS ===== */
+    @keyframes fly-in-up   { from {opacity:0; transform:translateY(24px) scale(.98)} to {opacity:1; transform:none} }
+    @keyframes fly-in-right{ from {opacity:0; transform:translateX(28px) scale(.98)} to {opacity:1; transform:none} }
+    @keyframes fly-in-left { from {opacity:0; transform:translateX(-28px) scale(.98)} to {opacity:1; transform:none} }
+
+    .fly-in-up    { opacity:0; animation: fly-in-up .6s cubic-bezier(.2,.7,.2,1) .05s both; }
+    .fly-in-right { opacity:0; animation: fly-in-right .7s cubic-bezier(.2,.7,.2,1) .05s both; }
+    .fly-in-left  { opacity:0; animation: fly-in-left .7s cubic-bezier(.2,.7,.2,1) .05s both; }
+
+    /* Stagger til logoer (på load) */
+    .logos .logo { opacity:0; transform:translateY(10px); }
+    .logos .logo:nth-child(1){ animation: fly-in-up .45s ease .05s both; }
+    .logos .logo:nth-child(2){ animation: fly-in-up .45s ease .12s both; }
+    .logos .logo:nth-child(3){ animation: fly-in-up .45s ease .19s both; }
+    .logos .logo:nth-child(4){ animation: fly-in-up .45s ease .26s both; }
+
+    /* Respekt for brugere der foretrækker mindre bevægelse */
+    @media (prefers-reduced-motion: reduce){
+      .fly-in-up, .fly-in-right, .fly-in-left,
+      .logos .logo { animation: none !important; opacity:1 !important; transform:none !important; }
+    }
+
+    /* Scroll-drevne animationer i moderne browsere */
+    @supports (animation-timeline: view()){
+      .reveal { opacity:0; transform:translateY(20px); }
+      .reveal {
+        animation-name: fly-in-up;
+        animation-duration: 1ms;                 /* ignoreres – styres af timeline */
+        animation-timing-function: cubic-bezier(.2,.7,.2,1);
+        animation-fill-mode: both;
+        animation-range: entry 10% cover 35%;
+        animation-timeline: view();
+      }
+      @media (prefers-reduced-motion: reduce){
+        .reveal { animation: none !important; opacity:1 !important; transform:none !important; }
+      }
     }
   </style>
 </head>
@@ -225,32 +238,24 @@
         </div>
         <div class="trust">Testet i klubber som <strong>HPK</strong> &amp; <strong>Racket Club</strong>.</div>
 
-
-
-
-
-<!-- Logo-rail -->
-<div class="logos" aria-label="Bruges af">
-
-  <!-- RankedIn -->
-  <span class="logo" title="RankedIn">
-    <img src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_500,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FtqELCpDUdyyU5Im3YXgY.jfif" alt="RankedIn">
-  </span>
-
-  <!-- Lunar Ligaen -->
-  <span class="logo" title="Lunar Ligaen">
-    <img src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_500,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FzohTHdTFqRoprvnjAGIx.jfif" alt="Lunar Ligaen">
-  </span>
-</div>
-
-
+        <!-- Logo-rail -->
+        <div class="logos" aria-label="Bruges af">
+          <!-- RankedIn -->
+          <span class="logo" title="RankedIn">
+            <img src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_500,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FtqELCpDUdyyU5Im3YXgY.jfif" alt="RankedIn">
+          </span>
+          <!-- Lunar Ligaen -->
+          <span class="logo" title="Lunar Ligaen">
+            <img src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_500,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FzohTHdTFqRoprvnjAGIx.jfif" alt="Lunar Ligaen">
+          </span>
+        </div>
       </div>
 
-      <!-- Hero-billede (original Cloudinary) -->
+      <!-- Hero-billede -->
       <div class="media" aria-hidden="true">
         <div class="phone-wrap">
           <img
-            class="phone-img"
+            class="phone-img fly-in-right"
             src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_500,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FHXRDBaZTFwuftWy46CWS.png"
             alt="LunarCaptain – Overblik"
             loading="lazy" decoding="async"
@@ -277,11 +282,11 @@
     </div>
   </section>
 
-  <!-- ===== Split Section: 3 linjer tekst (venstre) + nyt billede (højre) ===== -->
+  <!-- ===== Split Section: 3 linjer tekst (venstre) + billede (højre) ===== -->
   <section class="split" id="highlight">
     <div class="wrap">
       <div class="grid">
-        <!-- Venstre: 3 linjer tekst -->
+        <!-- Venstre: tekst -->
         <div class="copy">
           <h2 class="section-title">Få styr på holdkampen</h2>
           <div class="lines">
@@ -294,7 +299,7 @@
         <!-- Højre: billede + glow -->
         <div class="visual" aria-hidden="true">
           <img
-            class="img"
+            class="img fly-in-up reveal"
             src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_500,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FSDAwV1026b9aNVawX7o4.png"
             alt="LunarCaptain – Kampkort"
             loading="lazy"
@@ -315,7 +320,7 @@
         <article class="card">
           <div class="accent"></div>
           <div class="meta">
-            <img class="avatar" src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_500,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FmGRq6mHI8r6Th1ctCtTk.PNG" alt="Portræt" itemprop="image">
+            <img class="avatar fly-in-left" src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_500,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FmGRq6mHI8r6Th1ctCtTk.PNG" alt="Portræt" itemprop="image">
             <div>
               <div class="name" itemprop="name">Sajid Latif</div>
               <div class="role" itemprop="jobTitle">Padelspiller og livsnyder</div>
@@ -328,22 +333,20 @@
             <p><strong>Hvorfor LunarCaptain?</strong> Som Lunar spiller var jeg træt af at jagte svar i chats og opdatere Excel efter hver kamp. Vi skulle bare have ét sted til tilmeldinger, opstillinger (runde 1 &amp; 2), påmindelser og overblik.</p>
             <p>LunarCaptain er bygget til virkelige holdkampe: hurtigt svar fra spillerne, opstillinger på sekunder og færre afbud i sidste øjeblik. Mindre koordinationskaos – mere spilletid.</p>
           </div>
+
           <div style="box-sizing:border-box; width:100%; max-width:720px; margin:12px auto; padding:10px 14px; border:1px solid #e5e7eb; border-radius:12px; background:#ffffff; font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Inter,sans-serif; display:flex; align-items:center; gap:10px;">
-  <!-- Ikon -->
-  <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="flex:0 0 auto;">
-    <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z" fill="currentColor"/>
-  </svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="flex:0 0 auto;">
+              <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z" fill="currentColor"/>
+            </svg>
 
-  <div style="min-width:0; color:#111827; font-size:14px; line-height:1.3;">
-    Har du spørgsmål eller idéer? Skriv til
-    <a href="mailto:kontakt@lunarcaptain.dk?subject=Id%C3%A9%20til%20LunarCaptain&body=Hej%20LunarCaptain%2C%0A%0AJeg%20har%20en%20sp%C3%B8rgsm%C3%A5l%2Fid%C3%A9%3A%20"
-       style="color:#2563eb; text-decoration:none; border-bottom:1px dotted rgba(37,99,235,.4);">
-      kontakt@lunarcaptain.dk
-    </a>
-  </div>
-</div>
-
- 	
+            <div style="min-width:0; color:#111827; font-size:14px; line-height:1.3;">
+              Har du spørgsmål eller idéer? Skriv til
+              <a href="mailto:kontakt@lunarcaptain.dk?subject=Id%C3%A9%20til%20LunarCaptain&body=Hej%20LunarCaptain%2C%0A%0AJeg%20har%20en%20sp%C3%B8rgsm%C3%A5l%2Fid%C3%A9%3A%20"
+                 style="color:#2563eb; text-decoration:none; border-bottom:1px dotted rgba(37,99,235,.4);">
+                kontakt@lunarcaptain.dk
+              </a>
+            </div>
+          </div>
         </article>
 
         <!-- Højre: Kontaktformular (Glide webhook) -->
@@ -382,8 +385,8 @@
 
   <script>
     // === Kontaktformular -> Glide webhook ===
-    const GLIDE_WEBHOOK_URL = "https://go.glideapps.com/api/container/plugin/webhook-trigger/0WAgqavdcUZnVRPTRDPX/43c3d07c-0163-4c51-9458-d9037347e7e4"; // <-- indsæt din Glide webhook URL
-    const BEARER_TOKEN      = "1c4e4382-f948-4ce7-b9dd-efdb49d37ecb";                                // fx "sk-..." hvis du har sat tokenkrav (ellers lad tom)
+    const GLIDE_WEBHOOK_URL = "https://go.glideapps.com/api/container/plugin/webhook-trigger/0WAgqavdcUZnVRPTRDPX/43c3d07c-0163-4c51-9458-d9037347e7e4";
+    const BEARER_TOKEN      = "1c4e4382-f948-4ce7-b9dd-efdb49d37ecb";
 
     const form = document.getElementById('contact-form');
     const okEl = document.getElementById('ok');
@@ -391,7 +394,6 @@
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault(); okEl.style.display='none'; errEl.style.display='none';
-      // Stop bots (honeypot)
       if (form.company && form.company.value) return;
 
       const data = Object.fromEntries(new FormData(form).entries());
@@ -406,20 +408,7 @@
           mode: 'cors'
         });
         if (!res.ok) throw new Error('HTTP ' + res.status);
-        okEl.style.display='block';
-        form.reset();
-      } catch (err) {
-        // NOTE: Hvis din webhook ikke returnerer CORS-headers, vil browseren blokere.
-        // Løsning: brug en lille proxy (Cloudflare Worker / Netlify Function) eller
-        // brug Glides indbyggede webform/Actions direkte i appen.
-        console.error(err);
-        errEl.style.display='block';
-      }
-    });
-  </script>
-
-</body>
-</html>
+        ok
 
 
 
