@@ -46,14 +46,12 @@
 
     /* ===== Logo rail (kun billeder) ===== */
     .logos{ display:flex; flex-wrap:wrap; gap:18px; align-items:center; margin-top:16px; }
-    .logos .hint{ font-size:13px; font-weight:800; letter-spacing:.02em; color:#94a3b8; margin-right:2px; }
     .logo{ display:flex; align-items:center; justify-content:center; padding:0; background:transparent; border:0; box-shadow:none; }
     .logo img{
-      display:block;               /* fjerner baseline-gab */
-      height:50px;                 /* fast højde på desktop */
-      width:auto; max-width:100%;
+      display:block;
+      height:50px; width:auto; max-width:100%;
       object-fit:contain;
-      border-radius:10px;          /* runde hjørner på selve logoet */
+      border-radius:10px;   /* runde hjørner på selve logoet */
     }
     @media (max-width:640px){
       .logos{ gap:12px; }
@@ -165,72 +163,56 @@
     @keyframes fly-out-up   { from {opacity:1; transform:none} to {opacity:0; transform:translateY(-16px) scale(.98)} }
     @keyframes fly-out-down { from {opacity:1; transform:none} to {opacity:0; transform:translateY(16px)  scale(.98)} }
 
-    /* Load-fallback (hvis ingen scroll-timeline) */
-    .fly-in-up    { opacity:0; animation: fly-in-up .6s cubic-bezier(.2,.7,.2,1) .05s both; }
-    .fly-in-right { opacity:0; animation: fly-in-right .7s cubic-bezier(.2,.7,.2,1) .05s both; }
-    .fly-in-left  { opacity:0; animation: fly-in-left .7s cubic-bezier(.2,.7,.2,1) .05s both; }
+    /* === Hero: ren LOAD-sekvens (IKKE scroll) === */
+    .hero .accent.hero-seq { opacity:0; animation:fly-in-up .35s cubic-bezier(.2,.7,.2,1) .00s both; }
+    .hero .badge.hero-seq  { opacity:0; animation:fly-in-up .40s cubic-bezier(.2,.7,.2,1) .05s both; }
+    .hero h1.hero-seq      { opacity:0; animation:fly-in-up .55s cubic-bezier(.2,.7,.2,1) .12s both; }
+    .hero .lead.hero-seq   { opacity:0; animation:fly-in-up .55s cubic-bezier(.2,.7,.2,1) .20s both; }
+    .hero .cta.hero-seq    { opacity:0; animation:fly-in-up .55s cubic-bezier(.2,.7,.2,1) .28s both; }
+    .hero .trust.hero-seq  { opacity:0; animation:fly-in-up .55s cubic-bezier(.2,.7,.2,1) .36s both; }
 
-    /* Stagger på logoer ved load */
+    /* Hero-billede: ren LOAD ind fra højre */
+    .phone-img.fly-in-right { opacity:0; animation:fly-in-right .7s cubic-bezier(.2,.7,.2,1) .1s both; }
+
+    /* Logoer: let LOAD-stagger (ikke scroll) */
     .logos .logo { opacity:0; transform:translateY(10px); }
-    .logos .logo:nth-child(1){ animation: fly-in-up .45s ease .05s both; }
-    .logos .logo:nth-child(2){ animation: fly-in-up .45s ease .12s both; }
-    .logos .logo:nth-child(3){ animation: fly-in-up .45s ease .19s both; }
-    .logos .logo:nth-child(4){ animation: fly-in-up .45s ease .26s both; }
+    .logos .logo:nth-child(1){ animation: fly-in-up .45s ease .50s both; }
+    .logos .logo:nth-child(2){ animation: fly-in-up .45s ease .58s both; }
+    .logos .logo:nth-child(3){ animation: fly-in-up .45s ease .66s both; }
+    .logos .logo:nth-child(4){ animation: fly-in-up .45s ease .74s both; }
 
-    /* Let fly-in på kort ved load */
+    /* Kort mv. får en diskret LOAD, men bliver styret af scroll hvor muligt */
     .tile, .founder .card, .contact-wrap { opacity:0; animation: fly-in-up .6s cubic-bezier(.2,.7,.2,1) .08s both; }
 
-    /* Respekt for “reduce motion” */
+    /* Tilgængelighed: respektér reduce motion */
     @media (prefers-reduced-motion: reduce){
-      .fly-in-up, .fly-in-right, .fly-in-left,
-      .logos .logo, .tile, .founder .card, .contact-wrap,
-      .reveal, .reveal-inout, .hero-seq { animation:none !important; opacity:1 !important; transform:none !important; }
+      .hero-seq, .phone-img, .logos .logo,
+      .tile, .founder .card, .contact-wrap,
+      .reveal-inout, .reveal-text { animation:none !important; opacity:1 !important; transform:none !important; }
     }
 
-    /* ===== Moderne scroll-drevne reveals (fly ind + fly ud) ===== */
+    /* === Moderne scroll-drevne reveals (ind + ud) for SEKTIONER UNDER HERO === */
     @supports (animation-timeline: view()){
-      /* Generisk: fly ind ved entry, fly ud ved exit */
+      /* Sørg for at hero-ting IKKE konverteres til scroll-timeline */
+      .hero .hero-seq { animation-timeline: initial; animation-range: initial; }
+
+      /* Generisk komponent: ind nedefra, ud op */
       .reveal-inout{
         opacity:0;
         animation:
           fly-in-up  1ms cubic-bezier(.2,.7,.2,1) both,
           fly-out-up 1ms cubic-bezier(.2,.7,.2,1) both;
         animation-timeline: view(), view();
-        /* Første animation kører mens elementet kommer ind, anden når det forlader */
         animation-range: entry 10% cover 35%, exit 10% cover 35%;
       }
-
-      /* Hero-telefon billede: ind fra højre, ud opad */
-      .reveal-inout.right{
-        animation:
-          fly-in-right 1ms cubic-bezier(.2,.7,.2,1) both,
-          fly-out-up   1ms cubic-bezier(.2,.7,.2,1) both;
-        animation-timeline: view(), view();
-        animation-range: entry 0% cover 35%, exit 10% cover 35%;
-      }
-
-      /* Hero-tekst sekvenser – små forskud */
-      .hero-seq{
+      /* Tekstlinjer kan få lidt kortere spænd */
+      .reveal-text{
         opacity:0;
         animation:
           fly-in-up  1ms cubic-bezier(.2,.7,.2,1) both,
           fly-out-up 1ms cubic-bezier(.2,.7,.2,1) both;
         animation-timeline: view(), view();
-        animation-range: entry 0% cover 30%, exit 0% cover 30%;
-      }
-      .hero .accent.hero-seq   { view-timeline-inset: 10% 0 0 0; }
-      .hero .badge.hero-seq    { view-timeline-inset: 12% 0 0 0; }
-      .hero h1.hero-seq        { view-timeline-inset: 14% 0 0 0; }
-      .hero .lead.hero-seq     { view-timeline-inset: 16% 0 0 0; }
-      .hero .cta.hero-seq      { view-timeline-inset: 18% 0 0 0; }
-      .hero .trust.hero-seq    { view-timeline-inset: 20% 0 0 0; }
-      .hero .logos.hero-seq    { view-timeline-inset: 22% 0 0 0; }
-
-      /* Split-billedet: ind nedefra, ud op */
-      .split .img.reveal-inout { animation-range: entry 8% cover 35%, exit 12% cover 35%; }
-      /* Kort og kontakt: mildere range */
-      .tile.reveal-inout, .contact-wrap.reveal-inout, .founder .card.reveal-inout {
-        animation-range: entry 6% cover 30%, exit 10% cover 30%;
+        animation-range: entry 8% cover 25%, exit 8% cover 25%;
       }
     }
   </style>
@@ -242,9 +224,9 @@
     <div class="wrap hero grid">
       <!-- Tekst -->
       <div>
-        <div class="accent hero-seq"> </div>
+        <div class="accent hero-seq"></div>
         <div class="badge hero-seq">Beta</div>
-        <h1 class="hero-seq">Lunar holdkampe.</h1>
+        <h1 class="hero-seq">Få styr på holdkampen</h1>
         <p class="lead hero-seq">
           <strong>LunarCaptain</strong> samler tilmeldinger ét sted. Mindre koordinationskaos – mere spilletid og helt <strong>GRATIS</strong>.
         </p>
@@ -254,23 +236,23 @@
         <div class="trust hero-seq">Testet i klubber som <strong>HPK</strong> &amp; <strong>Racket Club</strong>.</div>
 
         <!-- Logo-rail -->
-        <div class="logos hero-seq" aria-label="Bruges af">
+        <div class="logos" aria-label="Bruges af">
           <!-- RankedIn -->
-          <span class="logo">
+          <span class="logo" title="RankedIn">
             <img src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_500,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FtqELCpDUdyyU5Im3YXgY.jfif" alt="RankedIn">
           </span>
           <!-- Lunar Ligaen -->
-          <span class="logo">
+          <span class="logo" title="Lunar Ligaen">
             <img src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_500,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FzohTHdTFqRoprvnjAGIx.jfif" alt="Lunar Ligaen">
           </span>
         </div>
       </div>
 
-      <!-- Hero-billede -->
+      <!-- Hero-billede (REN LOAD-ANIMATION) -->
       <div class="media" aria-hidden="true">
         <div class="phone-wrap">
           <img
-            class="phone-img fly-in-right reveal-inout right"
+            class="phone-img fly-in-right"
             src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_500,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FHXRDBaZTFwuftWy46CWS.png"
             alt="LunarCaptain – Overblik"
             loading="lazy" decoding="async"
@@ -285,11 +267,11 @@
     <div class="wrap">
       <h2 class="section-title">Fra kaos til kontrol</h2>
       <div class="grid">
-        <div class="tile fly-in-up reveal-inout">
+        <div class="tile reveal-inout">
           <h3>Problemet</h3>
           <p>Hvem spiller med hvem? Hvem melder afbud? Hvor er stillingen? Kaptajnen drukner i Excel, Messenger og gætterier.</p>
         </div>
-        <div class="tile fly-in-up reveal-inout" style="animation-delay:.08s">
+        <div class="tile reveal-inout" style="animation-delay:.08s">
           <h3>Løsningen</h3>
           <p>LunarCaptain samler tilgængelighed, opstillinger (runde 1 &amp; 2), påmindelser, resultater og stillinger ét sted.</p>
         </div>
@@ -305,18 +287,19 @@
         <div class="copy">
           <h2 class="section-title">Få styr på holdkampen</h2>
           <div class="lines">
-            <p class="fly-in-up reveal-inout" style="view-timeline-inset: 8% 0 0 0;">Tilmeldinger uden kaos – svar direkte i appen.</p>
-            <p class="fly-in-up reveal-inout" style="view-timeline-inset: 10% 0 0 0;">Holdopstillinger på få klik – runde 1 &amp; 2 klar på sekunder.</p>
-            <p class="fly-in-up reveal-inout" style="view-timeline-inset: 12% 0 0 0;">Automatiske påmindelser – færre afbud i sidste øjeblik.</p>
+            <p class="reveal-text">Tilmeldinger uden kaos – svar direkte i appen.</p>
+            <p class="reveal-text">Holdopstillinger på få klik – runde 1 &amp; 2 klar på sekunder.</p>
+            <p class="reveal-text">Automatiske påmindelser – færre afbud i sidste øjeblik.</p>
           </div>
         </div>
-        <!-- Højre: billede -->
+        <!-- Højre: billede + glow (scroll ind/ud) -->
         <div class="visual" aria-hidden="true">
           <img
-            class="img fly-in-up reveal-inout"
+            class="img reveal-inout"
             src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_500,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FSDAwV1026b9aNVawX7o4.png"
             alt="LunarCaptain – Kampkort"
-            loading="lazy" decoding="async"
+            loading="lazy"
+            decoding="async"
           />
         </div>
       </div>
@@ -329,7 +312,7 @@
       <h2 class="section-title">Manden bag LunarCaptain</h2>
       <div class="grid">
         <!-- Venstre: Hvorfor & historien -->
-        <article class="card fly-in-up reveal-inout">
+        <article class="card reveal-inout">
           <div class="accent"></div>
           <div class="meta">
             <img class="avatar" src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_500,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FmGRq6mHI8r6Th1ctCtTk.PNG" alt="Portræt" itemprop="image">
@@ -362,7 +345,7 @@
         </article>
 
         <!-- Højre: Kontaktformular (Glide webhook) -->
-        <aside class="contact-wrap fly-in-up reveal-inout" aria-labelledby="kontakt-title" itemprop="contactPoint" itemscope itemtype="https://schema.org/ContactPoint">
+        <aside class="contact-wrap reveal-inout" aria-labelledby="kontakt-title" itemprop="contactPoint" itemscope itemtype="https://schema.org/ContactPoint">
           <h3 id="kontakt-title" style="margin:0 0 8px;font-weight:900;">Kontakt</h3>
 
           <form id="contact-form">
@@ -390,13 +373,14 @@
           <meta itemprop="areaServed" content="DK">
           <meta itemprop="availableLanguage" content="da">
         </aside>
+
       </div>
     </div>
   </section>
 
   <script>
     // === Kontaktformular -> Glide webhook ===
-    const GLIDE_WEBHOOK_URL = "https://go.glideapps.com/api/container/plugin/webhook-trigger/0WAgqavdcUZnVRPTRDPX/43c3d07c-0163-4c51-9458-d9037347e7e4"; // <-- din Glide webhook URL
+    const GLIDE_WEBHOOK_URL = "https://go.glideapps.com/api/container/plugin/webhook-trigger/0WAgqavdcUZnVRPTRDPX/43c3d07c-0163-4c51-9458-d9037347e7e4"; // <-- indsæt din Glide webhook URL
     const BEARER_TOKEN      = "1c4e4382-f948-4ce7-b9dd-efdb49d37ecb"; // valgfri token-kontrol
 
     const form = document.getElementById('contact-form');
@@ -434,4 +418,5 @@
 
 </body>
 </html>
+
 
