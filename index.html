@@ -228,6 +228,23 @@
     transform: none !important;
   }
 }
+    /* Stram split-sektionen op */
+.split .grid{
+  grid-template-columns: 1.1fr 0.9fr; /* lidt mere plads til billedkolonnen */
+  gap: 20px;                          /* mindre afstand mellem tekst og billede */
+}
+
+.split .visual{
+  justify-content: center;            /* centrer kortet i sin kolonne */
+}
+
+.split .img{
+  width: 100%;                        /* brug hele kolonnebredden */
+  max-width: 420px;                   /* men stop før det bliver for stort */
+  min-width: 0;                       /* lad det shrinke på mindre skærme */
+  margin-left: 0;                     /* fjern skub ud til højre */
+}
+
 
   </style>
 </head>
