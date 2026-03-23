@@ -139,7 +139,7 @@ html {
 #navbar {
   background: rgba(255, 255, 255, 0);
   transition: background 0.3s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease, top 0.3s ease;
-  top: 44px !important; /* below announcement bar */
+  top: 80px; /* safe default for 2-line mobile bar — JS overrides immediately */
 }
 
 body:not(:has(#announcement-bar)) #navbar {
