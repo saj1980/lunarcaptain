@@ -69,13 +69,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const navbar = document.getElementById('navbar');
   const stickyHeader = document.getElementById('sticky-header');
 
+  const NAV_ROW_H = 64; // navbar is always h-16 = 64px
+
   function updateBodyPadding() {
-    if (stickyHeader) {
-      const h = stickyHeader.offsetHeight;
-      document.body.style.paddingTop = h + 'px';
-      // Keep scroll-margin-top in sync so anchor links land in the right spot
-      document.documentElement.style.setProperty('--header-h', h + 'px');
-    }
+    // Only measure announcement bar + fixed nav row height.
+    // Never include the mobile drawer — it expands downward into content,
+    // so including it causes scroll-margin-top to be too large.
+    const bar = document.getElementById('announcement-bar');
+    const h = (bar ? bar.offsetHeight : 0) + NAV_ROW_H;
+    document.body.style.paddingTop = h + 'px';
+    document.documentElement.style.setProperty('--header-h', (h + 8) + 'px');
   }
 
   // Run immediately, after first paint, and after fonts load
