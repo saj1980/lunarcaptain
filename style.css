@@ -1259,6 +1259,14 @@ body:not(:has(#announcement-bar)) #navbar {
   font-weight: 500;
 }
 
+.hold-dropdown li .hold-item-meta {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--color-muted);
+  margin-top: 1px;
+  font-weight: 400;
+}
+
 /* ============================================================
    PRICING
    ============================================================ */

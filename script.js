@@ -369,8 +369,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const renderList = (query) => {
       const q = query.trim();
+      const ql = q.toLowerCase();
       const matches = q
-        ? DPF_TEAMS.filter(t => t.toLowerCase().includes(q.toLowerCase())).slice(0, 80)
+        ? DPF_TEAMS.filter(t => t.name.toLowerCase().includes(ql)).slice(0, 80)
         : DPF_TEAMS.slice(0, 80);
 
       holdListbox.innerHTML = '';
@@ -385,11 +386,14 @@ document.addEventListener('DOMContentLoaded', () => {
         matches.forEach((team) => {
           const li = document.createElement('li');
           li.setAttribute('role', 'option');
-          li.setAttribute('data-value', team);
-          li.innerHTML = '<span class="hold-item-name">' + highlight(team, q) + '</span>';
+          li.setAttribute('data-value', team.name);
+          const meta = [team.region, team.div].filter(Boolean).join(' · ');
+          li.innerHTML =
+            '<span class="hold-item-name">' + highlight(team.name, q) + '</span>' +
+            (meta ? '<span class="hold-item-meta">' + escHtml(meta) + '</span>' : '');
           li.addEventListener('mousedown', (e) => {
             e.preventDefault();
-            selectTeam(team);
+            selectTeam(team.name);
           });
           holdListbox.appendChild(li);
         });
