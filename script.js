@@ -12,7 +12,40 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ============================================================
-  // 1b. Announcement bar close
+  // 1b. Onboarding form — AJAX submit via Formspree
+  // ============================================================
+  const form = document.getElementById('onboarding-form');
+  const formSuccess = document.getElementById('form-success');
+  const successEmail = document.getElementById('success-email');
+
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const email = data.get('email');
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (res.ok) {
+          form.classList.add('hidden');
+          if (successEmail) successEmail.textContent = email;
+          formSuccess.classList.remove('hidden');
+        } else {
+          alert('Noget gik galt — prøv igen eller send en mail til kontakt@lunarcaptain.dk');
+        }
+      } catch {
+        alert('Netværksfejl — prøv igen eller send en mail til kontakt@lunarcaptain.dk');
+      }
+    });
+  }
+
+  // ============================================================
+  // 1c. Announcement bar close
   // ============================================================
   const announcementBar = document.getElementById('announcement-bar');
   const closeBtn = document.getElementById('close-announcement');
@@ -307,6 +340,144 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setupCarousel();
     window.addEventListener('resize', setupCarousel);
+  }
+
+  // ============================================================
+  // 8. Hold / Klub — searchable combobox
+  // ============================================================
+  const holdSearch   = document.getElementById('hold-search');
+  const holdHidden   = document.getElementById('hold');
+  const holdListbox  = document.getElementById('hold-listbox');
+  const holdClear    = document.getElementById('hold-clear');
+  const holdCombobox = document.getElementById('hold-combobox');
+
+  if (holdSearch && holdListbox && holdHidden) {
+
+    let activeIndex = -1;
+
+    const escHtml = (s) =>
+      s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+    const highlight = (text, query) => {
+      if (!query) return escHtml(text);
+      const idx = text.toLowerCase().indexOf(query.toLowerCase());
+      if (idx === -1) return escHtml(text);
+      return escHtml(text.slice(0, idx))
+        + '<span class="hold-match">' + escHtml(text.slice(idx, idx + query.length)) + '</span>'
+        + escHtml(text.slice(idx + query.length));
+    };
+
+    const renderList = (query) => {
+      const q = query.trim();
+      const matches = q
+        ? DPF_TEAMS.filter(t => t.toLowerCase().includes(q.toLowerCase())).slice(0, 80)
+        : DPF_TEAMS.slice(0, 80);
+
+      holdListbox.innerHTML = '';
+      activeIndex = -1;
+
+      if (matches.length === 0) {
+        const li = document.createElement('li');
+        li.className = 'hold-no-results';
+        li.textContent = 'Ingen hold fundet — skriv dit holdnavn manuelt';
+        holdListbox.appendChild(li);
+      } else {
+        matches.forEach((team) => {
+          const li = document.createElement('li');
+          li.setAttribute('role', 'option');
+          li.setAttribute('data-value', team);
+          li.innerHTML = '<span class="hold-item-name">' + highlight(team, q) + '</span>';
+          li.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            selectTeam(team);
+          });
+          holdListbox.appendChild(li);
+        });
+      }
+    };
+
+    const openDropdown = () => {
+      renderList(holdSearch.value);
+      holdListbox.classList.remove('hidden');
+      holdSearch.setAttribute('aria-expanded', 'true');
+    };
+
+    const closeDropdown = () => {
+      holdListbox.classList.add('hidden');
+      holdSearch.setAttribute('aria-expanded', 'false');
+      activeIndex = -1;
+    };
+
+    const selectTeam = (team) => {
+      holdHidden.value = team;
+      holdSearch.value = team;
+      if (holdClear) holdClear.classList.remove('hidden');
+      closeDropdown();
+    };
+
+    const clearSelection = () => {
+      holdHidden.value = '';
+      holdSearch.value = '';
+      if (holdClear) holdClear.classList.add('hidden');
+      holdSearch.focus();
+      openDropdown();
+    };
+
+    const updateActiveItem = (delta) => {
+      const items = holdListbox.querySelectorAll('li:not(.hold-no-results)');
+      if (items.length === 0) return;
+      if (items[activeIndex]) items[activeIndex].classList.remove('active');
+      activeIndex = Math.max(0, Math.min(items.length - 1, activeIndex + delta));
+      const active = items[activeIndex];
+      active.classList.add('active');
+      active.scrollIntoView({ block: 'nearest' });
+    };
+
+    holdSearch.addEventListener('focus', () => {
+      openDropdown();
+    });
+
+    holdSearch.addEventListener('input', () => {
+      holdHidden.value = '';
+      holdClear.classList.add('hidden');
+      openDropdown();
+    });
+
+    holdSearch.addEventListener('keydown', (e) => {
+      if (!holdListbox.classList.contains('hidden')) {
+        if (e.key === 'ArrowDown') { e.preventDefault(); updateActiveItem(1); }
+        else if (e.key === 'ArrowUp') { e.preventDefault(); updateActiveItem(-1); }
+        else if (e.key === 'Enter') {
+          e.preventDefault();
+          const active = holdListbox.querySelector('li.active');
+          if (active && active.dataset.value) selectTeam(active.dataset.value);
+        }
+        else if (e.key === 'Escape') { closeDropdown(); }
+      }
+    });
+
+    holdSearch.addEventListener('blur', () => {
+      // slight delay to allow mousedown on list item to fire first
+      setTimeout(() => {
+        closeDropdown();
+        // if nothing selected but text typed, allow free text entry
+        if (holdSearch.value && !holdHidden.value) {
+          holdHidden.value = holdSearch.value;
+          holdClear.classList.remove('hidden');
+        }
+      }, 180);
+    });
+
+    if (holdClear) {
+      holdClear.addEventListener('click', clearSelection);
+    }
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!holdCombobox.contains(e.target)) {
+        closeDropdown();
+      }
+    });
   }
 
 });

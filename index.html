@@ -59,6 +59,7 @@
           <a href="#features" class="nav-link text-sm font-medium text-gray-600 hover:text-primary transition-colors">Funktioner</a>
           <a href="#how-it-works" class="nav-link text-sm font-medium text-gray-600 hover:text-primary transition-colors">Sådan virker det</a>
           <a href="#pricing" class="nav-link text-sm font-medium text-gray-600 hover:text-primary transition-colors">Gratis</a>
+          <a href="#onboarding" class="nav-link text-sm font-medium text-gray-600 hover:text-primary transition-colors">Kom i gang</a>
         </div>
 
         <!-- Desktop CTA -->
@@ -81,6 +82,7 @@
         <a href="#features" class="mobile-nav-link">Funktioner</a>
         <a href="#how-it-works" class="mobile-nav-link">Sådan virker det</a>
         <a href="#pricing" class="mobile-nav-link">Gratis</a>
+        <a href="#onboarding" class="mobile-nav-link">Kom i gang</a>
         <div class="border-t border-gray-100 my-3"></div>
         <a href="https://app.lunarcaptain.dk" class="mobile-nav-link text-primary font-semibold">Log ind</a>
         <a href="https://app.lunarcaptain.dk" class="btn-primary text-center mt-2">Kom i gang gratis</a>
@@ -600,6 +602,88 @@
       </div>
     </section>
 
+    <!-- ===================== ONBOARDING FORM ===================== -->
+    <section id="onboarding" class="section-py bg-white">
+      <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="text-center mb-10">
+          <p class="reveal section-overline">Kom i gang</p>
+          <h2 class="reveal text-4xl lg:text-5xl font-black text-gray-900 mt-3 mb-4">Få et onboarding-link</h2>
+          <p class="reveal text-lg text-muted max-w-lg mx-auto">Udfyld formularen — så sender jeg dig et link du kan dele med dine spillere.</p>
+        </div>
+
+        <form
+          action="https://formspree.io/f/mzdjlyjj"
+          method="POST"
+          class="onboarding-form reveal"
+          id="onboarding-form"
+        >
+          <!-- Navn -->
+          <div class="form-group">
+            <label for="navn" class="form-label">Dit navn</label>
+            <input type="text" id="navn" name="navn" placeholder="Rasmus Sørensen" required class="form-input" />
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="email" class="form-label">Din email</label>
+            <input type="email" id="email" name="email" placeholder="rasmus@gmail.com" required class="form-input" />
+          </div>
+
+          <!-- Hold — søgbar dropdown -->
+          <div class="form-group">
+            <label for="hold-search" class="form-label">Dit hold / din klub</label>
+            <div class="hold-combobox" id="hold-combobox">
+              <div class="hold-input-wrap">
+                <i data-lucide="search" class="hold-search-icon"></i>
+                <input
+                  type="text"
+                  id="hold-search"
+                  autocomplete="off"
+                  placeholder="Søg på holdnavn…"
+                  class="form-input hold-search-input"
+                  aria-label="Søg hold"
+                  aria-autocomplete="list"
+                  aria-controls="hold-listbox"
+                  aria-expanded="false"
+                />
+                <button type="button" class="hold-clear-btn hidden" id="hold-clear" aria-label="Ryd valg">
+                  <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+              </div>
+              <ul id="hold-listbox" class="hold-dropdown hidden" role="listbox" aria-label="Holdliste"></ul>
+              <!-- Hidden real form field -->
+              <input type="hidden" id="hold" name="hold" required />
+            </div>
+          </div>
+
+          <!-- Besked (valgfri) -->
+          <div class="form-group">
+            <label for="besked" class="form-label">Evt. besked <span class="text-gray-400 font-normal">(valgfri)</span></label>
+            <textarea id="besked" name="besked" rows="3" placeholder="Antal spillere på holdet, spørgsmål mv." class="form-input form-textarea"></textarea>
+          </div>
+
+          <!-- Hidden fields -->
+          <input type="hidden" name="_subject" value="Ny onboarding-anmodning — LigaCaptain" />
+          <input type="hidden" name="_next" value="" />
+
+          <button type="submit" class="btn-primary w-full py-4 text-base mt-2">
+            Send anmodning &rarr;
+          </button>
+
+          <p class="text-xs text-center text-muted mt-4">Ingen spam. Kun onboarding-link. Svar inden for 24 timer.</p>
+        </form>
+
+        <!-- Succes-besked (skjult til start) -->
+        <div id="form-success" class="form-success hidden">
+          <div class="text-4xl mb-3">🎉</div>
+          <h3 class="text-xl font-black text-gray-900 mb-2">Tak — vi vender tilbage!</h3>
+          <p class="text-muted text-sm">Du modtager dit onboarding-link på <strong id="success-email"></strong> inden for 24 timer.</p>
+        </div>
+
+      </div>
+    </section>
+
     <!-- ===================== FINAL CTA ===================== -->
     <section class="cta-gradient section-py">
       <div class="max-w-3xl mx-auto px-4 text-center">
@@ -636,6 +720,7 @@
     </div>
   </footer>
 
-  <script src="script.js" defer></script>
+  <script src="teams-data.js?v=2" defer></script>
+  <script src="script.js?v=2" defer></script>
 </body>
 </html>

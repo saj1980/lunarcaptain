@@ -1087,6 +1087,179 @@ body:not(:has(#announcement-bar)) #navbar {
 }
 
 /* ============================================================
+   ONBOARDING FORM
+   ============================================================ */
+
+.onboarding-form {
+  background: #f8fafc;
+  border: 1.5px solid var(--color-border);
+  border-radius: 24px;
+  padding: 36px 32px;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-label {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #111827;
+  background: white;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  outline: none;
+  font-family: inherit;
+}
+
+.form-input::placeholder {
+  color: #9ca3af;
+}
+
+.form-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(9, 132, 227, 0.12);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.form-success {
+  text-align: center;
+  padding: 40px 24px;
+  background: #f0fdf4;
+  border: 1.5px solid #bbf7d0;
+  border-radius: 24px;
+}
+
+.form-success.hidden {
+  display: none;
+}
+
+/* ============================================================
+   HOLD COMBOBOX (searchable dropdown)
+   ============================================================ */
+
+.hold-combobox {
+  position: relative;
+}
+
+.hold-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.hold-search-icon {
+  position: absolute;
+  left: 14px;
+  width: 17px;
+  height: 17px;
+  color: var(--color-muted);
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.hold-search-input {
+  padding-left: 42px !important;
+  padding-right: 38px !important;
+}
+
+.hold-clear-btn {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-muted);
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: color 0.15s, background 0.15s;
+}
+.hold-clear-btn:hover {
+  color: #1e293b;
+  background: #f1f5f9;
+}
+.hold-clear-btn.hidden {
+  display: none;
+}
+
+.hold-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1.5px solid var(--color-border);
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(9, 132, 227, 0.10), 0 2px 8px rgba(0,0,0,0.07);
+  max-height: 260px;
+  overflow-y: auto;
+  z-index: 200;
+  padding: 6px 0;
+  list-style: none;
+  margin: 0;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+.hold-dropdown.hidden {
+  display: none;
+}
+
+.hold-dropdown li {
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: 0.92rem;
+  color: #1e293b;
+  border-radius: 8px;
+  margin: 1px 6px;
+  transition: background 0.12s;
+  line-height: 1.35;
+}
+
+.hold-dropdown li:hover,
+.hold-dropdown li.active {
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+}
+
+.hold-dropdown li .hold-match {
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.hold-dropdown li.hold-no-results {
+  color: var(--color-muted);
+  font-style: italic;
+  cursor: default;
+  background: none;
+}
+.hold-dropdown li.hold-no-results:hover {
+  background: none;
+}
+
+.hold-dropdown li .hold-item-name {
+  display: block;
+  font-weight: 500;
+}
+
+/* ============================================================
    PRICING
    ============================================================ */
 
