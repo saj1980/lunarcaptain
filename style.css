@@ -1268,6 +1268,34 @@ body:not(:has(#announcement-bar)) #navbar {
 }
 
 /* ============================================================
+   RANKEDIN BADGE
+   ============================================================ */
+
+.rankedin-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  background: #fff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 50px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.rankedin-badge-label {
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.rankedin-badge-logo {
+  height: 22px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* ============================================================
    PRICING
    ============================================================ */
 
