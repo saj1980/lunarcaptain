@@ -132,10 +132,17 @@ html {
    NAVIGATION
    ============================================================ */
 
+#sticky-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+}
+
 #navbar {
   background: rgba(255, 255, 255, 0);
   transition: background 0.3s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease;
-  /* position is relative within #sticky-header — no top offset needed */
 }
 
 #navbar.nav-scrolled {
@@ -143,6 +150,12 @@ html {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06), 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* Hamburger — ensure SVG/icon never intercepts the click, button always does */
+#hamburger svg,
+#hamburger i {
+  pointer-events: none;
 }
 
 /* Mobile drawer */

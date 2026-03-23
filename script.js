@@ -64,9 +64,27 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ============================================================
-  // 2. Nav scroll behaviour (glassmorphism)
+  // 2. Fixed header — push body content below it
   // ============================================================
   const navbar = document.getElementById('navbar');
+  const stickyHeader = document.getElementById('sticky-header');
+
+  function updateBodyPadding() {
+    if (stickyHeader) {
+      document.body.style.paddingTop = stickyHeader.offsetHeight + 'px';
+    }
+  }
+
+  // Run immediately, after first paint, and after fonts load
+  updateBodyPadding();
+  requestAnimationFrame(() => requestAnimationFrame(updateBodyPadding));
+  window.addEventListener('load', updateBodyPadding);
+  window.addEventListener('resize', updateBodyPadding);
+
+  // Re-run whenever the header changes height (e.g. announcement bar closes or text wraps)
+  if ('ResizeObserver' in window && stickyHeader) {
+    new ResizeObserver(updateBodyPadding).observe(stickyHeader);
+  }
 
   function handleNavScroll() {
     if (window.scrollY > 60) {
