@@ -58,6 +58,7 @@
         <div class="hidden md:flex items-center gap-8">
           <a href="#features" class="nav-link text-sm font-medium text-gray-600 hover:text-primary transition-colors">Funktioner</a>
           <a href="#how-it-works" class="nav-link text-sm font-medium text-gray-600 hover:text-primary transition-colors">Sådan virker det</a>
+          <a href="tutorials.html" class="nav-link text-sm font-medium text-gray-600 hover:text-primary transition-colors">Guides</a>
           <a href="#pricing" class="nav-link text-sm font-medium text-gray-600 hover:text-primary transition-colors">Gratis</a>
           <a href="#onboarding" class="nav-link text-sm font-medium text-gray-600 hover:text-primary transition-colors">Kom i gang</a>
         </div>
@@ -80,6 +81,7 @@
       <div class="flex flex-col gap-1 p-4">
         <a href="#features" class="mobile-nav-link">Funktioner</a>
         <a href="#how-it-works" class="mobile-nav-link">Sådan virker det</a>
+        <a href="tutorials.html" class="mobile-nav-link">Guides</a>
         <a href="#pricing" class="mobile-nav-link">Gratis</a>
         <a href="#onboarding" class="mobile-nav-link">Kom i gang</a>
         <div class="border-t border-gray-100 my-3"></div>
@@ -348,7 +350,30 @@
               <p class="feature-check-desc">Del ét link — spillerne tilmelder sig dit hold med det samme.</p>
             </div>
           </div>
+          <div class="feature-check-item">
+            <span class="feature-check-mark">✓</span>
+            <div>
+              <p class="feature-check-title">Licensadvarsel</p>
+              <p class="feature-check-desc">Appen advarer automatisk hvis en spiller mangler gyldig DPF-licens inden kamp.</p>
+            </div>
+          </div>
+          <div class="feature-check-item">
+            <span class="feature-check-mark">✓</span>
+            <div>
+              <p class="feature-check-title">Kalender-abonnement</p>
+              <p class="feature-check-desc">Abonnér på holdets kampe direkte i din kalender — opdateres automatisk fra RankedIn.</p>
+            </div>
+          </div>
         </div>
+
+        <!-- RankedIn badge -->
+        <div class="reveal flex justify-center mt-10">
+          <div class="rankedin-badge">
+            <span class="rankedin-badge-label">Kampdata leveret af</span>
+            <img src="rankedin-logo.jpg" alt="RankedIn" class="rankedin-badge-logo" />
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -445,7 +470,13 @@
         <div class="reveal phases-cta mt-14">
           <p class="text-lg font-bold text-gray-900 mb-1">Valget er dit — men vent ikke.</p>
           <p class="text-muted mb-5">Onboard dine spillere nu, så I er fortrolige med appen når sæsonen starter. Det er gratis.</p>
-          <a href="#onboarding" class="btn-primary text-base px-8 py-3.5">Kom i gang gratis →</a>
+          <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <a href="#onboarding" class="btn-primary text-base px-8 py-3.5">Kom i gang gratis →</a>
+            <a href="tutorials.html" class="btn-secondary text-base px-8 py-3.5 flex items-center justify-center gap-2">
+              <i data-lucide="play-circle" class="w-5 h-5"></i>
+              Se det i praksis
+            </a>
+          </div>
         </div>
 
       </div>
@@ -474,6 +505,15 @@
           </div>
 
         </div>
+
+        <!-- RankedIn data badge -->
+        <div class="flex justify-center mt-8 reveal">
+          <div class="rankedin-badge">
+            <span class="rankedin-badge-label">Kampdata synkroniseret fra</span>
+            <img src="rankedin-logo.jpg" alt="RankedIn" class="rankedin-badge-logo" />
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -615,37 +655,39 @@
           method="POST"
           class="onboarding-form reveal"
           id="onboarding-form"
+          style="background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:24px;padding:36px 32px;"
         >
           <!-- Navn -->
-          <div class="form-group">
-            <label for="navn" class="form-label">Dit navn</label>
-            <input type="text" id="navn" name="navn" placeholder="Rasmus Sørensen" required class="form-input" />
+          <div style="margin-bottom:18px;">
+            <label for="navn" style="display:block;font-size:13.5px;font-weight:700;color:#374151;margin-bottom:6px;">Dit navn</label>
+            <input type="text" id="navn" name="navn" placeholder="Rasmus Sørensen" required class="form-input" style="width:100%;padding:11px 14px;border:1.5px solid #d1d5db;border-radius:10px;font-size:14px;color:#111827;background:white;outline:none;font-family:inherit;box-sizing:border-box;" />
           </div>
 
           <!-- Email -->
-          <div class="form-group">
-            <label for="email" class="form-label">Din email</label>
-            <input type="email" id="email" name="email" placeholder="rasmus@gmail.com" required class="form-input" />
+          <div style="margin-bottom:18px;">
+            <label for="email" style="display:block;font-size:13.5px;font-weight:700;color:#374151;margin-bottom:6px;">Din email</label>
+            <input type="email" id="email" name="email" placeholder="rasmus@gmail.com" required class="form-input" style="width:100%;padding:11px 14px;border:1.5px solid #d1d5db;border-radius:10px;font-size:14px;color:#111827;background:white;outline:none;font-family:inherit;box-sizing:border-box;" />
           </div>
 
           <!-- Hold — søgbar dropdown -->
-          <div class="form-group">
-            <label for="hold-search" class="form-label">Dit hold / din klub</label>
-            <div class="hold-combobox" id="hold-combobox">
-              <div class="hold-input-wrap">
-                <i data-lucide="search" class="hold-search-icon"></i>
+          <div style="margin-bottom:18px;">
+            <label for="hold-search" style="display:block;font-size:13.5px;font-weight:700;color:#374151;margin-bottom:6px;">Dit hold / din klub</label>
+            <div class="hold-combobox" id="hold-combobox" style="position:relative;">
+              <div class="hold-input-wrap" style="position:relative;display:flex;align-items:center;">
+                <i data-lucide="search" class="hold-search-icon" style="position:absolute;left:14px;width:17px;height:17px;color:#64748b;pointer-events:none;flex-shrink:0;"></i>
                 <input
                   type="text"
                   id="hold-search"
                   autocomplete="off"
                   placeholder="Søg på holdnavn…"
                   class="form-input hold-search-input"
+                  style="width:100%;padding:11px 14px 11px 42px;border:1.5px solid #d1d5db;border-radius:10px;font-size:14px;color:#111827;background:white;outline:none;font-family:inherit;box-sizing:border-box;"
                   aria-label="Søg hold"
                   aria-autocomplete="list"
                   aria-controls="hold-listbox"
                   aria-expanded="false"
                 />
-                <button type="button" class="hold-clear-btn hidden" id="hold-clear" aria-label="Ryd valg">
+                <button type="button" class="hold-clear-btn hidden" id="hold-clear" aria-label="Ryd valg" style="position:absolute;right:12px;background:none;border:none;cursor:pointer;color:#64748b;padding:2px;display:flex;align-items:center;justify-content:center;border-radius:50%;">
                   <i data-lucide="x" class="w-4 h-4"></i>
                 </button>
               </div>
@@ -656,9 +698,9 @@
           </div>
 
           <!-- Besked (valgfri) -->
-          <div class="form-group">
-            <label for="besked" class="form-label">Evt. besked <span class="text-gray-400 font-normal">(valgfri)</span></label>
-            <textarea id="besked" name="besked" rows="3" placeholder="Antal spillere på holdet, spørgsmål mv." class="form-input form-textarea"></textarea>
+          <div style="margin-bottom:18px;">
+            <label for="besked" style="display:block;font-size:13.5px;font-weight:700;color:#374151;margin-bottom:6px;">Evt. besked <span style="color:#9ca3af;font-weight:400;">(valgfri)</span></label>
+            <textarea id="besked" name="besked" rows="3" placeholder="Antal spillere på holdet, spørgsmål mv." class="form-input form-textarea" style="width:100%;padding:11px 14px;border:1.5px solid #d1d5db;border-radius:10px;font-size:14px;color:#111827;background:white;outline:none;font-family:inherit;resize:vertical;min-height:80px;box-sizing:border-box;"></textarea>
           </div>
 
           <!-- Hidden fields -->
@@ -676,7 +718,14 @@
         <div id="form-success" class="form-success hidden">
           <div class="text-4xl mb-3">🎉</div>
           <h3 class="text-xl font-black text-gray-900 mb-2">Tak — vi vender tilbage!</h3>
-          <p class="text-muted text-sm">Du modtager dit onboarding-link på <strong id="success-email"></strong> inden for 24 timer.</p>
+          <p class="text-muted text-sm mb-4">Du modtager dit onboarding-link på <strong id="success-email"></strong> inden for 24 timer.</p>
+          <div class="border-t border-green-100 pt-4 mt-2">
+            <p class="text-sm text-gray-600 mb-3">Mens du venter — se hvordan appen virker:</p>
+            <a href="tutorials.html" class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-white font-semibold rounded-full text-sm hover:bg-primary-dark transition-colors">
+              <i data-lucide="play-circle" class="w-4 h-4"></i>
+              Se video-guides
+            </a>
+          </div>
         </div>
 
       </div>
@@ -718,7 +767,7 @@
     </div>
   </footer>
 
-  <script src="teams-data.js?v=4" defer></script>
-  <script src="script.js?v=4" defer></script>
+  <script src="teams-data.js?v=6" defer></script>
+  <script src="script.js?v=6" defer></script>
 </body>
 </html>

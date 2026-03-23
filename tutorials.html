@@ -1,0 +1,891 @@
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kaptajnens Guide — LigaCaptain</title>
+  <meta name="description" content="Video-guides til alle funktioner i LigaCaptain. Lær at aktivere kampe, lave afstemninger, udtage spillere og meget mere." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="https://unpkg.com/lucide@latest" defer></script>
+  <link rel="stylesheet" href="style.css" />
+  <style type="text/tailwindcss">
+    @theme {
+      --color-primary: #0984e3;
+      --color-primary-dark: #0770c2;
+      --color-primary-light: #dbeafe;
+      --color-accent: #00B894;
+      --color-accent-dark: #00967a;
+      --color-cta: #f39c12;
+      --color-cta-hover: #d68910;
+      --color-dark: #0B1A2C;
+      --color-muted: #64748b;
+      --color-bg-soft: #f0f7ff;
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+  </style>
+  <style>
+    /* ---- Tutorial page specific styles ---- */
+    .tut-hero {
+      background: linear-gradient(135deg, #f0f7ff 0%, #e8f4fd 100%);
+      padding: 80px 0 60px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .tut-sidebar {
+      position: sticky;
+      top: 100px;
+    }
+
+    .tut-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #64748b;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+    }
+
+    .tut-nav-item:hover {
+      background: #f0f7ff;
+      color: #0984e3;
+    }
+
+    .tut-nav-item.active {
+      background: #dbeafe;
+      color: #0984e3;
+      font-weight: 700;
+    }
+
+    .tut-nav-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #e2e8f0;
+      color: #64748b;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .tut-nav-item.active .tut-nav-num,
+    .tut-nav-item:hover .tut-nav-num {
+      background: #0984e3;
+      color: white;
+    }
+
+    .tut-nav-item.done .tut-nav-num {
+      background: #00B894;
+      color: white;
+    }
+
+    /* Tutorial card */
+    .tut-card {
+      background: white;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 40px;
+      scroll-margin-top: 100px;
+    }
+
+    .tut-card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 22px 28px;
+      border-bottom: 1px solid #f1f5f9;
+      background: #fafbfc;
+    }
+
+    .tut-card-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      color: white;
+      font-size: 0.95rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .tut-card-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #111827;
+      margin: 0;
+    }
+
+    .tut-card-tag {
+      margin-left: auto;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: #f0f7ff;
+      color: #0984e3;
+    }
+
+    /* Phone frame wrapper — centers the phone in the card */
+    .tut-video-wrap {
+      background: #f1f5f9;
+      padding: 32px 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 1px solid #e2e8f0;
+      position: relative;
+    }
+
+    /* Phone shell */
+    .tut-phone-frame {
+      position: relative;
+      width: 260px;
+      border-radius: 36px;
+      background: #0f172a;
+      padding: 14px 10px;
+      box-shadow:
+        0 0 0 2px #1e293b,
+        0 0 0 5px #334155,
+        0 20px 60px rgba(0,0,0,0.35);
+    }
+
+    /* Notch / dynamic island */
+    .tut-phone-notch {
+      width: 80px;
+      height: 22px;
+      background: #0f172a;
+      border-radius: 0 0 16px 16px;
+      margin: 0 auto 8px;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .tut-phone-notch::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #1e293b;
+    }
+
+    .tut-phone-notch::after {
+      content: '';
+      width: 40px;
+      height: 6px;
+      border-radius: 6px;
+      background: #1e293b;
+    }
+
+    /* Screen — 9:16 portrait */
+    .tut-phone-screen {
+      position: relative;
+      width: 100%;
+      padding-bottom: 216.5%;   /* 9:16 → 16/9 × 100% ≈ 177.8%; add extra for bezel */
+      border-radius: 24px;
+      overflow: hidden;
+      background: #0f172a;
+    }
+
+    .tut-phone-screen iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+      border-radius: 24px;
+    }
+
+    /* Home indicator */
+    .tut-phone-home {
+      width: 80px;
+      height: 5px;
+      background: #334155;
+      border-radius: 5px;
+      margin: 10px auto 0;
+    }
+
+    /* Placeholder when no video URL yet */
+    .tut-video-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: linear-gradient(160deg, #1e293b 0%, #0f172a 100%);
+      border-radius: 24px;
+    }
+
+    .tut-video-placeholder .play-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 2px solid #334155;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #475569;
+    }
+
+    .tut-video-placeholder p {
+      font-size: 0.78rem;
+      color: #475569;
+      text-align: center;
+      padding: 0 12px;
+    }
+
+    .tut-card-body {
+      padding: 24px 28px 28px;
+    }
+
+    .tut-desc {
+      font-size: 0.95rem;
+      color: #374151;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .tut-steps {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .tut-steps li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.875rem;
+      color: #4b5563;
+      line-height: 1.5;
+    }
+
+    .tut-step-dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #f0f7ff;
+      border: 1.5px solid #bfdbfe;
+      color: #0984e3;
+      font-size: 0.7rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .tut-tip {
+      display: flex;
+      gap: 10px;
+      padding: 12px 16px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      margin-top: 16px;
+      font-size: 0.85rem;
+      color: #166534;
+      line-height: 1.5;
+    }
+
+    .tut-tip svg {
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* Progress bar */
+    .tut-progress-bar {
+      height: 4px;
+      background: #e2e8f0;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .tut-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #0984e3, #00B894);
+      border-radius: 4px;
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    /* Mobile nav toggle */
+    .tut-mobile-menu {
+      display: none;
+    }
+
+    @media (max-width: 1023px) {
+      .tut-mobile-menu {
+        display: block;
+      }
+      .tut-sidebar-desktop {
+        display: none;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .tut-mobile-menu {
+        display: none;
+      }
+      .tut-sidebar-desktop {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body class="font-sans antialiased bg-white text-gray-900">
+
+  <!-- ===================== NAV ===================== -->
+  <nav id="navbar" class="fixed left-0 right-0 z-50 transition-all duration-300" style="top:0;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-2 no-underline">
+          <img src="logo.png" alt="LigaCaptain" class="nav-logo" />
+          <span class="text-xl font-bold text-gray-900">LigaCaptain</span>
+        </a>
+
+        <!-- Desktop nav -->
+        <div class="hidden md:flex items-center gap-8">
+          <a href="index.html#features" class="nav-link text-sm font-medium text-gray-600 hover:text-primary transition-colors">Funktioner</a>
+          <a href="index.html#how-it-works" class="nav-link text-sm font-medium text-gray-600 hover:text-primary transition-colors">Sådan virker det</a>
+          <a href="tutorials.html" class="nav-link text-sm font-medium text-primary font-semibold transition-colors">Guides</a>
+          <a href="index.html#pricing" class="nav-link text-sm font-medium text-gray-600 hover:text-primary transition-colors">Gratis</a>
+        </div>
+
+        <!-- CTA -->
+        <div class="hidden md:flex items-center gap-3">
+          <a href="index.html#onboarding" class="btn-primary text-sm">Kom i gang gratis</a>
+        </div>
+
+        <!-- Mobile hamburger -->
+        <button id="hamburger" aria-label="Åbn menu" aria-expanded="false" class="md:hidden p-2 rounded-lg text-gray-600 hover:text-primary hover:bg-gray-100 transition-colors">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div id="mobile-drawer" class="mobile-drawer md:hidden">
+      <div class="flex flex-col gap-1 p-4">
+        <a href="index.html#features" class="mobile-nav-link">Funktioner</a>
+        <a href="index.html#how-it-works" class="mobile-nav-link">Sådan virker det</a>
+        <a href="tutorials.html" class="mobile-nav-link text-primary font-semibold">Guides</a>
+        <a href="index.html#pricing" class="mobile-nav-link">Gratis</a>
+        <div class="border-t border-gray-100 my-3"></div>
+        <a href="index.html#onboarding" class="btn-primary text-center mt-2">Kom i gang gratis</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===================== HERO ===================== -->
+  <div class="tut-hero" style="margin-top:64px;">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-semibold mb-5">
+        <i data-lucide="play-circle" class="w-4 h-4"></i>
+        Video-guides
+      </div>
+      <h1 class="text-4xl lg:text-5xl font-black text-gray-900 mb-4">Kaptajnens guide</h1>
+      <p class="text-lg text-muted max-w-2xl mx-auto">Alt du behøver for at komme i gang med LigaCaptain. Se videoerne i rækkefølge — eller hop direkte til det du mangler.</p>
+      <div class="flex items-center justify-center gap-3 mt-6 text-sm text-muted">
+        <span class="flex items-center gap-1.5"><i data-lucide="video" class="w-4 h-4 text-primary"></i> 8 videoer</span>
+        <span class="text-gray-300">·</span>
+        <span class="flex items-center gap-1.5"><i data-lucide="clock" class="w-4 h-4 text-primary"></i> ca. 15 min i alt</span>
+        <span class="text-gray-300">·</span>
+        <span class="flex items-center gap-1.5"><i data-lucide="smartphone" class="w-4 h-4 text-primary"></i> Virker på telefon</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== MAIN CONTENT ===================== -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="flex gap-12">
+
+      <!-- ── SIDEBAR (desktop) ── -->
+      <aside class="tut-sidebar-desktop w-72 flex-shrink-0">
+        <div class="tut-sidebar">
+
+          <p class="text-xs font-bold text-muted uppercase tracking-widest mb-3 px-2">Indhold</p>
+
+          <div class="tut-progress-bar">
+            <div class="tut-progress-fill" id="progress-fill"></div>
+          </div>
+
+          <nav id="tut-sidenav">
+            <a href="#tut-1" class="tut-nav-item active">
+              <span class="tut-nav-num">1</span>Aktivér dine kampe
+            </a>
+            <a href="#tut-2" class="tut-nav-item">
+              <span class="tut-nav-num">2</span>Åben afstemning
+            </a>
+            <a href="#tut-3" class="tut-nav-item">
+              <span class="tut-nav-num">3</span>Holdkamp afstemning
+            </a>
+            <a href="#tut-4" class="tut-nav-item">
+              <span class="tut-nav-num">4</span>Aktivér holdkampafstemning
+            </a>
+            <a href="#tut-5" class="tut-nav-item">
+              <span class="tut-nav-num">5</span>Til- & framelding af spillere
+            </a>
+            <a href="#tut-6" class="tut-nav-item">
+              <span class="tut-nav-num">6</span>Udtag dine spillere
+            </a>
+            <a href="#tut-7" class="tut-nav-item">
+              <span class="tut-nav-num">7</span>Holdopstilling
+            </a>
+            <a href="#tut-8" class="tut-nav-item">
+              <span class="tut-nav-num">8</span>Træningssession
+            </a>
+          </nav>
+
+          <div class="mt-6 p-4 bg-bg-soft rounded-16 border border-primary/10">
+            <p class="text-xs font-bold text-gray-700 mb-1">Mangler du adgang?</p>
+            <p class="text-xs text-muted mb-3">Udfyld formularen og få dit onboarding-link.</p>
+            <a href="index.html#onboarding" class="btn-primary text-xs py-2 px-4 w-full text-center block">Kom i gang →</a>
+          </div>
+
+        </div>
+      </aside>
+
+      <!-- ── TUTORIALS ── -->
+      <div class="flex-1 min-w-0">
+
+        <!-- Mobile chapter nav -->
+        <div class="tut-mobile-menu mb-6">
+          <select id="mobile-chapter-select" class="w-full border border-gray-200 rounded-12 px-4 py-3 text-sm font-medium text-gray-700 bg-white" onchange="location.href=this.value">
+            <option value="#tut-1">1 — Aktivér dine kampe</option>
+            <option value="#tut-2">2 — Åben afstemning</option>
+            <option value="#tut-3">3 — Holdkamp afstemning</option>
+            <option value="#tut-4">4 — Aktivér holdkampafstemning</option>
+            <option value="#tut-5">5 — Til- & framelding af spillere</option>
+            <option value="#tut-6">6 — Udtag dine spillere</option>
+            <option value="#tut-7">7 — Holdopstilling</option>
+            <option value="#tut-8">8 — Træningssession</option>
+          </select>
+        </div>
+
+        <!-- ─── TUTORIAL 1 ─── -->
+        <div class="tut-card" id="tut-1">
+          <div class="tut-card-header">
+            <div class="tut-card-num">1</div>
+            <h2 class="tut-card-title">Aktivér dine kampe</h2>
+            <span class="tut-card-tag">Kom i gang</span>
+          </div>
+          <div class="tut-video-wrap">
+            <div class="tut-phone-frame">
+              <div class="tut-phone-notch"></div>
+              <div class="tut-phone-screen">
+                <!-- Erstat med: <iframe src="https://streamable.com/e/VIDEOID" allowfullscreen></iframe> -->
+                <div class="tut-video-placeholder">
+                  <div class="play-icon"><i data-lucide="play" class="w-6 h-6"></i></div>
+                  <p>Video kommer snart</p>
+                </div>
+              </div>
+              <div class="tut-phone-home"></div>
+            </div>
+          </div>
+          <div class="tut-card-body">
+            <p class="tut-desc">Inden dine spillere kan melde ind på kampe, skal kampene aktiveres i appen. LigaCaptain henter automatisk kampdata fra RankedIn — du skal blot aktivere dem med ét tryk.</p>
+            <ul class="tut-steps">
+              <li><span class="tut-step-dot">1</span>Gå til <strong>Kampe</strong> i menuen</li>
+              <li><span class="tut-step-dot">2</span>Find den kamp du vil aktivere</li>
+              <li><span class="tut-step-dot">3</span>Tryk <strong>Aktivér kamp</strong> — spillerne kan nu melde ind</li>
+            </ul>
+            <div class="tut-tip">
+              <i data-lucide="lightbulb" class="w-4 h-4 flex-shrink-0 mt-0.5"></i>
+              <span>Aktivér gerne kampe i god tid — så har spillerne mulighed for at melde ind før deadline.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── TUTORIAL 2 ─── -->
+        <div class="tut-card" id="tut-2">
+          <div class="tut-card-header">
+            <div class="tut-card-num">2</div>
+            <h2 class="tut-card-title">Åben afstemning</h2>
+            <span class="tut-card-tag">Afstemninger</span>
+          </div>
+          <div class="tut-video-wrap">
+            <div class="tut-phone-frame">
+              <div class="tut-phone-notch"></div>
+              <div class="tut-phone-screen">
+                <div class="tut-video-placeholder">
+                  <div class="play-icon"><i data-lucide="play" class="w-6 h-6"></i></div>
+                  <p>Video kommer snart</p>
+                </div>
+              </div>
+              <div class="tut-phone-home"></div>
+            </div>
+          </div>
+          <div class="tut-card-body">
+            <p class="tut-desc">En åben afstemning bruges typisk i starten af sæsonen, inden kampplanen er frigivet. Du spørger spillerne om de er klar til sæsonen — ingen specifikke kampdatoer endnu.</p>
+            <ul class="tut-steps">
+              <li><span class="tut-step-dot">1</span>Gå til <strong>Afstemninger</strong> og vælg <strong>Ny åben afstemning</strong></li>
+              <li><span class="tut-step-dot">2</span>Skriv en titel (fx "Er du med denne sæson?")</li>
+              <li><span class="tut-step-dot">3</span>Sæt deadline og send til holdets spillere</li>
+              <li><span class="tut-step-dot">4</span>Følg svarene i realtid under afstemningen</li>
+            </ul>
+            <div class="tut-tip">
+              <i data-lucide="lightbulb" class="w-4 h-4 flex-shrink-0 mt-0.5"></i>
+              <span>Brug åbne afstemninger til at kortlægge holdets rådighedsdage, inden du svarer DPF på kampforslag.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── TUTORIAL 3 ─── -->
+        <div class="tut-card" id="tut-3">
+          <div class="tut-card-header">
+            <div class="tut-card-num">3</div>
+            <h2 class="tut-card-title">Holdkamp afstemning</h2>
+            <span class="tut-card-tag">Afstemninger</span>
+          </div>
+          <div class="tut-video-wrap">
+            <div class="tut-phone-frame">
+              <div class="tut-phone-notch"></div>
+              <div class="tut-phone-screen">
+                <div class="tut-video-placeholder">
+                  <div class="play-icon"><i data-lucide="play" class="w-6 h-6"></i></div>
+                  <p>Video kommer snart</p>
+                </div>
+              </div>
+              <div class="tut-phone-home"></div>
+            </div>
+          </div>
+          <div class="tut-card-body">
+            <p class="tut-desc">En holdkamp afstemning er knyttet til en specifik kamp fra kampplanen. Spillerne melder ind på præcis den dato — og du kan se hvem der kan og ikke kan.</p>
+            <ul class="tut-steps">
+              <li><span class="tut-step-dot">1</span>Gå til <strong>Kampe</strong> og vælg den relevante kamp</li>
+              <li><span class="tut-step-dot">2</span>Tryk <strong>Opret holdkamp afstemning</strong></li>
+              <li><span class="tut-step-dot">3</span>Vælg hvilke spillere der skal modtage afstemningen</li>
+              <li><span class="tut-step-dot">4</span>Send — spillerne notificeres med push-besked</li>
+            </ul>
+            <div class="tut-tip">
+              <i data-lucide="lightbulb" class="w-4 h-4 flex-shrink-0 mt-0.5"></i>
+              <span>Spillere der ikke selv er logget ind, kan du tilmelde manuelt — se guide nr. 5.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── TUTORIAL 4 ─── -->
+        <div class="tut-card" id="tut-4">
+          <div class="tut-card-header">
+            <div class="tut-card-num">4</div>
+            <h2 class="tut-card-title">Aktivér en holdkampafstemning</h2>
+            <span class="tut-card-tag">Afstemninger</span>
+          </div>
+          <div class="tut-video-wrap">
+            <div class="tut-phone-frame">
+              <div class="tut-phone-notch"></div>
+              <div class="tut-phone-screen">
+                <div class="tut-video-placeholder">
+                  <div class="play-icon"><i data-lucide="play" class="w-6 h-6"></i></div>
+                  <p>Video kommer snart</p>
+                </div>
+              </div>
+              <div class="tut-phone-home"></div>
+            </div>
+          </div>
+          <div class="tut-card-body">
+            <p class="tut-desc">Når du har oprettet en holdkamp afstemning, skal den aktiveres, før spillerne kan se og besvare den. Denne guide viser dig de to trin.</p>
+            <ul class="tut-steps">
+              <li><span class="tut-step-dot">1</span>Find afstemningen under <strong>Afstemninger → Afventer</strong></li>
+              <li><span class="tut-step-dot">2</span>Gennemgå spillerlisten og juster om nødvendigt</li>
+              <li><span class="tut-step-dot">3</span>Tryk <strong>Aktivér</strong> — afstemningen er nu åben for spillerne</li>
+            </ul>
+            <div class="tut-tip">
+              <i data-lucide="lightbulb" class="w-4 h-4 flex-shrink-0 mt-0.5"></i>
+              <span>En afstemning kan kun aktiveres én gang. Tjek spillerlisten grundigt inden du aktiverer.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── TUTORIAL 5 ─── -->
+        <div class="tut-card" id="tut-5">
+          <div class="tut-card-header">
+            <div class="tut-card-num">5</div>
+            <h2 class="tut-card-title">Til- & framelding af spillere</h2>
+            <span class="tut-card-tag">Spillere</span>
+          </div>
+          <div class="tut-video-wrap">
+            <div class="tut-phone-frame">
+              <div class="tut-phone-notch"></div>
+              <div class="tut-phone-screen">
+                <div class="tut-video-placeholder">
+                  <div class="play-icon"><i data-lucide="play" class="w-6 h-6"></i></div>
+                  <p>Video kommer snart</p>
+                </div>
+              </div>
+              <div class="tut-phone-home"></div>
+            </div>
+          </div>
+          <div class="tut-card-body">
+            <p class="tut-desc">Ikke alle spillere logger altid aktivt ind i appen. Som kaptajn kan du til- og framelde spillere manuelt på deres vegne — direkte fra holdopstillingssiden.</p>
+            <ul class="tut-steps">
+              <li><span class="tut-step-dot">1</span>Gå til den aktive kamp eller afstemning</li>
+              <li><span class="tut-step-dot">2</span>Find spillerens navn i listen</li>
+              <li><span class="tut-step-dot">3</span>Tryk på spillerens status og skift til <strong>Tilmeldt</strong> eller <strong>Frameldt</strong></li>
+              <li><span class="tut-step-dot">4</span>Ændringen gemmes automatisk</li>
+            </ul>
+            <div class="tut-tip">
+              <i data-lucide="lightbulb" class="w-4 h-4 flex-shrink-0 mt-0.5"></i>
+              <span>Praktisk når du har ringet en spiller og bekræftet deltagelse — spar dem for at logge ind.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── TUTORIAL 6 ─── -->
+        <div class="tut-card" id="tut-6">
+          <div class="tut-card-header">
+            <div class="tut-card-num">6</div>
+            <h2 class="tut-card-title">Udtag dine spillere</h2>
+            <span class="tut-card-tag">Holdopstilling</span>
+          </div>
+          <div class="tut-video-wrap">
+            <div class="tut-phone-frame">
+              <div class="tut-phone-notch"></div>
+              <div class="tut-phone-screen">
+                <div class="tut-video-placeholder">
+                  <div class="play-icon"><i data-lucide="play" class="w-6 h-6"></i></div>
+                  <p>Video kommer snart</p>
+                </div>
+              </div>
+              <div class="tut-phone-home"></div>
+            </div>
+          </div>
+          <div class="tut-card-body">
+            <p class="tut-desc">Når afstemningen er lukket, kan du udtage de spillere der skal spille kampen. Udtagne spillere modtager automatisk en notifikation.</p>
+            <ul class="tut-steps">
+              <li><span class="tut-step-dot">1</span>Gå til kampens <strong>Udtag</strong>-fane</li>
+              <li><span class="tut-step-dot">2</span>Se listen over tilmeldte spillere</li>
+              <li><span class="tut-step-dot">3</span>Marker de spillere du vil udtage (typisk 4–6 stk.)</li>
+              <li><span class="tut-step-dot">4</span>Tryk <strong>Gem udtag</strong> — spillerne notificeres</li>
+            </ul>
+            <div class="tut-tip">
+              <i data-lucide="lightbulb" class="w-4 h-4 flex-shrink-0 mt-0.5"></i>
+              <span>Appen advarer automatisk hvis en udtaget spiller mangler gyldig DPF-licens — tjek altid advarsler inden du bekræfter.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── TUTORIAL 7 ─── -->
+        <div class="tut-card" id="tut-7">
+          <div class="tut-card-header">
+            <div class="tut-card-num">7</div>
+            <h2 class="tut-card-title">Holdopstilling</h2>
+            <span class="tut-card-tag">Holdopstilling</span>
+          </div>
+          <div class="tut-video-wrap">
+            <div class="tut-phone-frame">
+              <div class="tut-phone-notch"></div>
+              <div class="tut-phone-screen">
+                <div class="tut-video-placeholder">
+                  <div class="play-icon"><i data-lucide="play" class="w-6 h-6"></i></div>
+                  <p>Video kommer snart</p>
+                </div>
+              </div>
+              <div class="tut-phone-home"></div>
+            </div>
+          </div>
+          <div class="tut-card-body">
+            <p class="tut-desc">Holdopstillingen er det endelige overblik — hvem spiller med hvem? Sæt makkerparrene på 8 sekunder, og spillerne kan se det direkte i appen.</p>
+            <ul class="tut-steps">
+              <li><span class="tut-step-dot">1</span>Gå til kampens <strong>Opstilling</strong>-fane</li>
+              <li><span class="tut-step-dot">2</span>Træk spillerne ind i de rigtige makkerpar (kamp 1, 2, 3…)</li>
+              <li><span class="tut-step-dot">3</span>Tryk <strong>Publicér opstilling</strong></li>
+              <li><span class="tut-step-dot">4</span>Spillerne modtager en notifikation med deres makkertildeling</li>
+            </ul>
+            <div class="tut-tip">
+              <i data-lucide="lightbulb" class="w-4 h-4 flex-shrink-0 mt-0.5"></i>
+              <span>Publicér opstillingen senest dagen før kamp — så ved alle hvem makkerparret er i god tid.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── TUTORIAL 8 ─── -->
+        <div class="tut-card" id="tut-8">
+          <div class="tut-card-header">
+            <div class="tut-card-num">8</div>
+            <h2 class="tut-card-title">Træningssession</h2>
+            <span class="tut-card-tag">Træning</span>
+          </div>
+          <div class="tut-video-wrap">
+            <div class="tut-phone-frame">
+              <div class="tut-phone-notch"></div>
+              <div class="tut-phone-screen">
+                <div class="tut-video-placeholder">
+                  <div class="play-icon"><i data-lucide="play" class="w-6 h-6"></i></div>
+                  <p>Video kommer snart</p>
+                </div>
+              </div>
+              <div class="tut-phone-home"></div>
+            </div>
+          </div>
+          <div class="tut-card-body">
+            <p class="tut-desc">Opret en træningssession og se hvem der kan deltage. Du kan sætte makkerpar op og sammensætte holdet — så alle ved hvem de spiller med til træning.</p>
+            <ul class="tut-steps">
+              <li><span class="tut-step-dot">1</span>Gå til <strong>Træning</strong> i menuen og tryk <strong>Ny træningssession</strong></li>
+              <li><span class="tut-step-dot">2</span>Vælg dato, tidspunkt og eventuel lokation</li>
+              <li><span class="tut-step-dot">3</span>Send invitation til spillerne — de melder til/fra</li>
+              <li><span class="tut-step-dot">4</span>Sæt makkerpar op ud fra hvem der er tilmeldt</li>
+            </ul>
+            <div class="tut-tip">
+              <i data-lucide="lightbulb" class="w-4 h-4 flex-shrink-0 mt-0.5"></i>
+              <span>Brug træningssessioner til at give alle på holdet spilletid — roter makkerparrene løbende hen mod vigtige kampe.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom CTA -->
+        <div class="text-center py-10 border-t border-gray-100 mt-4">
+          <p class="text-lg font-bold text-gray-900 mb-2">Klar til at prøve det selv?</p>
+          <p class="text-muted text-sm mb-5">Udfyld formularen og få dit onboarding-link inden for 24 timer.</p>
+          <a href="index.html#onboarding" class="btn-primary text-base px-8 py-3.5">Få adgang til LigaCaptain →</a>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="bg-gray-950 py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center gap-5 text-center">
+      <a href="index.html" class="block">
+        <img src="logo.png" alt="LigaCaptain" class="footer-logo" />
+      </a>
+      <p class="text-sm text-gray-400">Padel. Forenklet. — Gratis for alle holdkaptajner i Danmark.</p>
+      <div class="flex gap-5 text-xs text-gray-600">
+        <a href="#" class="hover:text-gray-400 transition-colors">Privatlivspolitik</a>
+        <span>·</span>
+        <a href="#" class="hover:text-gray-400 transition-colors">Vilkår for brug</a>
+      </div>
+      <p class="text-xs text-gray-700">&copy; 2026 LigaCaptain &middot; Lavet med ❤️ til dansk padel</p>
+    </div>
+  </footer>
+
+  <script>
+    // ══════════════════════════════════════════════════════════════
+    //  UDFYLD DINE STREAMABLE VIDEO-IDS HER
+    //  Find dit video-ID i Streamable-linket:
+    //  https://streamable.com/e/[DETTE-ER-DIT-ID]
+    //
+    //  Eksempel: hvis linket er https://streamable.com/e/abc123
+    //  så skriver du:  'tut-1': 'abc123'
+    //
+    //  Lad feltet stå tomt ('') hvis videoen ikke er klar endnu.
+    // ══════════════════════════════════════════════════════════════
+    const VIDEOS = {
+      'tut-1': '',  // 1 · Aktivér dine kampe
+      'tut-2': '',  // 2 · Åben afstemning
+      'tut-3': '',  // 3 · Holdkamp afstemning
+      'tut-4': '',  // 4 · Aktivér holdkampafstemning
+      'tut-5': '',  // 5 · Til- & framelding af spillere
+      'tut-6': '',  // 6 · Udtag dine spillere
+      'tut-7': '',  // 7 · Holdopstilling
+      'tut-8': '',  // 8 · Træningssession
+    };
+
+    // Auto-injects Streamable iframes where an ID is provided
+    function injectVideos() {
+      Object.entries(VIDEOS).forEach(([key, id]) => {
+        const screen = document.querySelector(`#${key} .tut-phone-screen`);
+        if (!screen) return;
+        if (id && id.trim() !== '') {
+          screen.innerHTML = `<iframe
+            src="https://streamable.com/e/${id.trim()}"
+            frameborder="0"
+            allowfullscreen
+            allow="autoplay; fullscreen"
+            style="position:absolute;inset:0;width:100%;height:100%;border-radius:24px;"
+          ></iframe>`;
+        }
+        // If id is empty the existing placeholder HTML stays as-is
+      });
+    }
+
+    // Lucide icons
+    document.addEventListener('DOMContentLoaded', () => {
+      injectVideos();
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+
+      // Nav scroll glassmorphism
+      const navbar = document.getElementById('navbar');
+      window.addEventListener('scroll', () => {
+        navbar.classList.toggle('nav-scrolled', window.scrollY > 60);
+      }, { passive: true });
+
+      // Mobile menu
+      const hamburger = document.getElementById('hamburger');
+      const mobileDrawer = document.getElementById('mobile-drawer');
+      hamburger.addEventListener('click', () => {
+        const open = mobileDrawer.classList.toggle('open');
+        hamburger.setAttribute('aria-expanded', open);
+        document.body.style.overflow = open ? 'hidden' : '';
+        hamburger.innerHTML = open
+          ? '<i data-lucide="x" class="w-6 h-6"></i>'
+          : '<i data-lucide="menu" class="w-6 h-6"></i>';
+        lucide.createIcons();
+      });
+      mobileDrawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        mobileDrawer.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+        hamburger.innerHTML = '<i data-lucide="menu" class="w-6 h-6"></i>';
+        lucide.createIcons();
+      }));
+
+      // Sidebar active state + progress on scroll
+      const cards = document.querySelectorAll('.tut-card[id]');
+      const navItems = document.querySelectorAll('#tut-sidenav .tut-nav-item');
+      const progressFill = document.getElementById('progress-fill');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            navItems.forEach(item => {
+              item.classList.toggle('active', item.getAttribute('href') === '#' + id);
+            });
+            // Update progress
+            const idx = Array.from(cards).findIndex(c => c.id === id);
+            if (progressFill && idx >= 0) {
+              progressFill.style.width = ((idx + 1) / cards.length * 100) + '%';
+            }
+          }
+        });
+      }, { threshold: 0.3 });
+
+      cards.forEach(c => observer.observe(c));
+    });
+  </script>
+</body>
+</html>
