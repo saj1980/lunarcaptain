@@ -106,7 +106,6 @@ document.addEventListener('DOMContentLoaded', () => {
   function openMenu() {
     mobileDrawer.classList.add('open');
     hamburger.setAttribute('aria-expanded', 'true');
-    document.body.style.overflow = 'hidden';
     // Swap icon to X
     hamburger.innerHTML = '<i data-lucide="x" class="w-6 h-6"></i>';
     if (typeof lucide !== 'undefined') lucide.createIcons();
@@ -115,7 +114,6 @@ document.addEventListener('DOMContentLoaded', () => {
   function closeMenu() {
     mobileDrawer.classList.remove('open');
     hamburger.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
     // Swap icon back to menu
     hamburger.innerHTML = '<i data-lucide="menu" class="w-6 h-6"></i>';
     if (typeof lucide !== 'undefined') lucide.createIcons();
