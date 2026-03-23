@@ -1,441 +1,643 @@
 <!doctype html>
 <html lang="da">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>LunarCaptain – Organisér padel-holdkampe</title>
-  <meta name="description" content="LunarCaptain samler tilmeldinger, opstillinger (runde 1 & 2), påmindelser og stillinger ét sted. Mindre koordinationskaos – mere spilletid." />
-  <meta name="theme-color" content="#f97316" />
-  <!-- Open Graph -->
-  <meta property="og:title" content="LunarCaptain – Organisér padel-holdkampe" />
-  <meta property="og:description" content="Fra tilmeldinger til opstillinger, påmindelser og stillinger – alt i én app." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://res.cloudinary.com/glide/image/fetch/f_auto,w_1200,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FBZvkXUJJaA5ZBOclhkro.png" />
-
-  <style>
-    /* ===== Design tokens ===== */
-    :root{
-      --accent:#f97316; --text:#0f172a; --muted:#64748b;
-      --border:#e5e7eb; --bg:#ffffff; --bg-soft:#f8fafc;
-      --shadow-sm:0 6px 16px rgba(15,23,42,.06);
-      --shadow:0 10px 24px rgba(15,23,42,.08);
-      --radius-md:16px; --radius-lg:22px;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LigaCaptain — Padel Liga & Holdkaptajn Platform</title>
+  <meta name="description" content="Styr din padel liga, hold og turneringer nemt. LigaCaptain er platformen for padel spillere og klubber i Danmark." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="https://unpkg.com/lucide@latest" defer></script>
+  <link rel="stylesheet" href="style.css" />
+  <style type="text/tailwindcss">
+    @theme {
+      --color-primary: #0984e3;
+      --color-primary-dark: #0770c2;
+      --color-primary-light: #dbeafe;
+      --color-accent: #00B894;
+      --color-accent-dark: #00967a;
+      --color-cta: #f39c12;
+      --color-cta-hover: #d68910;
+      --color-dark: #0B1A2C;
+      --color-muted: #64748b;
+      --color-bg-soft: #f0f7ff;
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
     }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{margin:0;font-family:system-ui,-apple-system,Inter,Roboto,Arial,sans-serif;color:var(--text);background:var(--bg)}
-    a{text-decoration:none;color:inherit}
-    .wrap{max-width:1200px;margin:0 auto;padding:56px 20px}
-    .btn{display:inline-block;padding:14px 20px;border-radius:999px;font-weight:800;transition:transform .06s ease, box-shadow .2s ease}
-    .btn:active{transform:translateY(1px)}
-    .btn.primary{background:#111827;color:#fff}
-    .btn.secondary{background:#fff;color:var(--text);border:1px solid var(--border);font-weight:700}
-    .badge{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border-radius:999px;background:#ecfeff;border:1px solid #a5f3fc;color:#0e7490;font-size:12px;font-weight:800;letter-spacing:.2px}
-    h1{margin:0 0 14px;font-weight:900;letter-spacing:-.02em;line-height:1.05;font-size:clamp(30px,6vw,56px)}
-    h2.section-title{font-size:clamp(22px,3.8vw,36px);font-weight:900;margin:0 0 18px}
-    p.lead{margin:0 0 24px;color:#475569;line-height:1.6;font-size:clamp(16px,2.8vw,20px);max-width:62ch}
-    .accent{width:56px;height:4px;background:var(--accent);border-radius:4px;margin:0 0 18px}
-    .muted{color:var(--muted)}
-
-    /* ===== HERO ===== */
-    .hero .grid{
-      display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:center
-    }
-    .cta{display:flex;flex-wrap:wrap;gap:12px}
-    .trust{margin-top:16px;font-size:14px;color:var(--muted)}
-
-    /* ===== Logo rail (kun billeder) ===== */
-    .logos{ display:flex; flex-wrap:wrap; gap:18px; align-items:center; margin-top:16px; }
-    .logo{ display:flex; align-items:center; justify-content:center; padding:0; background:transparent; border:0; box-shadow:none; }
-    .logo img{
-      display:block;
-      height:50px; width:auto; max-width:100%;
-      object-fit:contain;
-      border-radius:10px;
-    }
-    @media (max-width:640px){
-      .logos{ gap:12px; }
-      .logo img{ height:36px; }
-    }
-
-    /* Hero-billede */
-    .media{width:100%;display:flex;justify-content:flex-end;align-items:center;}
-    .phone-wrap{width:100%;}
-    .phone-img{
-      display:block;margin:0 auto;width:30%;
-      height:auto;border-radius:var(--radius-lg);border:1px solid var(--border);
-      box-shadow:var(--shadow);background:#fff;
-    }
-
-    /* ===== Problem & løsning ===== */
-    .pl{background:var(--bg-soft);border-top:1px solid #eef2f7;border-bottom:1px solid #eef2f7}
-    .pl .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-    .tile{background:#fff;border:1px solid var(--border);border-radius:var(--radius-md);padding:18px;box-shadow:var(--shadow-sm)}
-    .tile h3{margin:0 0 6px;font-size:18px}
-    .tile p{margin:0;color:#475569;line-height:1.6}
-
-    /* ===== Split section ===== */
-    .split .grid{ display:grid; grid-template-columns: 1.2fr 0.8fr; gap:28px; align-items:start; }
-    .split .lines p{margin:0 0 12px;font-size:18px;line-height:1.6;color:#475569}
-    .split .visual{ position:relative; display:flex; justify-content:flex-end; align-items:flex-start; }
-    .split .visual::before{
-      content:"";
-      position:absolute; right:5%; top:4%; bottom:8%; left:0;
-      background: radial-gradient(60% 60% at 70% 50%, #fde68a55 0%, transparent 70%);
-      filter: blur(2px);
-      pointer-events:none; z-index:0;
-    }
-    .split .img{
-      position:relative; z-index:1; display:block;
-      width:40%; min-width:360px; max-width:520px;
-      height:auto; border-radius:var(--radius-lg);
-      border:1px solid var(--border); box-shadow:var(--shadow);
-      background:#fff; margin-left:auto;
-    }
-
-    /* ===== Founder / Kontakt ===== */
-    .founder{background:var(--bg);border-top:1px solid #eef2f7;border-bottom:1px solid #eef2f7}
-    .founder .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:start}
-    .founder .card{
-      background:#fff;border:1px solid var(--border);border-radius:22px;
-      box-shadow:var(--shadow-sm);padding:18px
-    }
-    .founder .avatar{
-      width:88px;height:88px;border-radius:999px;border:1px solid var(--border);
-      box-shadow:var(--shadow-sm);object-fit:cover;background:#f8fafc
-    }
-    .founder .meta{display:flex;align-items:center;gap:14px;margin-bottom:10px}
-    .founder .name{font-weight:900;font-size:18px;line-height:1.1}
-    .founder .role{color:#64748b;font-size:14px}
-    .founder .contact{display:grid;gap:10px;margin-top:10px}
-    .founder .contact a{
-      display:flex;align-items:center;gap:10px;
-      padding:10px 12px;border:1px solid var(--border);border-radius:12px;
-      background:#fff;box-shadow:var(--shadow-sm);font-weight:700
-    }
-    .founder .contact small{font-weight:600;color:#64748b}
-    .founder .why{color:#475569;line-height:1.7}
-    .founder .badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-    .founder .badge-alt{
-      padding:6px 10px;border-radius:999px;background:#fff7ed;border:1px solid #fed7aa;
-      font-size:12px;font-weight:800;letter-spacing:.2px;color:#7c2d12
-    }
-    .founder .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
-
-    /* ===== Kontaktformular ===== */
-    .contact-wrap{
-      background:#fff;border:1px solid var(--border);border-radius:16px;
-      padding:18px; box-shadow:var(--shadow-sm)
-    }
-    .contact-wrap label{display:block;margin:.75rem 0 .25rem;font-weight:600}
-    .contact-wrap input,.contact-wrap textarea{
-      width:100%;padding:.9rem;border:1px solid #d1d5db;border-radius:12px;font:inherit
-    }
-    .contact-wrap button{
-      margin-top:1rem;padding:.9rem 1.2rem;border:0;border-radius:12px;background:#111827;color:#fff;font-weight:700;cursor:pointer
-    }
-    .alert{display:none;margin-top:1rem;padding:12px;border-radius:12px}
-    .alert.ok{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46}
-    .alert.err{background:#fef2f2;border:1px solid #fecaca;color:#991b1b}
-
-    /* ===== Responsivitet ===== */
-    @media (max-width:1100px){
-      .hero .grid{grid-template-columns:1fr;gap:24px}
-      .media{justify-content:center;}
-      .phone-img{width:70%;}
-      .pl .grid{grid-template-columns:1fr}
-      .split .grid{grid-template-columns:1fr;gap:22px}
-      .split .visual{justify-content:center}
-      .split .img{width:80%; min-width:0; margin:0 auto;}
-      .split .visual::before{display:none;}
-      .founder .grid{grid-template-columns:1fr;gap:22px}
-    }
-    @media (max-width:640px){
-      .wrap{padding:44px 16px}
-      h1{font-size:clamp(26px,7.5vw,38px)}
-      .btn{width:100%;text-align:center;padding:16px 18px}
-    }
-
-    /* ====== ANIMATIONER ====== */
-    @keyframes fly-in-up    { from {opacity:0; transform:translateY(24px) scale(.98)} to {opacity:1; transform:none} }
-    @keyframes fly-in-right { from {opacity:0; transform:translateX(28px) scale(.98)} to {opacity:1; transform:none} }
-    @keyframes fly-in-left  { from {opacity:0; transform:translateX(-28px) scale(.98)} to {opacity:1; transform:none} }
-    @keyframes fly-out-up   { from {opacity:1; transform:none} to {opacity:0; transform:translateY(-16px) scale(.98)} }
-    @keyframes fly-out-down { from {opacity:1; transform:none} to {opacity:0; transform:translateY(16px)  scale(.98)} }
-
-    /* Globale load-classes (fallback når scroll-timeline ikke findes) */
-    .fly-in-up    { opacity:0; animation: fly-in-up .6s cubic-bezier(.2,.7,.2,1) .05s both; }
-    .fly-in-right { opacity:0; animation: fly-in-right .7s cubic-bezier(.2,.7,.2,1) .05s both; }
-    .fly-in-left  { opacity:0; animation: fly-in-left .7s cubic-bezier(.2,.7,.2,1) .05s both; }
-
-    /* Hero: sekvens ved load (tekst) */
-    .hero .accent.hero-seq { opacity:0; animation:fly-in-up .35s cubic-bezier(.2,.7,.2,1) .00s both; }
-    .hero .badge.hero-seq  { opacity:0; animation:fly-in-up .40s cubic-bezier(.2,.7,.2,1) .05s both; }
-    .hero h1.hero-seq      { opacity:0; animation:fly-in-up .55s cubic-bezier(.2,.7,.2,1) .12s both; }
-    .hero .lead.hero-seq   { opacity:0; animation:fly-in-up .55s cubic-bezier(.2,.7,.2,1) .20s both; }
-    .hero .cta.hero-seq    { opacity:0; animation:fly-in-up .55s cubic-bezier(.2,.7,.2,1) .28s both; }
-    .hero .trust.hero-seq  { opacity:0; animation:fly-in-up .55s cubic-bezier(.2,.7,.2,1) .36s both; }
-
-    /* Hero-billede: ren load ind fra højre */
-    .phone-img.fly-in-right { opacity:0; animation:fly-in-right .7s cubic-bezier(.2,.7,.2,1) .1s both; }
-
-    /* Let load-stagger for logoer */
-    .logos .logo { opacity:0; transform:translateY(10px); }
-    .logos .logo:nth-child(1){ animation: fly-in-up .45s ease .50s both; }
-    .logos .logo:nth-child(2){ animation: fly-in-up .45s ease .58s both; }
-    .logos .logo:nth-child(3){ animation: fly-in-up .45s ease .66s both; }
-    .logos .logo:nth-child(4){ animation: fly-in-up .45s ease .74s both; }
-
-    /* Lette load-animations for kort, kontakt */
-    .tile, .founder .card, .contact-wrap { opacity:0; animation: fly-in-up .6s cubic-bezier(.2,.7,.2,1) .08s both; }
-
-    /* Reduce motion */
-    @media (prefers-reduced-motion: reduce){
-      .fly-in-up, .fly-in-right, .fly-in-left,
-      .hero-seq, .phone-img, .logos .logo,
-      .tile, .founder .card, .contact-wrap,
-      .reveal-inout, .reveal-text { animation:none !important; opacity:1 !important; transform:none !important; }
-    }
-
-    /* Scroll-drevne reveals (ind + ud) for sektioner UNDER HERO */
-    @supports (animation-timeline: view()){
-      /* Sikr at hero forbliver på load-animationer */
-      .hero .hero-seq { animation-timeline: initial; animation-range: initial; }
-      .phone-img.fly-in-right { animation-timeline: initial; }
-
-      .reveal-inout{
-        opacity:0;
-        animation:
-          fly-in-up  1ms cubic-bezier(.2,.7,.2,1) both,
-          fly-out-up 1ms cubic-bezier(.2,.7,.2,1) both;
-        animation-timeline: view(), view();
-        animation-range: entry 10% cover 35%, exit 10% cover 35%;
-      }
-      .reveal-text{
-        opacity:0;
-        animation:
-          fly-in-up  1ms cubic-bezier(.2,.7,.2,1) both,
-          fly-out-up 1ms cubic-bezier(.2,.7,.2,1) both;
-        animation-timeline: view(), view();
-        animation-range: entry 8% cover 25%, exit 8% cover 25%;
-      }
-    }
-    @media (max-width: 768px){
-  .reveal-inout,
-  .reveal-text {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-  }
-}
-    /* Stram split-sektionen op */
-.split .grid{
-  grid-template-columns: 1.1fr 0.9fr; /* lidt mere plads til billedkolonnen */
-  gap: 20px;                          /* mindre afstand mellem tekst og billede */
-}
-
-.split .visual{
-  justify-content: center;            /* centrer kortet i sin kolonne */
-}
-
-.split .img{
-  width: 100%;                        /* brug hele kolonnebredden */
-  max-width: 420px;                   /* men stop før det bliver for stort */
-  min-width: 0;                       /* lad det shrinke på mindre skærme */
-  margin-left: 0;                     /* fjern skub ud til højre */
-}
-
-
   </style>
 </head>
-<body>
+<body class="font-sans antialiased bg-white text-gray-900">
 
-  <!-- ===== HERO ===== -->
-  <section class="hero">
-    <div class="wrap hero grid">
-      <!-- Tekst -->
-      <div>
-        <div class="accent hero-seq"></div>
-        <div class="badge hero-seq">Beta</div>
-        <h1 class="hero-seq">Få styr på holdkampen</h1>
-        <p class="lead hero-seq">
-          <strong>LunarCaptain</strong> samler tilmeldinger ét sted. Mindre koordinationskaos – mere spilletid og helt <strong>GRATIS</strong>.
-        </p>
-        <div class="cta hero-seq">
-          <a class="btn secondary" href="#kontakt">Kontakt</a>
-        </div>
-        <div class="trust hero-seq">Testet i klubber som <strong>HPK</strong> &amp; <strong>Racket Club</strong>.</div>
+  <!-- ===================== ANNOUNCEMENT BAR ===================== -->
+  <div id="announcement-bar" class="announcement-bar">
+    <div class="max-w-7xl mx-auto px-4 flex items-center justify-center gap-3 py-2.5 text-center">
+      <span class="announcement-badge">🎉 Nyhed</span>
+      <p class="text-sm font-medium text-white">
+        <strong class="font-bold">LigaCaptain udvider!</strong> Nu tilgængeligt i hele Danmark 🇩🇰 <span class="opacity-75">· tidligere kendt som LunarCaptain</span>
+      </p>
+      <a href="#" class="text-sm font-semibold text-white underline underline-offset-2 hover:no-underline whitespace-nowrap hidden sm:inline">Kom i gang →</a>
+    </div>
+    <button id="close-announcement" aria-label="Luk" class="absolute right-3 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors">
+      <i data-lucide="x" class="w-4 h-4"></i>
+    </button>
+  </div>
 
-        <!-- Logo-rail -->
-        <div class="logos" aria-label="Bruges af">
-          <span class="logo" title="RankedIn">
-            <img src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_500,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FtqELCpDUdyyU5Im3YXgY.jfif" alt="RankedIn">
-          </span>
-          <span class="logo" title="Lunar Ligaen">
-            <img src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_500,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FzohTHdTFqRoprvnjAGIx.jfif" alt="Lunar Ligaen">
-          </span>
-        </div>
-      </div>
+  <!-- ===================== NAV ===================== -->
+  <nav id="navbar" class="fixed left-0 right-0 z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
 
-      <!-- Hero-billede (LOAD-fly-in) -->
-      <div class="media" aria-hidden="true">
-        <div class="phone-wrap">
-          <img
-            class="phone-img fly-in-right"
-            src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_500,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FHXRDBaZTFwuftWy46CWS.png"
-            alt="LunarCaptain – Overblik"
-            loading="lazy" decoding="async"
-          />
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-2 no-underline">
+          <img src="logo.png" alt="LigaCaptain" class="nav-logo" />
+          <span class="text-xl font-bold text-gray-900">LigaCaptain</span>
+        </a>
+
+        <!-- Desktop nav links -->
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#features" class="nav-link text-sm font-medium text-gray-600 hover:text-primary transition-colors">Funktioner</a>
+          <a href="#how-it-works" class="nav-link text-sm font-medium text-gray-600 hover:text-primary transition-colors">Sådan virker det</a>
+          <a href="#pricing" class="nav-link text-sm font-medium text-gray-600 hover:text-primary transition-colors">Priser</a>
+          <a href="#contact" class="nav-link text-sm font-medium text-gray-600 hover:text-primary transition-colors">Kontakt</a>
         </div>
+
+        <!-- Desktop CTA -->
+        <div class="hidden md:flex items-center gap-3">
+          <a href="#" class="text-sm font-semibold text-gray-700 hover:text-primary transition-colors px-4 py-2">Log ind</a>
+          <a href="#" class="btn-primary text-sm">Kom i gang gratis</a>
+        </div>
+
+        <!-- Mobile hamburger -->
+        <button id="hamburger" aria-label="Åbn menu" aria-expanded="false" class="md:hidden p-2 rounded-lg text-gray-600 hover:text-primary hover:bg-gray-100 transition-colors">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+
       </div>
     </div>
-  </section>
 
-  <!-- ===== Problem & løsning ===== -->
-  <section class="pl">
-    <div class="wrap">
-      <h2 class="section-title">Fra kaos til kontrol</h2>
-      <div class="grid">
-        <div class="tile reveal-inout">
-          <h3>Problemet</h3>
-          <p>Hvem spiller med hvem? Hvem melder afbud? Hvor er stillingen? Kaptajnen drukner i Excel, Messenger og gætterier.</p>
-        </div>
-        <div class="tile reveal-inout" style="animation-delay:.08s">
-          <h3>Løsningen</h3>
-          <p>LunarCaptain samler tilgængelighed, opstillinger (runde 1 &amp; 2), påmindelser, resultater og stillinger ét sted.</p>
-        </div>
+    <!-- Mobile drawer -->
+    <div id="mobile-drawer" class="mobile-drawer md:hidden">
+      <div class="flex flex-col gap-1 p-4">
+        <a href="#features" class="mobile-nav-link">Funktioner</a>
+        <a href="#how-it-works" class="mobile-nav-link">Sådan virker det</a>
+        <a href="#pricing" class="mobile-nav-link">Priser</a>
+        <a href="#contact" class="mobile-nav-link">Kontakt</a>
+        <div class="border-t border-gray-100 my-3"></div>
+        <a href="#" class="mobile-nav-link text-primary font-semibold">Log ind</a>
+        <a href="#" class="btn-primary text-center mt-2">Kom i gang gratis</a>
       </div>
     </div>
-  </section>
+  </nav>
 
-  <!-- ===== Split Section ===== -->
-  <section class="split" id="highlight">
-    <div class="wrap">
-      <div class="grid">
-        <!-- Venstre: tekst -->
-        <div class="copy">
-          <h2 class="section-title">Få styr på holdkampen</h2>
-          <div class="lines">
-            <p class="reveal-text">Tilmeldinger uden kaos – svar direkte i appen.</p>
-            <p class="reveal-text">Holdopstillinger på få klik – runde 1 &amp; 2 klar på sekunder.</p>
-            <p class="reveal-text">Automatiske påmindelser – færre afbud i sidste øjeblik.</p>
+  <main>
+
+    <!-- ===================== HERO ===================== -->
+    <section id="hero" class="hero-pattern pt-40 pb-20 lg:pt-48 lg:pb-28 overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+
+          <!-- Text column -->
+          <div class="flex-1 text-center lg:text-left">
+
+            <!-- Expansion announcement badge -->
+            <div class="reveal inline-flex items-center gap-2 mb-4">
+              <div class="expansion-badge">
+                <span class="expansion-badge-dot"></span>
+                <span>🇩🇰 Nu tilgængeligt i <strong>hele Danmark</strong></span>
+                <span class="expansion-badge-arrow">→</span>
+              </div>
+            </div>
+
+            <div class="reveal inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-semibold mb-6">
+              <span class="w-2 h-2 rounded-full bg-accent inline-block"></span>
+              Skabt til dansk padel
+            </div>
+
+            <h1 class="reveal text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight text-gray-900 leading-[1.05] mb-6">
+              Din liga.<br />
+              <span class="text-primary">Dit hold.</span><br />
+              Dit spil.
+            </h1>
+
+            <p class="reveal text-lg lg:text-xl text-muted leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
+              LigaCaptain er bygget til holdkaptajner der vil fokusere på det sociale&nbsp;— ikke det administrative. Fra åbne afstemninger til holdopstilling, håndterer vi det hele.
+            </p>
+
+            <div class="reveal flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mb-8">
+              <a href="#" class="btn-primary text-base px-7 py-3.5">Start gratis i dag &rarr;</a>
+              <a href="#how-it-works" class="btn-secondary text-base px-7 py-3.5">Se hvordan det virker</a>
+            </div>
+
+            <div class="reveal flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
+              <div class="flex -space-x-2">
+                <div class="avatar-circle bg-primary text-white">AH</div>
+                <div class="avatar-circle bg-accent text-white">SM</div>
+                <div class="avatar-circle bg-orange-400 text-white">ML</div>
+                <div class="avatar-circle bg-purple-500 text-white">JK</div>
+              </div>
+              <div class="text-left">
+                <div class="flex gap-0.5 text-yellow-400 text-sm mb-0.5">★★★★★</div>
+                <p class="text-sm text-muted"><strong class="text-gray-900 font-semibold">400+</strong> aktive padel spillere bruger LigaCaptain</p>
+              </div>
+            </div>
           </div>
-        </div>
-        <!-- Højre: billede (fallback + scroll ind/ud) -->
-        <div class="visual" aria-hidden="true">
-          <img
-            class="img fly-in-up reveal-inout"
-            src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_500,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FSDAwV1026b9aNVawX7o4.png"
-            alt="LunarCaptain – Kampkort"
-            loading="lazy"
-            decoding="async"
-          />
+
+          <!-- Phone mockup column -->
+          <div class="reveal flex-1 flex justify-center lg:justify-end">
+            <div class="phone-outer">
+              <div class="phone-screen">
+                <!-- App UI mockup -->
+                <div class="app-header">
+                  <div class="app-header-content">
+                    <p class="text-xs text-blue-200 font-medium">God morgen, Jonas 👋</p>
+                    <p class="text-white font-bold text-sm mt-0.5">Aarhus Padel Liga</p>
+                  </div>
+                  <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                    <span class="text-white text-xs font-bold">JK</span>
+                  </div>
+                </div>
+
+                <div class="app-body">
+                  <!-- Next match card -->
+                  <div class="app-card" style="position:relative;padding-top:18px;">
+                    <!-- Score badge -->
+                    <div style="position:absolute;top:-10px;right:10px;background:#8B9E6E;color:white;font-size:11px;font-weight:800;padding:3px 10px;border-radius:9999px;letter-spacing:0.05em;">4 – 3</div>
+                    <!-- Date -->
+                    <p style="text-align:center;font-size:11px;font-weight:700;color:#1a202c;margin-bottom:10px;">Lør 28. feb 2026 kl. 15.00</p>
+                    <!-- Home team -->
+                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                      <div style="width:28px;height:28px;border-radius:50%;background:#e8edf5;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4a6fa5" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2C8 6 8 18 12 22M12 2C16 6 16 18 12 22M2 12h20"/></svg>
+                      </div>
+                      <div>
+                        <p style="font-size:9px;color:#94a3b8;font-weight:600;line-height:1;">Hjemme</p>
+                        <p style="font-size:12px;font-weight:800;color:#1a202c;line-height:1.2;">NPC Apollo</p>
+                      </div>
+                    </div>
+                    <!-- Away team -->
+                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+                      <div style="width:28px;height:28px;border-radius:50%;background:#e8edf5;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4a6fa5" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2C8 6 8 18 12 22M12 2C16 6 16 18 12 22M2 12h20"/></svg>
+                      </div>
+                      <div>
+                        <p style="font-size:9px;color:#94a3b8;font-weight:600;line-height:1;">Ude</p>
+                        <p style="font-size:12px;font-weight:800;color:#1a202c;line-height:1.2;">HPK select 2</p>
+                      </div>
+                    </div>
+                    <!-- Status -->
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                      <p style="font-size:10px;font-weight:700;color:#1a202c;">Status</p>
+                      <p style="font-size:10px;font-weight:600;color:#64748b;">12 / 13</p>
+                    </div>
+                    <div style="background:#e2e8f0;border-radius:9999px;height:5px;overflow:hidden;">
+                      <div style="background:#0984e3;height:100%;width:92%;border-radius:9999px;"></div>
+                    </div>
+                  </div>
+
+                  <!-- Standings -->
+                  <div class="app-card">
+                    <p class="text-xs text-muted font-semibold uppercase tracking-wide mb-1">Træning</p>
+                    <p class="text-xs font-bold text-gray-900 mb-1">Tirsdag 15. apr kl. 20.30</p>
+                    <!-- Progress bar -->
+                    <div class="flex justify-between text-xs text-muted mb-1">
+                      <span>7 af 8 pladser besat</span>
+                    </div>
+                    <div style="background:#e2e8f0;border-radius:9999px;height:5px;overflow:hidden;margin-bottom:8px;">
+                      <div style="background:#f39c12;height:100%;width:87%;border-radius:9999px;"></div>
+                    </div>
+                    <!-- Tabs -->
+                    <div style="display:flex;gap:8px;margin-bottom:8px;">
+                      <span style="font-size:10px;font-weight:700;color:#0984e3;border-bottom:2px solid #0984e3;padding-bottom:2px;">Tilmeldt 7</span>
+                      <span style="font-size:10px;font-weight:600;color:#94a3b8;">Frameldt</span>
+                      <span style="font-size:10px;font-weight:600;color:#94a3b8;">Svar 4</span>
+                    </div>
+                    <!-- Players -->
+                    <div class="space-y-1.5">
+                      <div class="rank-row"><span style="font-size:10px">👤</span><span class="rank-name text-xs">Rasmus S.</span><span style="font-size:10px;background:#dcfce7;color:#166534;padding:1px 6px;border-radius:9999px;font-weight:600;">Tilgængelig</span></div>
+                      <div class="rank-row"><span style="font-size:10px">👤</span><span class="rank-name text-xs">Andreas E.</span><span style="font-size:10px;background:#dcfce7;color:#166534;padding:1px 6px;border-radius:9999px;font-weight:600;">Tilgængelig</span></div>
+                      <div class="rank-row"><span style="font-size:10px">👤</span><span class="rank-name text-xs">Sajid L.</span><span style="font-size:10px;background:#dcfce7;color:#166534;padding:1px 6px;border-radius:9999px;font-weight:600;">Tilgængelig</span></div>
+                    </div>
+                  </div>
+
+                  <!-- Notification -->
+                  <div class="app-notification">
+                    <span class="text-xs">🔔 Ny kamp aftalt — Fredag 18:30</span>
+                  </div>
+                </div>
+              </div>
+              <!-- Floating badges -->
+              <div class="floating-badge-left">
+                <span class="text-green-600 font-semibold text-xs">✓ Kamp bekræftet</span>
+              </div>
+              <div class="floating-badge-right">
+                <span class="text-primary font-bold text-sm">+18</span>
+                <span class="text-gray-500 text-xs ml-1">nye</span>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ===== Founder / Kontakt ===== -->
-  <section class="founder" id="kontakt" itemscope itemtype="https://schema.org/Person">
-    <div class="wrap">
-      <h2 class="section-title">Manden bag LunarCaptain</h2>
-      <div class="grid">
-        <article class="card reveal-inout">
-          <div class="accent"></div>
-          <div class="meta">
-            <img class="avatar" src="https://res.cloudinary.com/glide/image/fetch/f_auto,w_500,c_limit/https%3A%2F%2Fstorage.googleapis.com%2Fglide-prod.appspot.com%2Fuploads-v2%2F0WAgqavdcUZnVRPTRDPX%2Fpub%2FmGRq6mHI8r6Th1ctCtTk.PNG" alt="Portræt" itemprop="image">
+    <!-- ===================== LOGO STRIP ===================== -->
+    <section class="py-8 bg-gray-50 border-y border-gray-100">
+      <div class="max-w-7xl mx-auto px-4">
+        <p class="text-center text-sm font-semibold text-muted uppercase tracking-widest mb-6">Betroet af padel klubber i hele Danmark</p>
+      </div>
+      <!-- Række 1 → venstre -->
+      <div class="overflow-hidden mb-3">
+        <div class="marquee-track marquee-row1 flex gap-10 items-center whitespace-nowrap">
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/49123thumb.png" alt="Hovedstadens Padel Klub" /><span>Hovedstadens Padel Klub</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/117276thumb.png" alt="Racket Club" /><span>Racket Club</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/98954thumb.png" alt="Padel North" /><span>Padel North</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/115797thumb.png" alt="Rulo Padel" /><span>Rulo Padel</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/76075thumb.png" alt="Play Padel Dragør" /><span>Play Padel Dragør</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/97254thumb.png" alt="PadelPadel Elite" /><span>PadelPadel Elite</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/126468thumb.png" alt="PadelPadel Community" /><span>PadelPadel Community</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/115519thumb.png" alt="Simons Padel Club" /><span>Simons Padel Club</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/103815thumb.png" alt="Ryvolution 4P" /><span>Ryvolution 4P</span></div><span class="club-logo-dot"></span>
+          <!-- duplikat -->
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/49123thumb.png" alt="Hovedstadens Padel Klub" /><span>Hovedstadens Padel Klub</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/117276thumb.png" alt="Racket Club" /><span>Racket Club</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/98954thumb.png" alt="Padel North" /><span>Padel North</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/115797thumb.png" alt="Rulo Padel" /><span>Rulo Padel</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/76075thumb.png" alt="Play Padel Dragør" /><span>Play Padel Dragør</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/97254thumb.png" alt="PadelPadel Elite" /><span>PadelPadel Elite</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/126468thumb.png" alt="PadelPadel Community" /><span>PadelPadel Community</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/115519thumb.png" alt="Simons Padel Club" /><span>Simons Padel Club</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/103815thumb.png" alt="Ryvolution 4P" /><span>Ryvolution 4P</span></div><span class="club-logo-dot"></span>
+        </div>
+      </div>
+
+      <!-- Række 2 → højre (modsat retning) -->
+      <div class="overflow-hidden">
+        <div class="marquee-track marquee-row2 flex gap-10 items-center whitespace-nowrap">
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/120637thumb.png" alt="Kalundborg" /><span>Kalundborg</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/120672thumb.png" alt="Padel Yard Jernbanebyen" /><span>Padel Yard Jernbanebyen</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/24041thumb.png" alt="Køge Padel Klub" /><span>Køge Padel Klub</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/101955thumb.png" alt="Match Padel Ballerup" /><span>Match Padel Ballerup</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/52026thumb.png" alt="Mørkøv Team 3" /><span>Mørkøv Team 3</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/101906thumb.png" alt="Padel Club Ringsted" /><span>Padel Club Ringsted</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/120165thumb.png" alt="Vordingborg Padelklub" /><span>Vordingborg Padelklub</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/34169thumb.png" alt="Bornholms Padel Klub Q1" /><span>Bornholms Padel Klub Q1</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/76170thumb.png" alt="Padel Zone Holstebro" /><span>Padel Zone Holstebro</span></div><span class="club-logo-dot"></span>
+          <!-- duplikat -->
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/120637thumb.png" alt="Kalundborg" /><span>Kalundborg</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/120672thumb.png" alt="Padel Yard Jernbanebyen" /><span>Padel Yard Jernbanebyen</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/24041thumb.png" alt="Køge Padel Klub" /><span>Køge Padel Klub</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/101955thumb.png" alt="Match Padel Ballerup" /><span>Match Padel Ballerup</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/52026thumb.png" alt="Mørkøv Team 3" /><span>Mørkøv Team 3</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/101906thumb.png" alt="Padel Club Ringsted" /><span>Padel Club Ringsted</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/120165thumb.png" alt="Vordingborg Padelklub" /><span>Vordingborg Padelklub</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/34169thumb.png" alt="Bornholms Padel Klub Q1" /><span>Bornholms Padel Klub Q1</span></div><span class="club-logo-dot"></span>
+          <div class="club-logo-item"><img src="https://rankedin-prod-cdn-adavg8d3dwfegkbd.z01.azurefd.net/images/upload/organization/76170thumb.png" alt="Padel Zone Holstebro" /><span>Padel Zone Holstebro</span></div><span class="club-logo-dot"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== FEATURES ===================== -->
+    <section id="features" class="section-py bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="text-center mb-16">
+          <p class="reveal section-overline">Platformen er bygget til padel</p>
+          <h2 class="reveal text-4xl lg:text-5xl font-black text-gray-900 mt-3 mb-5">Alt hvad en holdkaptajn<br class="hidden sm:block" /> behøver</h2>
+          <p class="reveal text-lg text-muted max-w-2xl mx-auto">Fra åbne afstemninger til holdopstilling — LigaCaptain håndterer det hele, så du kan fokusere på spillet.</p>
+        </div>
+
+        <div class="features-checklist reveal">
+          <div class="feature-check-item">
+            <span class="feature-check-mark">✓</span>
             <div>
-              <div class="name" itemprop="name">Sajid Latif</div>
-              <div class="role" itemprop="jobTitle">Padelspiller og livsnyder</div>
-              <meta itemprop="affiliation" content="LunarCaptain">
-              <meta itemprop="address" content="København, Danmark">
+              <p class="feature-check-title">Åbne afstemninger</p>
+              <p class="feature-check-desc">Spillerne tilmelder sig sæsonen med ét tryk — ingen WhatsApp-jagt.</p>
             </div>
           </div>
-
-          <div class="why">
-            <p><strong>Hvorfor LunarCaptain?</strong> Som Lunar spiller var jeg træt af at jagte svar i chats og opdatere Excel efter hver kamp. Vi skulle bare have ét sted til tilmeldinger, opstillinger (runde 1 &amp; 2), påmindelser og overblik.</p>
-            <p>LunarCaptain er bygget til virkelige holdkampe: hurtigt svar fra spillerne, opstillinger på sekunder og færre afbud i sidste øjeblik. Mindre koordinationskaos – mere spilletid.</p>
-          </div>
-
-          <div style="box-sizing:border-box; width:100%; max-width:720px; margin:12px auto; padding:10px 14px; border:1px solid #e5e7eb; border-radius:12px; background:#ffffff; font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Inter,sans-serif; display:flex; align-items:center; gap:10px;">
-            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" style="flex:0 0 auto;">
-              <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z" fill="currentColor"/>
-            </svg>
-            <div style="min-width:0; color:#111827; font-size:14px; line-height:1.3;">
-              Har du spørgsmål eller idéer? Skriv til
-              <a href="mailto:kontakt@lunarcaptain.dk?subject=Id%C3%A9%20til%20LunarCaptain&body=Hej%20LunarCaptain%2C%0A%0AJeg%20har%20en%20sp%C3%B8rgsm%C3%A5l%2Fid%C3%A9%3A%20"
-                 style="color:#2563eb; text-decoration:none; border-bottom:1px dotted rgba(37,99,235,.4);">
-                kontakt@lunarcaptain.dk
-              </a>
+          <div class="feature-check-item">
+            <span class="feature-check-mark">✓</span>
+            <div>
+              <p class="feature-check-title">Holdkamp afstemninger</p>
+              <p class="feature-check-desc">Spillerne melder ind på præcis de kampdatoer de kan.</p>
             </div>
           </div>
-        </article>
-
-        <aside class="contact-wrap reveal-inout" aria-labelledby="kontakt-title" itemprop="contactPoint" itemscope itemtype="https://schema.org/ContactPoint">
-          <h3 id="kontakt-title" style="margin:0 0 8px;font-weight:900;">Kontakt</h3>
-
-          <form id="contact-form">
-            <label for="name">Navn</label>
-            <input id="name" name="name" autocomplete="name" required>
-            <label for="phone">Mobil</label>
-            <input id="phone" name="phone" autocomplete="phone" required>
-
-            <label for="email">E-mail</label>
-            <input id="email" name="email" type="email" autocomplete="email" required>
-
-            <label for="message">Besked</label>
-            <textarea id="message" name="message" rows="6" required></textarea>
-
-            <input type="text" name="company" style="display:none" tabindex="-1" autocomplete="off">
-            <button type="submit">Send</button>
-            <div id="ok"  class="alert ok">Tak! Din besked er sendt.</div>
-            <div id="err" class="alert err">Ups – noget gik galt. Prøv igen.</div>
-          </form>
-
-          <meta itemprop="contactType" content="customer support">
-          <meta itemprop="areaServed" content="DK">
-          <meta itemprop="availableLanguage" content="da">
-        </aside>
+          <div class="feature-check-item">
+            <span class="feature-check-mark">✓</span>
+            <div>
+              <p class="feature-check-title">Holdopstilling</p>
+              <p class="feature-check-desc">Udtaget, tilmeldt, frameldt — overblik og opstilling på 8 sek.</p>
+            </div>
+          </div>
+          <div class="feature-check-item">
+            <span class="feature-check-mark">✓</span>
+            <div>
+              <p class="feature-check-title">Træningsmodul</p>
+              <p class="feature-check-desc">Til- og framelding til træning, makkerpar og holdsammensætning.</p>
+            </div>
+          </div>
+          <div class="feature-check-item">
+            <span class="feature-check-mark">✓</span>
+            <div>
+              <p class="feature-check-title">Push notifikationer</p>
+              <p class="feature-check-desc">Spillerne notificeres automatisk ved udtag og kampændringer.</p>
+            </div>
+          </div>
+          <div class="feature-check-item">
+            <span class="feature-check-mark">✓</span>
+            <div>
+              <p class="feature-check-title">TeamLink</p>
+              <p class="feature-check-desc">Del ét link — spillerne tilmelder sig dit hold med det samme.</p>
+            </div>
+          </div>
+        </div>
       </div>
+    </section>
+
+    <!-- ===================== HOW IT WORKS ===================== -->
+    <section id="how-it-works" class="section-py bg-bg-soft">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="text-center mb-14">
+          <p class="reveal section-overline">Som kaptajn bør du tænke sæsonen i tre faser</p>
+          <h2 class="reveal text-4xl lg:text-5xl font-black text-gray-900 mt-3 mb-5">Fra opstart til holdopstilling</h2>
+          <p class="reveal text-lg text-muted max-w-2xl mx-auto">Onboard dine spillere nu — det er gratis — og stå stærkere når sæsonen starter.</p>
+        </div>
+
+        <!-- Fase cards -->
+        <div class="phases-grid">
+
+          <!-- Fase 1 -->
+          <div class="phase-card reveal" data-delay="0">
+            <div class="phase-header phase-header-1">
+              <span class="phase-badge">Fase 1</span>
+              <div class="phase-icon">📋</div>
+            </div>
+            <div class="phase-body">
+              <h3 class="phase-title">Åbne afstemninger</h3>
+              <p class="phase-desc">Inden DPF frigiver holdprogrammet laver du åbne afstemninger. Få dine spillere på med det samme — så I er forberedte og ingen falder fra undervejs.</p>
+              <ul class="phase-list">
+                <li><i data-lucide="check-circle-2" class="w-4 h-4"></i>Spillerne svarer med ét tryk</li>
+                <li><i data-lucide="check-circle-2" class="w-4 h-4"></i>Du ser realtids overblik</li>
+                <li><i data-lucide="check-circle-2" class="w-4 h-4"></i>Ingen jagt på WhatsApp</li>
+              </ul>
+              <div class="phase-ui phase-ui-1">
+                <p class="text-xs font-semibold text-gray-500 mb-2">Åben afstemning — Sæson 2026</p>
+                <div class="phase-player confirmed"><i data-lucide="check" class="w-3 h-3"></i><span>Rasmus S.</span><span class="ml-auto text-xs font-bold text-green-600">Tilmeldt</span></div>
+                <div class="phase-player confirmed"><i data-lucide="check" class="w-3 h-3"></i><span>Andreas E.</span><span class="ml-auto text-xs font-bold text-green-600">Tilmeldt</span></div>
+                <div class="phase-player pending"><i data-lucide="clock" class="w-3 h-3"></i><span>Morten H.</span><span class="ml-auto text-xs font-bold text-yellow-500">Afventer</span></div>
+                <div class="phase-player pending"><i data-lucide="clock" class="w-3 h-3"></i><span>Danny V.</span><span class="ml-auto text-xs font-bold text-yellow-500">Afventer</span></div>
+                <p class="text-xs text-center text-gray-400 mt-2">7 af 10 har svaret</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fase 2 -->
+          <div class="phase-card reveal" data-delay="120">
+            <div class="phase-header phase-header-2">
+              <span class="phase-badge">Fase 2 — Hektisk</span>
+              <div class="phase-icon">⚡</div>
+            </div>
+            <div class="phase-body">
+              <h3 class="phase-title">Holdkampene frigives</h3>
+              <p class="phase-desc">Du modtager datoer fra modstanderens kaptajn. Dine spillere skal be- eller afkræfte dem, så du kan give endeligt svar på hvilke datoer dit hold kan.</p>
+              <ul class="phase-list">
+                <li><i data-lucide="check-circle-2" class="w-4 h-4"></i>Specifikke afstemninger per kamp</li>
+                <li><i data-lucide="check-circle-2" class="w-4 h-4"></i>Spillerne bekræfter dato for dato</li>
+                <li><i data-lucide="check-circle-2" class="w-4 h-4"></i>Du svarer modstanderen hurtigt</li>
+              </ul>
+              <div class="phase-ui phase-ui-2">
+                <p class="text-xs font-semibold text-gray-500 mb-1">Holdkamp — Fre 10. apr</p>
+                <p class="text-xs font-semibold text-blue-600 mb-2">Mod Padel North 1</p>
+                <div class="phase-player confirmed"><i data-lucide="check" class="w-3 h-3"></i><span>Rasmus S.</span><span class="ml-auto text-xs font-bold text-green-600">Kan</span></div>
+                <div class="phase-player declined"><i data-lucide="x" class="w-3 h-3"></i><span>Morten H.</span><span class="ml-auto text-xs font-bold text-red-500">Kan ikke</span></div>
+                <div class="phase-player pending"><i data-lucide="clock" class="w-3 h-3"></i><span>Danny V.</span><span class="ml-auto text-xs font-bold text-yellow-500">Afventer</span></div>
+                <div class="phase-player confirmed"><i data-lucide="check" class="w-3 h-3"></i><span>Dan T.</span><span class="ml-auto text-xs font-bold text-green-600">Kan</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fase 3 -->
+          <div class="phase-card reveal" data-delay="240">
+            <div class="phase-header phase-header-3">
+              <span class="phase-badge">Fase 3</span>
+              <div class="phase-icon">🏆</div>
+            </div>
+            <div class="phase-body">
+              <h3 class="phase-title">Programmet er fastlagt</h3>
+              <p class="phase-desc">Spillerne kan se i appen om de er udtaget. Sæt holdopstillingen på 8 sekunder — så ved dine spillere hvem makkeren er, og ikke finder ud af det 10 minutter før kamp.</p>
+              <ul class="phase-list">
+                <li><i data-lucide="check-circle-2" class="w-4 h-4"></i>Overblik: udtaget / tilmeldt / frameldt</li>
+                <li><i data-lucide="check-circle-2" class="w-4 h-4"></i>Holdopstilling klar på 8 sek</li>
+                <li><i data-lucide="check-circle-2" class="w-4 h-4"></i>Spillerne ved hvem makkeren er i god tid</li>
+              </ul>
+              <div class="phase-ui phase-ui-3">
+                <p class="text-xs font-semibold text-gray-500 mb-2">Holdopstilling — 1. runde</p>
+                <div class="phase-lineup-row"><span class="phase-lineup-num">#3</span><span>Rasmus S.</span><span class="ml-auto text-xs phase-tag-udtaget">Udtaget</span></div>
+                <div class="phase-lineup-row"><span class="phase-lineup-num">#7</span><span>Andreas E.</span><span class="ml-auto text-xs phase-tag-udtaget">Udtaget</span></div>
+                <div class="phase-lineup-row"><span class="phase-lineup-num">#9</span><span>Kenneth B.</span><span class="ml-auto text-xs phase-tag-tilmeldt">Tilmeldt</span></div>
+                <div class="phase-lineup-row opacity-50"><span class="phase-lineup-num">#6</span><span>Morten H.</span><span class="ml-auto text-xs phase-tag-frameldt">Frameldt</span></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- CTA banner under faserne -->
+        <div class="reveal phases-cta mt-14">
+          <p class="text-lg font-bold text-gray-900 mb-1">Valget er dit — men vent ikke.</p>
+          <p class="text-muted mb-5">Onboard dine spillere nu, så I er fortrolige med appen når sæsonen starter. Det er gratis.</p>
+          <a href="#" class="btn-primary text-base px-8 py-3.5">Kom i gang gratis →</a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================== STATS ===================== -->
+    <section class="section-py bg-white border-y border-gray-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+
+          <div class="stat-block reveal text-center">
+            <p class="stat-number text-primary" data-target="400" data-suffix="+">0</p>
+            <p class="stat-label">Aktive spillere</p>
+          </div>
+          <div class="stat-block reveal text-center" data-delay="100">
+            <p class="stat-number text-accent" data-target="40" data-suffix="+">0</p>
+            <p class="stat-label">Padel hold</p>
+          </div>
+          <div class="stat-block reveal text-center" data-delay="200">
+            <p class="stat-number text-cta" data-target="1000" data-suffix="+">0</p>
+            <p class="stat-label">Afstemninger oprettet</p>
+          </div>
+          <div class="stat-block reveal text-center" data-delay="300">
+            <p class="stat-number text-purple-600" data-target="100" data-suffix="%">0</p>
+            <p class="stat-label">Gratis at bruge</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== BROWSER CTA ===================== -->
+    <section class="section-py bg-bg-soft">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="reveal">
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-accent/10 text-accent rounded-full text-sm font-semibold mb-6">
+            <i data-lucide="globe" class="w-4 h-4"></i>
+            Virker direkte i din browser
+          </div>
+          <h2 class="text-4xl lg:text-5xl font-black text-gray-900 mt-3 mb-5">Ingen download.<br />Åbn og gå i gang.</h2>
+          <p class="text-lg text-muted mb-8 max-w-xl mx-auto">LigaCaptain er en webapp — du åbner den direkte i browseren på telefon eller computer. Ingen installation, ingen opdateringer.</p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+            <a href="#" class="btn-primary text-base px-8 py-3.5">Åbn LigaCaptain &rarr;</a>
+            <a href="#how-it-works" class="btn-secondary text-base px-8 py-3.5">Se hvordan det virker</a>
+          </div>
+          <div class="flex flex-wrap justify-center gap-6 text-sm text-muted mt-4">
+            <span class="flex items-center gap-1.5"><i data-lucide="check-circle-2" class="w-4 h-4 text-accent"></i>Virker på telefon &amp; computer</span>
+            <span class="flex items-center gap-1.5"><i data-lucide="check-circle-2" class="w-4 h-4 text-accent"></i>Kræver ingen installation</span>
+            <span class="flex items-center gap-1.5"><i data-lucide="check-circle-2" class="w-4 h-4 text-accent"></i>100% gratis</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== APP SCREENSHOTS ===================== -->
+    <section id="app-screens" class="section-py bg-bg-soft">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-14">
+          <p class="reveal section-overline">Se appen i aktion</p>
+          <h2 class="reveal text-4xl lg:text-5xl font-black text-gray-900 mt-3">Designet til kaptajner</h2>
+          <p class="reveal text-lg text-muted max-w-xl mx-auto mt-4">Alt hvad du behøver — overblik, afstemninger og holdopstilling — samlet ét sted.</p>
+        </div>
+
+        <div class="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-16">
+
+          <!-- Phone 1: Overblik -->
+          <div class="reveal flex flex-col items-center gap-4" data-delay="0">
+            <div class="phone-mockup-frame">
+              <div class="phone-mockup-notch"></div>
+              <img src="screen-overblik.PNG" alt="Overblik — alle kampkort samlet" class="phone-mockup-screen" />
+            </div>
+            <p class="text-sm font-semibold text-gray-700 text-center">Overblik over alle kampe</p>
+          </div>
+
+          <!-- Phone 2: Kamp detalje -->
+          <div class="reveal flex flex-col items-center gap-4" data-delay="150">
+            <div class="phone-mockup-frame phone-mockup-featured">
+              <div class="phone-mockup-notch"></div>
+              <img src="screen-kamp.PNG" alt="Kampdetalje med holdkort og tilmelding" class="phone-mockup-screen" />
+            </div>
+            <p class="text-sm font-semibold text-gray-700 text-center">Holdkort &amp; tilmelding</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== TESTIMONIALS ===================== -->
+    <section id="testimonials" class="section-py bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="text-center mb-12">
+          <p class="reveal section-overline">Hvad kaptajnerne siger</p>
+          <h2 class="reveal text-4xl lg:text-5xl font-black text-gray-900 mt-3">Direkte fra chatten 💬</h2>
+          <p class="reveal text-lg text-muted max-w-xl mx-auto mt-4">Rigtige beskeder fra rigtige kaptajner — ingen reklamesnak.</p>
+        </div>
+
+        <!-- Review billeder i masonry-grid -->
+        <div class="reviews-grid">
+          <div class="review-img-card reveal" data-delay="0">
+            <img src="review1.jpg" alt="Kaptajn: Det ser helt legendarisk ud!" />
+          </div>
+          <div class="review-img-card reveal" data-delay="80">
+            <img src="review2.jpg" alt="Kaptajn: Det er alt for fedt, nemt og overskueligt" />
+          </div>
+          <div class="review-img-card reveal" data-delay="160">
+            <img src="review3.jpg" alt="Kaptajn: Amen altså - det er jo perfekt! Genial platform" />
+          </div>
+          <div class="review-img-card reveal" data-delay="240">
+            <img src="review4.jpg" alt="Kaptajn: Okay smart - du har sgu tænkt over det" />
+          </div>
+          <div class="review-img-card reveal" data-delay="320">
+            <img src="review5.jpg" alt="Kaptajn: Det lyder sgu næsten for godt til at være sandt" />
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================== PRICING ===================== -->
+    <section id="pricing" class="section-py bg-bg-soft">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="text-center mb-12">
+          <p class="reveal section-overline">Ingen overraskelser</p>
+          <h2 class="reveal text-4xl lg:text-5xl font-black text-gray-900 mt-3 mb-4">Gratis at bruge</h2>
+          <p class="reveal text-lg text-muted max-w-xl mx-auto">LigaCaptain er helt gratis. Opret hold, lav afstemninger og sæt holdopstillingen — uden at betale en krone.</p>
+        </div>
+
+        <div class="max-w-md mx-auto">
+          <div class="pricing-card pricing-popular reveal text-center">
+            <div class="popular-badge">Alle funktioner inkluderet</div>
+            <p class="text-sm font-semibold text-primary uppercase tracking-wide mb-4">LigaCaptain</p>
+            <div class="flex items-end gap-1 justify-center mb-1">
+              <span class="text-6xl font-black text-gray-900">0</span>
+              <span class="text-xl text-muted mb-2">kr</span>
+            </div>
+            <p class="text-muted mb-8">For altid gratis</p>
+            <ul class="space-y-3 mb-8 text-left">
+              <li class="pricing-feature"><i data-lucide="check" class="w-4 h-4 text-accent flex-shrink-0"></i>Åbne afstemninger til spillere</li>
+              <li class="pricing-feature"><i data-lucide="check" class="w-4 h-4 text-accent flex-shrink-0"></i>Specifikke holdkamp afstemninger</li>
+              <li class="pricing-feature"><i data-lucide="check" class="w-4 h-4 text-accent flex-shrink-0"></i>Holdopstilling med udtaget / frameldt</li>
+              <li class="pricing-feature"><i data-lucide="check" class="w-4 h-4 text-accent flex-shrink-0"></i>Push notifikationer til spillere</li>
+              <li class="pricing-feature"><i data-lucide="check" class="w-4 h-4 text-accent flex-shrink-0"></i>Virker direkte i browseren</li>
+            </ul>
+            <a href="#" class="btn-primary w-full text-center py-3.5 text-base">Kom i gang gratis &rarr;</a>
+          </div>
+        </div>
+
+        <p class="reveal text-center text-sm text-muted mt-8">Ingen kreditkort &middot; Ingen skjulte gebyrer &middot; Ingen installation</p>
+
+      </div>
+    </section>
+
+    <!-- ===================== FINAL CTA ===================== -->
+    <section class="cta-gradient section-py">
+      <div class="max-w-3xl mx-auto px-4 text-center">
+        <h2 class="reveal text-4xl lg:text-5xl font-black text-white mb-5 leading-tight">Klar til at tage kontrollen<br />over din padel liga?</h2>
+        <p class="reveal text-lg text-blue-100 mb-8 max-w-xl mx-auto">Tilslut dig hundredvis af padel klubber og hold i Danmark. Kom i gang gratis i dag — ingen kreditkort kræves.</p>
+        <div class="reveal flex flex-col sm:flex-row gap-3 justify-center">
+          <a href="#" class="bg-white text-primary font-bold px-8 py-3.5 rounded-full hover:bg-blue-50 transition-colors text-base">Start gratis &rarr;</a>
+          <a href="#" class="border-2 border-white/50 text-white font-semibold px-8 py-3.5 rounded-full hover:border-white hover:bg-white/10 transition-colors text-base">Book en gratis demo</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="bg-gray-950 py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center gap-5 text-center">
+
+      <!-- Logo -->
+      <a href="#" class="block">
+        <img src="logo.png" alt="LigaCaptain" class="footer-logo" />
+      </a>
+
+      <p class="text-sm text-gray-400">Padel. Forenklet. — Gratis for alle holdkaptajner i Danmark.</p>
+
+      <div class="flex gap-5 text-xs text-gray-600">
+        <a href="#" class="hover:text-gray-400 transition-colors">Privatlivspolitik</a>
+        <span>·</span>
+        <a href="#" class="hover:text-gray-400 transition-colors">Vilkår for brug</a>
+      </div>
+
+      <p class="text-xs text-gray-700">&copy; 2026 LigaCaptain &middot; Lavet med ❤️ til dansk padel</p>
+
     </div>
-  </section>
+  </footer>
 
-  <script>
-    // === Kontaktformular -> Glide webhook ===
-    const GLIDE_WEBHOOK_URL = "https://go.glideapps.com/api/container/plugin/webhook-trigger/0WAgqavdcUZnVRPTRDPX/43c3d07c-0163-4c51-9458-d9037347e7e4";
-    const BEARER_TOKEN      = "1c4e4382-f948-4ce7-b9dd-efdb49d37ecb"; // valgfri
-
-    const form = document.getElementById('contact-form');
-    const okEl = document.getElementById('ok');
-    const errEl = document.getElementById('err');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault(); okEl.style.display='none'; errEl.style.display='none';
-      if (form.company && form.company.value) return;
-
-      const data = Object.fromEntries(new FormData(form).entries());
-      try {
-        const res = await fetch(GLIDE_WEBHOOK_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type':'application/json',
-            ...(BEARER_TOKEN ? {'Authorization':'Bearer ' + BEARER_TOKEN} : {})
-          },
-          body: JSON.stringify(data),
-          mode: 'cors'
-        });
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        okEl.style.display='block';
-        form.reset();
-      } catch (err) {
-        console.error(err);
-        errEl.style.display='block';
-      }
-    });
-  </script>
-
+  <script src="script.js" defer></script>
 </body>
 </html>
-
-
-
