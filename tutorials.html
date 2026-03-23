@@ -320,6 +320,61 @@
       margin-top: 1px;
     }
 
+    /* Phase headers between tutorial groups */
+    .tut-phase-header {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 28px 0 16px;
+      margin-top: 12px;
+      border-top: 2px solid #e2e8f0;
+    }
+    .tut-phase-header:first-of-type {
+      border-top: none;
+      padding-top: 0;
+      margin-top: 0;
+    }
+    .tut-phase-badge-wrap { display: flex; }
+    .tut-phase-badge {
+      display: inline-flex;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 99px;
+    }
+    .tut-phase-badge--1 { background: #dbeafe; color: #1d4ed8; }
+    .tut-phase-badge--2 { background: #d1fae5; color: #065f46; }
+    .tut-phase-badge--3 { background: #fef3c7; color: #92400e; }
+
+    .tut-phase-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #111827;
+      margin: 0;
+    }
+    .tut-phase-desc {
+      font-size: 0.875rem;
+      color: #64748b;
+      line-height: 1.6;
+      margin: 0;
+      max-width: 560px;
+    }
+
+    /* Sidebar phase labels */
+    .tut-phase-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #94a3b8;
+      padding: 14px 14px 4px;
+      margin: 0;
+    }
+    .tut-phase-label:first-child { padding-top: 0; }
+
     /* Progress bar */
     .tut-progress-bar {
       height: 4px;
@@ -449,11 +504,16 @@
           </div>
 
           <nav id="tut-sidenav">
+            <!-- Fase 1 -->
+            <p class="tut-phase-label">Fase 1 — Inden kampplanen</p>
             <a href="#tut-1" class="tut-nav-item active">
-              <span class="tut-nav-num">1</span>Aktivér dine kampe
+              <span class="tut-nav-num">1</span>Åben afstemning
             </a>
+
+            <!-- Fase 2 -->
+            <p class="tut-phase-label">Fase 2 — Kampplanen er frigivet</p>
             <a href="#tut-2" class="tut-nav-item">
-              <span class="tut-nav-num">2</span>Åben afstemning
+              <span class="tut-nav-num">2</span>Aktivér dine kampe
             </a>
             <a href="#tut-3" class="tut-nav-item">
               <span class="tut-nav-num">3</span>Holdkamp afstemning
@@ -464,6 +524,9 @@
             <a href="#tut-5" class="tut-nav-item">
               <span class="tut-nav-num">5</span>Til- & framelding af spillere
             </a>
+
+            <!-- Fase 3 -->
+            <p class="tut-phase-label">Fase 3 — Klar til kamp</p>
             <a href="#tut-6" class="tut-nav-item">
               <span class="tut-nav-num">6</span>Udtag dine spillere
             </a>
@@ -490,57 +553,38 @@
         <!-- Mobile chapter nav -->
         <div class="tut-mobile-menu mb-6">
           <select id="mobile-chapter-select" class="w-full border border-gray-200 rounded-12 px-4 py-3 text-sm font-medium text-gray-700 bg-white" onchange="location.href=this.value">
-            <option value="#tut-1">1 — Aktivér dine kampe</option>
-            <option value="#tut-2">2 — Åben afstemning</option>
-            <option value="#tut-3">3 — Holdkamp afstemning</option>
-            <option value="#tut-4">4 — Aktivér holdkampafstemning</option>
-            <option value="#tut-5">5 — Til- & framelding af spillere</option>
-            <option value="#tut-6">6 — Udtag dine spillere</option>
-            <option value="#tut-7">7 — Holdopstilling</option>
-            <option value="#tut-8">8 — Træningssession</option>
+            <optgroup label="Fase 1 — Inden kampplanen">
+              <option value="#tut-1">1 — Åben afstemning</option>
+            </optgroup>
+            <optgroup label="Fase 2 — Kampplanen er frigivet">
+              <option value="#tut-2">2 — Aktivér dine kampe</option>
+              <option value="#tut-3">3 — Holdkamp afstemning</option>
+              <option value="#tut-4">4 — Aktivér holdkampafstemning</option>
+              <option value="#tut-5">5 — Til- & framelding af spillere</option>
+            </optgroup>
+            <optgroup label="Fase 3 — Klar til kamp">
+              <option value="#tut-6">6 — Udtag dine spillere</option>
+              <option value="#tut-7">7 — Holdopstilling</option>
+              <option value="#tut-8">8 — Træningssession</option>
+            </optgroup>
           </select>
+        </div>
+
+        <!-- ════ FASE 1 ════ -->
+        <div class="tut-phase-header">
+          <div class="tut-phase-badge-wrap">
+            <span class="tut-phase-badge tut-phase-badge--1">Fase 1</span>
+          </div>
+          <h3 class="tut-phase-title">Inden kampplanen</h3>
+          <p class="tut-phase-desc">Sæsonen starter her. Inden kampplanen er frigivet af DPF, kortlægger du hvem der er klar til sæsonen med en åben afstemning.</p>
         </div>
 
         <!-- ─── TUTORIAL 1 ─── -->
         <div class="tut-card" id="tut-1">
           <div class="tut-card-header">
             <div class="tut-card-num">1</div>
-            <h2 class="tut-card-title">Aktivér dine kampe</h2>
-            <span class="tut-card-tag">Kom i gang</span>
-          </div>
-          <div class="tut-video-wrap">
-            <div class="tut-phone-frame">
-              <div class="tut-phone-notch"></div>
-              <div class="tut-phone-screen">
-                <!-- Erstat med: <iframe src="https://streamable.com/e/VIDEOID" allowfullscreen></iframe> -->
-                <div class="tut-video-placeholder">
-                  <div class="play-icon"><i data-lucide="play" class="w-6 h-6"></i></div>
-                  <p>Video kommer snart</p>
-                </div>
-              </div>
-              <div class="tut-phone-home"></div>
-            </div>
-          </div>
-          <div class="tut-card-body">
-            <p class="tut-desc">Inden dine spillere kan melde ind på kampe, skal kampene aktiveres i appen. LigaCaptain henter automatisk kampdata fra RankedIn — du skal blot aktivere dem med ét tryk.</p>
-            <ul class="tut-steps">
-              <li><span class="tut-step-dot">1</span>Gå til <strong>Kampe</strong> i menuen</li>
-              <li><span class="tut-step-dot">2</span>Find den kamp du vil aktivere</li>
-              <li><span class="tut-step-dot">3</span>Tryk <strong>Aktivér kamp</strong> — spillerne kan nu melde ind</li>
-            </ul>
-            <div class="tut-tip">
-              <i data-lucide="lightbulb" class="w-4 h-4 flex-shrink-0 mt-0.5"></i>
-              <span>Aktivér gerne kampe i god tid — så har spillerne mulighed for at melde ind før deadline.</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- ─── TUTORIAL 2 ─── -->
-        <div class="tut-card" id="tut-2">
-          <div class="tut-card-header">
-            <div class="tut-card-num">2</div>
             <h2 class="tut-card-title">Åben afstemning</h2>
-            <span class="tut-card-tag">Afstemninger</span>
+            <span class="tut-card-tag">Fase 1</span>
           </div>
           <div class="tut-video-wrap">
             <div class="tut-phone-frame">
@@ -569,12 +613,54 @@
           </div>
         </div>
 
+        <!-- ════ FASE 2 ════ -->
+        <div class="tut-phase-header">
+          <div class="tut-phase-badge-wrap">
+            <span class="tut-phase-badge tut-phase-badge--2">Fase 2</span>
+          </div>
+          <h3 class="tut-phase-title">Kampplanen er frigivet</h3>
+          <p class="tut-phase-desc">DPF har frigivet kampplanen. Nu aktiverer du kampene i appen, sender holdkamp-afstemninger ud og holder styr på til- og frameldinger.</p>
+        </div>
+
+        <!-- ─── TUTORIAL 2 ─── -->
+        <div class="tut-card" id="tut-2">
+          <div class="tut-card-header">
+            <div class="tut-card-num">2</div>
+            <h2 class="tut-card-title">Aktivér dine kampe</h2>
+            <span class="tut-card-tag">Fase 2</span>
+          </div>
+          <div class="tut-video-wrap">
+            <div class="tut-phone-frame">
+              <div class="tut-phone-notch"></div>
+              <div class="tut-phone-screen">
+                <div class="tut-video-placeholder">
+                  <div class="play-icon"><i data-lucide="play" class="w-6 h-6"></i></div>
+                  <p>Video kommer snart</p>
+                </div>
+              </div>
+              <div class="tut-phone-home"></div>
+            </div>
+          </div>
+          <div class="tut-card-body">
+            <p class="tut-desc">Inden dine spillere kan melde ind på kampe, skal kampene aktiveres i appen. LigaCaptain henter automatisk kampdata fra RankedIn — du skal blot aktivere dem med ét tryk.</p>
+            <ul class="tut-steps">
+              <li><span class="tut-step-dot">1</span>Gå til <strong>Kampe</strong> i menuen</li>
+              <li><span class="tut-step-dot">2</span>Find den kamp du vil aktivere</li>
+              <li><span class="tut-step-dot">3</span>Tryk <strong>Aktivér kamp</strong> — spillerne kan nu melde ind</li>
+            </ul>
+            <div class="tut-tip">
+              <i data-lucide="lightbulb" class="w-4 h-4 flex-shrink-0 mt-0.5"></i>
+              <span>Aktivér gerne kampe i god tid — så har spillerne mulighed for at melde ind før deadline.</span>
+            </div>
+          </div>
+        </div>
+
         <!-- ─── TUTORIAL 3 ─── -->
         <div class="tut-card" id="tut-3">
           <div class="tut-card-header">
             <div class="tut-card-num">3</div>
             <h2 class="tut-card-title">Holdkamp afstemning</h2>
-            <span class="tut-card-tag">Afstemninger</span>
+            <span class="tut-card-tag">Fase 2</span>
           </div>
           <div class="tut-video-wrap">
             <div class="tut-phone-frame">
@@ -608,7 +694,7 @@
           <div class="tut-card-header">
             <div class="tut-card-num">4</div>
             <h2 class="tut-card-title">Aktivér en holdkampafstemning</h2>
-            <span class="tut-card-tag">Afstemninger</span>
+            <span class="tut-card-tag">Fase 2</span>
           </div>
           <div class="tut-video-wrap">
             <div class="tut-phone-frame">
@@ -641,7 +727,7 @@
           <div class="tut-card-header">
             <div class="tut-card-num">5</div>
             <h2 class="tut-card-title">Til- & framelding af spillere</h2>
-            <span class="tut-card-tag">Spillere</span>
+            <span class="tut-card-tag">Fase 2</span>
           </div>
           <div class="tut-video-wrap">
             <div class="tut-phone-frame">
@@ -670,12 +756,21 @@
           </div>
         </div>
 
+        <!-- ════ FASE 3 ════ -->
+        <div class="tut-phase-header">
+          <div class="tut-phase-badge-wrap">
+            <span class="tut-phase-badge tut-phase-badge--3">Fase 3</span>
+          </div>
+          <h3 class="tut-phase-title">Klar til kamp</h3>
+          <p class="tut-phase-desc">Afstemningen er lukket. Nu udtager du spillerne, sætter holdopstillingen og kan følge med i træning frem mod kampen.</p>
+        </div>
+
         <!-- ─── TUTORIAL 6 ─── -->
         <div class="tut-card" id="tut-6">
           <div class="tut-card-header">
             <div class="tut-card-num">6</div>
             <h2 class="tut-card-title">Udtag dine spillere</h2>
-            <span class="tut-card-tag">Holdopstilling</span>
+            <span class="tut-card-tag">Fase 3</span>
           </div>
           <div class="tut-video-wrap">
             <div class="tut-phone-frame">
@@ -709,7 +804,7 @@
           <div class="tut-card-header">
             <div class="tut-card-num">7</div>
             <h2 class="tut-card-title">Holdopstilling</h2>
-            <span class="tut-card-tag">Holdopstilling</span>
+            <span class="tut-card-tag">Fase 3</span>
           </div>
           <div class="tut-video-wrap">
             <div class="tut-phone-frame">
@@ -743,7 +838,7 @@
           <div class="tut-card-header">
             <div class="tut-card-num">8</div>
             <h2 class="tut-card-title">Træningssession</h2>
-            <span class="tut-card-tag">Træning</span>
+            <span class="tut-card-tag">Fase 3</span>
           </div>
           <div class="tut-video-wrap">
             <div class="tut-phone-frame">
@@ -813,11 +908,14 @@
     //  Lad feltet stå tomt ('') hvis videoen ikke er klar endnu.
     // ══════════════════════════════════════════════════════════════
     const VIDEOS = {
-      'tut-1': '',  // 1 · Aktivér dine kampe
-      'tut-2': '',  // 2 · Åben afstemning
+      // ── Fase 1 ──────────────────────────────────────
+      'tut-1': '',  // 1 · Åben afstemning
+      // ── Fase 2 ──────────────────────────────────────
+      'tut-2': '',  // 2 · Aktivér dine kampe
       'tut-3': '',  // 3 · Holdkamp afstemning
       'tut-4': '',  // 4 · Aktivér holdkampafstemning
       'tut-5': '',  // 5 · Til- & framelding af spillere
+      // ── Fase 3 ──────────────────────────────────────
       'tut-6': '',  // 6 · Udtag dine spillere
       'tut-7': '',  // 7 · Holdopstilling
       'tut-8': '',  // 8 · Træningssession
