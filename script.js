@@ -58,25 +58,15 @@ document.addEventListener('DOMContentLoaded', () => {
         announcementBar.style.maxHeight = '0';
         announcementBar.style.opacity = '0';
         announcementBar.style.overflow = 'hidden';
-        navbar.style.setProperty('top', '0px', 'important');
       });
       setTimeout(() => announcementBar.remove(), 320);
     });
   }
 
   // ============================================================
-  // 2. Nav scroll behaviour (glassmorphism + announcement offset)
+  // 2. Nav scroll behaviour (glassmorphism)
   // ============================================================
   const navbar = document.getElementById('navbar');
-
-  function getAnnouncementHeight() {
-    const bar = document.getElementById('announcement-bar');
-    return bar ? bar.offsetHeight : 0;
-  }
-
-  function updateNavTop() {
-    navbar.style.top = getAnnouncementHeight() + 'px';
-  }
 
   function handleNavScroll() {
     if (window.scrollY > 60) {
@@ -86,22 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  updateNavTop();
-  // Run again after first paint — ensures the bar's real height is measured
-  // (mobile text-wrap isn't computed until after DOMContentLoaded)
-  requestAnimationFrame(() => requestAnimationFrame(updateNavTop));
-  // Run again when fonts/images load (Google Fonts can cause reflow)
-  window.addEventListener('load', updateNavTop);
   window.addEventListener('scroll', handleNavScroll, { passive: true });
-  window.addEventListener('resize', updateNavTop);
   handleNavScroll();
-
-  // ResizeObserver: re-position nav whenever the announcement bar
-  // changes height (e.g. viewport resize causes text to wrap/unwrap)
-  const announcementBar = document.getElementById('announcement-bar');
-  if (announcementBar && 'ResizeObserver' in window) {
-    new ResizeObserver(updateNavTop).observe(announcementBar);
-  }
 
   // ============================================================
   // 3. Mobile menu toggle

@@ -37,12 +37,8 @@ html {
    ============================================================ */
 
 .announcement-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  position: relative; /* sits inside #sticky-header wrapper */
   background: linear-gradient(90deg, #0770c2 0%, #0984e3 50%, #00B894 100%);
-  z-index: 60;
 }
 
 .announcement-bar.hidden {
@@ -138,12 +134,8 @@ html {
 
 #navbar {
   background: rgba(255, 255, 255, 0);
-  transition: background 0.3s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease, top 0.3s ease;
-  top: 80px; /* safe default for 2-line mobile bar — JS overrides immediately */
-}
-
-body:not(:has(#announcement-bar)) #navbar {
-  top: 0 !important;
+  transition: background 0.3s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease;
+  /* position is relative within #sticky-header — no top offset needed */
 }
 
 #navbar.nav-scrolled {

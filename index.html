@@ -29,6 +29,11 @@
 </head>
 <body class="font-sans antialiased bg-white text-gray-900">
 
+  <!-- ===================== STICKY HEADER WRAPPER ===================== -->
+  <!-- Both announcement bar + navbar live here so they stack naturally.
+       The wrapper is sticky so no JS is needed to calculate nav offset. -->
+  <div id="sticky-header" style="position:sticky;top:0;z-index:60;left:0;right:0;">
+
   <!-- ===================== ANNOUNCEMENT BAR ===================== -->
   <div id="announcement-bar" class="announcement-bar">
     <div class="max-w-7xl mx-auto px-4 flex items-center justify-center gap-3 py-2.5 text-center">
@@ -44,7 +49,7 @@
   </div>
 
   <!-- ===================== NAV ===================== -->
-  <nav id="navbar" class="fixed left-0 right-0 z-50 transition-all duration-300">
+  <nav id="navbar" class="left-0 right-0 z-50 transition-all duration-300" style="position:relative;">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
 
@@ -90,10 +95,12 @@
     </div>
   </nav>
 
+  </div><!-- /sticky-header -->
+
   <main>
 
     <!-- ===================== HERO ===================== -->
-    <section id="hero" class="hero-pattern pt-40 pb-20 lg:pt-48 lg:pb-28 overflow-hidden">
+    <section id="hero" class="hero-pattern pt-16 pb-20 lg:pt-20 lg:pb-28 overflow-hidden">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
 
@@ -768,6 +775,6 @@
   </footer>
 
   <script src="teams-data.js?v=6" defer></script>
-  <script src="script.js?v=7" defer></script>
+  <script src="script.js?v=9" defer></script>
 </body>
 </html>
