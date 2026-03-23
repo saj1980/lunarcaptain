@@ -71,7 +71,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateBodyPadding() {
     if (stickyHeader) {
-      document.body.style.paddingTop = stickyHeader.offsetHeight + 'px';
+      const h = stickyHeader.offsetHeight;
+      document.body.style.paddingTop = h + 'px';
+      // Keep scroll-margin-top in sync so anchor links land in the right spot
+      document.documentElement.style.setProperty('--header-h', h + 'px');
     }
   }
 
