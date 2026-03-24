@@ -375,6 +375,33 @@
     }
     .tut-phase-label:first-child { padding-top: 0; }
 
+    /* Stats card (responsive) */
+    .tut-stats-card {
+      margin-top: 24px;
+    }
+
+    @media (max-width: 640px) {
+      .tut-stats-card {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 16px;
+        margin-left: -16px;
+        margin-right: -16px;
+        margin-left: calc(-1 * var(--px-safe, 16px));
+        margin-right: calc(-1 * var(--px-safe, 16px));
+      }
+
+      .tut-stats-card .flex {
+        flex-direction: column;
+        gap: 12px !important;
+      }
+
+      .tut-stats-card .text-gray-300 {
+        display: none;
+      }
+    }
+
     /* Progress bar */
     .tut-progress-bar {
       height: 4px;
@@ -479,12 +506,14 @@
       </div>
       <h1 class="text-4xl lg:text-5xl font-black text-gray-900 mb-4">Kaptajnens guide</h1>
       <p class="text-lg text-muted max-w-2xl mx-auto">Alt du behøver for at komme i gang med LigaCaptain. Se videoerne i rækkefølge — eller hop direkte til det du mangler.</p>
-      <div class="flex items-center justify-center gap-3 mt-6 text-sm text-muted">
-        <span class="flex items-center gap-1.5"><i data-lucide="video" class="w-4 h-4 text-primary"></i> 8 videoer</span>
-        <span class="text-gray-300">·</span>
-        <span class="flex items-center gap-1.5"><i data-lucide="clock" class="w-4 h-4 text-primary"></i> ca. 15 min i alt</span>
-        <span class="text-gray-300">·</span>
-        <span class="flex items-center gap-1.5"><i data-lucide="smartphone" class="w-4 h-4 text-primary"></i> Virker på telefon</span>
+      <div class="tut-stats-card">
+        <div class="flex items-center justify-center gap-3 text-sm text-muted">
+          <span class="flex items-center gap-1.5"><i data-lucide="video" class="w-4 h-4 text-primary"></i> 8 videoer</span>
+          <span class="text-gray-300">·</span>
+          <span class="flex items-center gap-1.5"><i data-lucide="clock" class="w-4 h-4 text-primary"></i> ca. 15 min i alt</span>
+          <span class="text-gray-300">·</span>
+          <span class="flex items-center gap-1.5"><i data-lucide="smartphone" class="w-4 h-4 text-primary"></i> Virker på telefon</span>
+        </div>
       </div>
     </div>
   </div>
