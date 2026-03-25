@@ -3,31 +3,192 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LigaCaptain — Padel Liga & Holdkaptajn Platform</title>
-  <meta name="description" content="Styr din padel liga, hold og turneringer nemt. LigaCaptain er platformen for padel spillere og klubber i Danmark." />
+  <title>LunarCaptain — Padel Liga & Holdkaptajn Platform</title>
+  <meta name="description" content="Styr din padel liga, hold og turneringer nemt. LunarCaptain er platformen for padel spillere og klubber i Danmark." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <script src="https://unpkg.com/lucide@latest" defer></script>
-  <link rel="stylesheet" href="style.css" />
   <style type="text/tailwindcss">
     @theme {
-      --color-primary: #0984e3;
-      --color-primary-dark: #0770c2;
-      --color-primary-light: #dbeafe;
-      --color-accent: #00B894;
-      --color-accent-dark: #00967a;
-      --color-cta: #f39c12;
-      --color-cta-hover: #d68910;
-      --color-dark: #0B1A2C;
-      --color-muted: #64748b;
-      --color-bg-soft: #f0f7ff;
+      --color-primary: #1B5E4A;
+      --color-primary-dark: #0F3E2E;
+      --color-primary-light: #E8F4F0;
+      --color-accent: #C74A1C;
+      --color-accent-dark: #A63A14;
+      --color-cta: #C74A1C;
+      --color-cta-hover: #A63A14;
+      --color-dark: #2D3E4F;
+      --color-muted: #6B7280;
+      --color-bg-soft: #F3F4F6;
       --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
     }
   </style>
+
+  <!-- Timeline styles (inlined due to external CSS loading issue) -->
+  <style>
+    .timeline {
+      position: relative;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 40px 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: #1B5E4A;
+      transform: translateX(-50%);
+    }
+
+    .timeline-item {
+      margin-bottom: 48px;
+      position: relative;
+    }
+
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 16px;
+      height: 16px;
+      background: white;
+      border: 3px solid #1B5E4A;
+      border-radius: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content {
+      margin-left: 0;
+      margin-right: auto;
+      width: 45%;
+      text-align: right;
+      padding-right: 40px;
+      padding-left: 48px;
+    }
+
+    .timeline-item:nth-child(even) .timeline-content {
+      margin-left: auto;
+      margin-right: 0;
+      width: 45%;
+      text-align: left;
+      padding-left: 40px;
+    }
+
+    .timeline-content {
+      background: white;
+      border: 1.5px solid #E5E7EB;
+      border-radius: 12px;
+      padding: 28px 32px 28px 48px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .timeline-content:hover {
+      border-color: #1B5E4A;
+      box-shadow: 0 4px 16px rgba(27, 94, 74, 0.1);
+    }
+
+    .timeline-content.reveal {
+      transform: translateY(60px);
+      opacity: 0;
+      transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .timeline-content.reveal.visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .timeline-phase-label {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #1B5E4A;
+      margin: 0 0 6px 0;
+    }
+
+    .timeline-phase-subtitle {
+      font-size: 17px;
+      font-weight: 700;
+      color: #2D3E4F;
+      margin: 0 0 12px 0;
+      line-height: 1.3;
+    }
+
+    .timeline-desc {
+      font-size: 14px;
+      color: #6B7280;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .timeline-dot-logo {
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      background: white;
+      border: 2px solid #1B5E4A;
+      overflow: hidden;
+      transform: translateX(-50%);
+    }
+
+    .timeline-dot-logo img {
+      width: 130%;
+      height: 130%;
+      object-fit: cover;
+      object-position: center;
+      margin: -15%;
+      border-radius: 50%;
+    }
+
+    .timeline-logo {
+      height: 48px;
+      width: auto;
+      margin: 12px 0;
+      object-fit: contain;
+    }
+
+    @media (max-width: 768px) {
+      .timeline::before {
+        left: 20px;
+      }
+
+      .timeline-dot {
+        left: 20px;
+      }
+
+      .timeline-item:nth-child(odd) .timeline-content,
+      .timeline-item:nth-child(even) .timeline-content {
+        width: calc(100% - 60px);
+        margin-left: auto;
+        margin-right: 0;
+        padding: 24px 24px 24px 32px;
+        text-align: left;
+      }
+
+      .timeline-header {
+        flex-direction: row;
+      }
+
+      .timeline-item:nth-child(odd) .timeline-header {
+        flex-direction: row;
+      }
+    }
+  </style>
 </head>
-<body class="font-sans antialiased bg-white text-gray-900">
+<body class="font-sans antialiased text-gray-900 bg-gray-50">
 
   <!-- ===================== STICKY HEADER WRAPPER ===================== -->
   <!-- Both announcement bar + navbar live here so they stack naturally.
@@ -39,8 +200,7 @@
     <div class="max-w-7xl mx-auto px-4 flex items-center justify-center gap-3 py-2.5 text-center">
       <span class="announcement-badge">🎉 Nyhed</span>
       <p class="text-sm font-medium text-white">
-        <strong class="font-bold">LigaCaptain udvider!</strong> Nu tilgængeligt i hele Danmark 🇩🇰 <span class="opacity-75">· tidligere kendt som LunarCaptain</span>
-      </p>
+        <strong class="font-bold">LunarCaptain udvider!</strong> Nu tilgængeligt i hele Danmark 🇩🇰      </p>
       <a href="#onboarding" class="text-sm font-semibold text-white underline underline-offset-2 hover:no-underline whitespace-nowrap hidden sm:inline">Kom i gang →</a>
     </div>
     <button id="close-announcement" aria-label="Luk" class="absolute right-3 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors">
@@ -57,7 +217,7 @@
         <a href="#" class="flex items-center gap-3 no-underline">
           <!-- Badge wordmark -->
           <span style="display:inline-flex;align-items:center;font-family:Inter,sans-serif;font-size:20px;font-weight:800;letter-spacing:-0.01em;white-space:nowrap;">
-            <span style="background:#0984e3;color:white;padding:2px 9px;border-radius:7px;line-height:1.45;">Liga</span><span style="color:#111827;">Captain</span>
+            <span style="background:#0984e3;color:white;padding:2px 9px;border-radius:7px;line-height:1.45;">Lunar</span><span style="color:#111827;">Captain</span>
           </span>
           <!-- Divider + tagline — desktop only -->
           <span class="hidden lg:flex items-center gap-3">
@@ -136,7 +296,7 @@
             </h1>
 
             <p class="reveal text-lg lg:text-xl text-muted leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
-              LigaCaptain er bygget til holdkaptajner der vil fokusere på det sociale&nbsp;— ikke det administrative. Fra åbne afstemninger til holdopstilling, håndterer vi det hele.
+              LunarCaptain er bygget til holdkaptajner der vil fokusere på det sociale&nbsp;— ikke det administrative. Fra åbne afstemninger til holdopstilling, håndterer vi det hele.
             </p>
 
             <div class="reveal flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mb-8">
@@ -148,12 +308,12 @@
               <div class="flex -space-x-2">
                 <div class="avatar-circle bg-primary text-white">AH</div>
                 <div class="avatar-circle bg-accent text-white">SM</div>
-                <div class="avatar-circle bg-orange-400 text-white">ML</div>
-                <div class="avatar-circle bg-purple-500 text-white">JK</div>
+                <div class="avatar-circle bg-accent text-white" style="background-color: #2D3E4F;">ML</div>
+                <div class="avatar-circle bg-primary text-white" style="background-color: #0F3E2E;">JK</div>
               </div>
               <div class="text-left">
-                <div class="flex gap-0.5 text-yellow-400 text-sm mb-0.5">★★★★★</div>
-                <p class="text-sm text-muted"><strong class="text-gray-900 font-semibold">400+</strong> aktive padel spillere bruger LigaCaptain</p>
+                <div class="flex gap-0.5 text-amber-600 text-sm mb-0.5">★★★★★</div>
+                <p class="text-sm text-muted"><strong class="text-gray-900 font-semibold">400+</strong> aktive padel spillere bruger LunarCaptain</p>
               </div>
             </div>
           </div>
@@ -319,7 +479,7 @@
         <div class="text-center mb-16">
           <p class="reveal section-overline">Platformen er bygget til padel</p>
           <h2 class="reveal text-4xl lg:text-5xl font-black text-gray-900 mt-3 mb-5">Alt hvad en holdkaptajn<br class="hidden sm:block" /> behøver</h2>
-          <p class="reveal text-lg text-muted max-w-2xl mx-auto">Fra åbne afstemninger til holdopstilling — LigaCaptain håndterer det hele, så du kan fokusere på spillet.</p>
+          <p class="reveal text-lg text-muted max-w-2xl mx-auto">Fra åbne afstemninger til holdopstilling — LunarCaptain håndterer det hele, så du kan fokusere på spillet.</p>
         </div>
 
         <div class="features-checklist reveal">
@@ -402,80 +562,38 @@
           <p class="reveal text-lg text-muted max-w-2xl mx-auto">Onboard dine spillere nu — det er gratis — og stå stærkere når sæsonen starter.</p>
         </div>
 
-        <!-- Fase cards -->
-        <div class="phases-grid">
+        <!-- Timeline -->
+        <div class="timeline">
 
           <!-- Fase 1 -->
-          <div class="phase-card reveal" data-delay="0">
-            <div class="phase-header phase-header-1">
-              <span class="phase-badge">Fase 1</span>
-              <div class="phase-icon">📋</div>
-            </div>
-            <div class="phase-body">
-              <h3 class="phase-title">Åbne afstemninger</h3>
-              <p class="phase-desc">Inden DPF frigiver holdprogrammet laver du åbne afstemninger. Få dine spillere på med det samme — så I er forberedte og ingen falder fra undervejs.</p>
-              <ul class="phase-list">
-                <li><i data-lucide="check-circle-2" class="w-4 h-4"></i>Spillerne svarer med ét tryk</li>
-                <li><i data-lucide="check-circle-2" class="w-4 h-4"></i>Du ser realtids overblik</li>
-                <li><i data-lucide="check-circle-2" class="w-4 h-4"></i>Ingen jagt på WhatsApp</li>
-              </ul>
-              <div class="phase-ui phase-ui-1">
-                <p class="text-xs font-semibold text-gray-500 mb-2">Åben afstemning — Sæson 2026</p>
-                <div class="phase-player confirmed"><i data-lucide="check" class="w-3 h-3"></i><span>Rasmus S.</span><span class="ml-auto text-xs font-bold text-green-600">Tilmeldt</span></div>
-                <div class="phase-player confirmed"><i data-lucide="check" class="w-3 h-3"></i><span>Andreas E.</span><span class="ml-auto text-xs font-bold text-green-600">Tilmeldt</span></div>
-                <div class="phase-player pending"><i data-lucide="clock" class="w-3 h-3"></i><span>Morten H.</span><span class="ml-auto text-xs font-bold text-yellow-500">Afventer</span></div>
-                <div class="phase-player pending"><i data-lucide="clock" class="w-3 h-3"></i><span>Danny V.</span><span class="ml-auto text-xs font-bold text-yellow-500">Afventer</span></div>
-                <p class="text-xs text-center text-gray-400 mt-2">7 af 10 har svaret</p>
-              </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content reveal" data-delay="0">
+              <h3 class="timeline-phase-label">1. fase</h3>
+              <p class="timeline-phase-subtitle">Åbne afstemninger</p>
+              <p class="timeline-desc">Inden holdkampe er frigivet, <strong>få styr på hvilke datoer passer bedst</strong> til dine holdspillere — så du er klar til at frigive, når DPF åbner holdkampene.</p>
             </div>
           </div>
 
           <!-- Fase 2 -->
-          <div class="phase-card reveal" data-delay="120">
-            <div class="phase-header phase-header-2">
-              <span class="phase-badge">Fase 2 — Hektisk</span>
-              <div class="phase-icon">⚡</div>
+          <div class="timeline-item">
+            <div class="timeline-dot timeline-dot-logo">
+              <img src="https://www.danskpadelforbund.dk/wp-content/uploads/2020/05/Dansk_Padel_Forbund_LOGO_600x300.png" alt="DPF" />
             </div>
-            <div class="phase-body">
-              <h3 class="phase-title">Holdkampene frigives</h3>
-              <p class="phase-desc">Du modtager datoer fra modstanderens kaptajn. Dine spillere skal be- eller afkræfte dem, så du kan give endeligt svar på hvilke datoer dit hold kan.</p>
-              <ul class="phase-list">
-                <li><i data-lucide="check-circle-2" class="w-4 h-4"></i>Specifikke afstemninger per kamp</li>
-                <li><i data-lucide="check-circle-2" class="w-4 h-4"></i>Spillerne bekræfter dato for dato</li>
-                <li><i data-lucide="check-circle-2" class="w-4 h-4"></i>Du svarer modstanderen hurtigt</li>
-              </ul>
-              <div class="phase-ui phase-ui-2">
-                <p class="text-xs font-semibold text-gray-500 mb-1">Holdkamp — Fre 10. apr</p>
-                <p class="text-xs font-semibold text-blue-600 mb-2">Mod Padel North 1</p>
-                <div class="phase-player confirmed"><i data-lucide="check" class="w-3 h-3"></i><span>Rasmus S.</span><span class="ml-auto text-xs font-bold text-green-600">Kan</span></div>
-                <div class="phase-player declined"><i data-lucide="x" class="w-3 h-3"></i><span>Morten H.</span><span class="ml-auto text-xs font-bold text-red-500">Kan ikke</span></div>
-                <div class="phase-player pending"><i data-lucide="clock" class="w-3 h-3"></i><span>Danny V.</span><span class="ml-auto text-xs font-bold text-yellow-500">Afventer</span></div>
-                <div class="phase-player confirmed"><i data-lucide="check" class="w-3 h-3"></i><span>Dan T.</span><span class="ml-auto text-xs font-bold text-green-600">Kan</span></div>
-              </div>
+            <div class="timeline-content reveal" data-delay="200">
+              <h3 class="timeline-phase-label">2. fase</h3>
+              <p class="timeline-phase-subtitle">DPF frigiver holdkampene</p>
+              <p class="timeline-desc"><strong>Nemt at oprette afstemning for specifikke holdkampe.</strong> Modtag datoer fra modstanderne og <strong>få dine spillere til at bekræfte</strong> — alt på ét sted.</p>
             </div>
           </div>
 
           <!-- Fase 3 -->
-          <div class="phase-card reveal" data-delay="240">
-            <div class="phase-header phase-header-3">
-              <span class="phase-badge">Fase 3</span>
-              <div class="phase-icon">🏆</div>
-            </div>
-            <div class="phase-body">
-              <h3 class="phase-title">Programmet er fastlagt</h3>
-              <p class="phase-desc">Spillerne kan se i appen om de er udtaget. Sæt holdopstillingen på 8 sekunder — så ved dine spillere hvem makkeren er, og ikke finder ud af det 10 minutter før kamp.</p>
-              <ul class="phase-list">
-                <li><i data-lucide="check-circle-2" class="w-4 h-4"></i>Overblik: udtaget / tilmeldt / frameldt</li>
-                <li><i data-lucide="check-circle-2" class="w-4 h-4"></i>Holdopstilling klar på 8 sek</li>
-                <li><i data-lucide="check-circle-2" class="w-4 h-4"></i>Spillerne ved hvem makkeren er i god tid</li>
-              </ul>
-              <div class="phase-ui phase-ui-3">
-                <p class="text-xs font-semibold text-gray-500 mb-2">Holdopstilling — 1. runde</p>
-                <div class="phase-lineup-row"><span class="phase-lineup-num">#3</span><span>Rasmus S.</span><span class="ml-auto text-xs phase-tag-udtaget">Udtaget</span></div>
-                <div class="phase-lineup-row"><span class="phase-lineup-num">#7</span><span>Andreas E.</span><span class="ml-auto text-xs phase-tag-udtaget">Udtaget</span></div>
-                <div class="phase-lineup-row"><span class="phase-lineup-num">#9</span><span>Kenneth B.</span><span class="ml-auto text-xs phase-tag-tilmeldt">Tilmeldt</span></div>
-                <div class="phase-lineup-row opacity-50"><span class="phase-lineup-num">#6</span><span>Morten H.</span><span class="ml-auto text-xs phase-tag-frameldt">Frameldt</span></div>
-              </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content reveal" data-delay="400">
+              <h3 class="timeline-phase-label">3. fase</h3>
+              <p class="timeline-phase-subtitle">Holdkampene er fastlagt</p>
+              <p class="timeline-desc"><strong>Sæt holdopstillingen på 8 sekunder.</strong> Spillerne ved hvem makkeren er — ingen spørgsmål, ingen forvirring.</p>
             </div>
           </div>
 
@@ -541,7 +659,7 @@
             Virker direkte i din browser
           </div>
           <h2 class="text-4xl lg:text-5xl font-black text-gray-900 mt-3 mb-5">Ingen download.<br />Åbn og gå i gang.</h2>
-          <p class="text-lg text-muted mb-8 max-w-xl mx-auto">LigaCaptain er en webapp — du åbner den direkte i browseren på telefon eller computer. Ingen installation, ingen opdateringer.</p>
+          <p class="text-lg text-muted mb-8 max-w-xl mx-auto">LunarCaptain er en webapp — du åbner den direkte i browseren på telefon eller computer. Ingen installation, ingen opdateringer.</p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center mb-6">
             <a href="#onboarding" class="btn-primary text-base px-8 py-3.5">Få adgang til appen &rarr;</a>
             <a href="#how-it-works" class="btn-secondary text-base px-8 py-3.5">Se hvordan det virker</a>
@@ -627,18 +745,18 @@
         <div class="text-center mb-12">
           <p class="reveal section-overline">Ingen overraskelser</p>
           <h2 class="reveal text-4xl lg:text-5xl font-black text-gray-900 mt-3 mb-4">Gratis at bruge</h2>
-          <p class="reveal text-lg text-muted max-w-xl mx-auto">LigaCaptain er helt gratis. Opret hold, lav afstemninger og sæt holdopstillingen — uden at betale en krone.</p>
+          <p class="reveal text-lg text-muted max-w-xl mx-auto">LunarCaptain er helt gratis. Opret hold, lav afstemninger og sæt holdopstillingen — uden at betale en krone.</p>
         </div>
 
         <div class="max-w-md mx-auto">
           <div class="pricing-card pricing-popular reveal text-center">
             <div class="popular-badge">Alle funktioner inkluderet</div>
-            <p class="text-sm font-semibold text-primary uppercase tracking-wide mb-4">LigaCaptain</p>
+            <p class="text-sm font-semibold text-primary uppercase tracking-wide mb-4">LunarCaptain</p>
             <div class="flex items-end gap-1 justify-center mb-1">
               <span class="text-6xl font-black text-gray-900">0</span>
               <span class="text-xl text-muted mb-2">kr</span>
             </div>
-            <p class="text-muted mb-8">For altid gratis</p>
+            <p class="text-muted mb-8">Gratis</p>
             <ul class="space-y-3 mb-8 text-left">
               <li class="pricing-feature"><i data-lucide="check" class="w-4 h-4 text-accent flex-shrink-0"></i>Åbne afstemninger til spillere</li>
               <li class="pricing-feature"><i data-lucide="check" class="w-4 h-4 text-accent flex-shrink-0"></i>Specifikke holdkamp afstemninger</li>
@@ -718,8 +836,19 @@
             <textarea id="besked" name="besked" rows="3" placeholder="Antal spillere på holdet, spørgsmål mv." class="form-input form-textarea" style="width:100%;padding:11px 14px;border:1.5px solid #d1d5db;border-radius:10px;font-size:14px;color:#111827;background:white;outline:none;font-family:inherit;resize:vertical;min-height:80px;box-sizing:border-box;"></textarea>
           </div>
 
+          <!-- Checkbox: offentlig mail -->
+          <div style="margin-bottom:20px;background:#eff6ff;border:1.5px solid #bfdbfe;border-radius:12px;padding:16px 18px;">
+            <label style="display:flex;align-items:flex-start;gap:12px;cursor:pointer;">
+              <input type="checkbox" id="mail-forstaet" name="mail-forstaet" required style="margin-top:3px;width:18px;height:18px;flex-shrink:0;accent-color:#1B5E4A;cursor:pointer;" />
+              <span style="font-size:13.5px;color:#1e3a5f;line-height:1.55;">
+                <strong>Jeg forstår, at spillere skal bruge en offentlig mailadresse</strong> — f.eks. Gmail, Hotmail, Outlook, Live, Me, Yahoo, iCloud eller lignende.<br>
+                <span style="color:#374151;">Private domæner (f.eks. @firmanavn.dk) virker ikke. Mailen bruges kun til at sende en kode — spillerne modtager <em>ikke</em> notifikationer på mail, men via SMS. Har en spiller ikke en offentlig mail, kan de oprette en på under 90 sekunder.</span>
+              </span>
+            </label>
+          </div>
+
           <!-- Hidden fields -->
-          <input type="hidden" name="_subject" value="Ny onboarding-anmodning — LigaCaptain" />
+          <input type="hidden" name="_subject" value="Ny onboarding-anmodning — LunarCaptain" />
           <input type="hidden" name="_next" value="" />
 
           <button type="submit" class="btn-primary w-full py-4 text-base mt-2">
@@ -767,7 +896,7 @@
       <!-- Logo wordmark -->
       <a href="#" class="no-underline">
         <span style="display:inline-flex;align-items:center;font-family:Inter,sans-serif;font-size:22px;font-weight:800;letter-spacing:-0.01em;">
-          <span style="background:#0984e3;color:white;padding:2px 10px;border-radius:7px;line-height:1.45;">Liga</span><span style="color:white;">Captain</span>
+          <span style="background:#0984e3;color:white;padding:2px 10px;border-radius:7px;line-height:1.45;">Lunar</span><span style="color:white;">Captain</span>
         </span>
       </a>
 
@@ -779,7 +908,7 @@
         <a href="#" class="hover:text-gray-400 transition-colors">Vilkår for brug</a>
       </div>
 
-      <p class="text-xs text-gray-700">&copy; 2026 LigaCaptain &middot; Lavet med ❤️ til dansk padel</p>
+      <p class="text-xs text-gray-700">&copy; 2026 LunarCaptain &middot; Lavet med ❤️ til dansk padel</p>
 
     </div>
   </footer>

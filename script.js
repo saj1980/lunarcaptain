@@ -157,20 +157,30 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ============================================================
-  // 4. Scroll Reveal (IntersectionObserver)
+  // 4. Scroll Reveal (IntersectionObserver — bidirectional)
   // ============================================================
   const revealElements = document.querySelectorAll('.reveal');
+  const revealTimers = new WeakMap();
 
   if ('IntersectionObserver' in window) {
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
+        const el = entry.target;
+
         if (entry.isIntersecting) {
-          const el = entry.target;
           const delay = el.dataset.delay ? parseInt(el.dataset.delay) : 0;
-          setTimeout(() => {
+          const timer = setTimeout(() => {
             el.classList.add('visible');
+            revealTimers.delete(el);
           }, delay);
-          revealObserver.unobserve(el);
+          revealTimers.set(el, timer);
+        } else {
+          // Cancel any pending timer and hide element
+          if (revealTimers.has(el)) {
+            clearTimeout(revealTimers.get(el));
+            revealTimers.delete(el);
+          }
+          el.classList.remove('visible');
         }
       });
     }, {
